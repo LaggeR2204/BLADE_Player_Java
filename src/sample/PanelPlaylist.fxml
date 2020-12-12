@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="565.0" prefWidth="800.0"
+            style="-fx-background-color: rgb(40,40,40);"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.PanelPlaylistController">
+   <children>
+      <Pane layoutY="40.0" prefHeight="525.0" prefWidth="180.0">
+         <children>
+            <Pane layoutX="179.0" layoutY="0.0" prefHeight="525.0" prefWidth="1.0" style="-fx-background-color: gray;" />
+         </children></Pane>
+      <Pane layoutX="180.0" layoutY="40.0" prefHeight="525.0" prefWidth="620.0" />
+      <Label layoutX="10.0" layoutY="10.0" text="PLAYLISTS" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAddNewPlaylist" alignment="TOP_LEFT" layoutX="145.0" layoutY="5.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/add_30px.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Label layoutX="227.0" layoutY="12.0" text="TITLE" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="474.0" layoutY="13.0" text="ARTIST" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="598.0" layoutY="12.0" text="CATEGORY" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="737.0" layoutY="13.0" text="TIME" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

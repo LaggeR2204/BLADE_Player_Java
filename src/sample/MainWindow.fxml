@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.MainWindowController">
+    <children>
+      <Pane fx:id="pnlMainParent" layoutX="200.0" layoutY="35.0" prefHeight="565.0" prefWidth="800.0">
+         <children>
+            <Pane fx:id="pnlQueueSearchParent" prefHeight="565.0" prefWidth="800.0">
+               <children>
+                  <Pane fx:id="pnlSearch" prefHeight="565.0" prefWidth="800.0" visible="false" />
+                  <Pane fx:id="pnlQueue" prefHeight="565.0" prefWidth="800.0" visible="false" />
+               </children>
+            </Pane>
+            <Pane fx:id="pnlMain" layoutY="0.0" prefHeight="2825.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);">
+               <children>
+                  <Pane fx:id="pnlAboutUs" layoutY="2260.0" prefHeight="565.0" prefWidth="800.0" />
+                  <Pane fx:id="pnlConverter" layoutY="1695.0" prefHeight="565.0" prefWidth="800.0" />
+                  <Pane fx:id="pnlCutter" layoutY="1130.0" prefHeight="565.0" prefWidth="800.0" />
+                  <Pane fx:id="pnlPlaylist" layoutY="565.0" prefHeight="565.0" prefWidth="800.0" />
+                  <Pane fx:id="pnlHome" layoutY="0.0" prefHeight="565.0" prefWidth="800.0" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+        <Pane prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: rgb(35, 35, 35)">
+            <children>
+                <Label alignment="CENTER" prefHeight="65.0" prefWidth="200.0" text="BLADE" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Showcard Gothic" size="46.0" />
+                    </font>
+                </Label>
+                <Button fx:id="btnHome" alignment="TOP_LEFT" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnHome_Clicked" prefHeight="45.0" prefWidth="195.0" style="-fx-background-color: rgb(35, 35, 35)" text="  Home" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/home_icon.png" />
+                            </image></ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+                <Button fx:id="btnPlaylist" alignment="TOP_LEFT" layoutX="5.0" layoutY="140.0" mnemonicParsing="false" onAction="#btnPlaylist_Clicked" prefHeight="45.0" prefWidth="195.0" style="-fx-background-color: rgb(35, 35, 35)" text="  Playlist" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/playlist.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+                <Button fx:id="btnCutter" alignment="TOP_LEFT" layoutX="5.0" layoutY="190.0" mnemonicParsing="false" onAction="#btnCutter_Clicked" prefHeight="45.0" prefWidth="195.0" style="-fx-background-color: rgb(35, 35, 35)" text="  Cutter" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/cut_30px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+                <Button fx:id="btnConverter" alignment="TOP_LEFT" layoutX="5.0" layoutY="240.0" mnemonicParsing="false" onAction="#btnConverter_Clicked" prefHeight="45.0" prefWidth="195.0" style="-fx-background-color: rgb(35, 35, 35)" text="  Converter" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/change_30px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+                <Button fx:id="btnTimer" alignment="TOP_LEFT" layoutX="5.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnTimer_Clicked" prefHeight="45.0" prefWidth="195.0" style="-fx-background-color: rgb(35, 35, 35)" text="  Timer" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/time_30px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+            <Pane fx:id="pnlDropDownTimer" layoutX="30.0" layoutY="340.0" prefHeight="135.0" prefWidth="170.0">
+               <children>
+                  <Button fx:id="btnTImer10m" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: rgb(35, 35, 35)" text="  10 minutes" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/time_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Century Gothic Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnTImer10m1" alignment="TOP_LEFT" layoutY="35.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: rgb(35, 35, 35)" text="  10 minutes" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/time_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Century Gothic Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnTImer10m11" alignment="TOP_LEFT" layoutY="70.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: rgb(35, 35, 35)" text="  10 minutes" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/time_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Century Gothic Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnTImer10m111" alignment="TOP_LEFT" layoutY="105.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: rgb(35, 35, 35)" text="  10 minutes" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/time_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Century Gothic Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlTemp" layoutX="30.0" layoutY="340.0" prefHeight="140.0" prefWidth="170.0" style="-fx-background-color: rgb(35, 35, 35)" />
+                <Button fx:id="btnAboutUs" alignment="TOP_LEFT" layoutX="5.0" layoutY="340.0" mnemonicParsing="false" onAction="#btnAboutUs_Clicked" prefHeight="45.0" prefWidth="195.0" style="-fx-background-color: rgb(35, 35, 35)" text="  About Us" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/info_30px.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font name="Century Gothic Bold" size="17.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+                <Pane fx:id="pnlSelectedButton" layoutY="90.0" prefHeight="45.0" prefWidth="5.0" style="-fx-background-color: rgb(0,192,192);" />
+            </children></Pane>
+        <Pane layoutX="200.0" onMouseDragged="#dragWindow" onMousePressed="#mousePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);">
+         <children>
+            <Button fx:id="btnClose" alignment="TOP_LEFT" layoutX="765.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnClose_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/close.png" />
+                     </image></ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+             <Button fx:id="btnMinimize" alignment="TOP_LEFT" layoutX="730.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnMinimize_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+                 <graphic>
+                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@img/subtract_30px.png" />
+                         </image></ImageView>
+                 </graphic>
+                 <cursor>
+                     <Cursor fx:constant="HAND" />
+                 </cursor></Button>
+            <TextField fx:id="tbxSearch" layoutX="80.0" layoutY="6.5" prefHeight="22.0" prefWidth="200.0" promptText="Search">
+               <font>
+                  <Font name="Arial" size="11.0" />
+               </font>
+            </TextField>
+         </children></Pane>
+        <Pane layoutY="600.0" prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: rgb(50,50,50);">
+         <children>
+            <Pane prefHeight="100.0" prefWidth="250.0">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="5.0" layoutY="12.5" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="80.0" layoutY="12.5" prefWidth="160.0" text="Song Name" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="80.0" layoutY="40.0" prefWidth="160.0" text="Artist" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic Italic" size="16.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
+            <Pane layoutX="250.0" prefHeight="100.0" prefWidth="750.0">
+               <children>
+                  <Slider layoutX="10.0" layoutY="75.0" prefWidth="500.0" />
+                  <Slider layoutX="635.0" layoutY="43.0" prefWidth="100.0" />
+                   <Button fx:id="btnPlay" alignment="TOP_LEFT" layoutX="225.0" layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
+                       <graphic>
+                           <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@img/play_90px.png" />
+                               </image></ImageView>
+                       </graphic>
+                       <cursor>
+                           <Cursor fx:constant="HAND" />
+                       </cursor></Button>
+                  <Button fx:id="btnPlay1" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="170.0" layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/back_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnPlay11" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="115.0" layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/shuffle_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnPlay111" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="280.0" layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/forward_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnQueue" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="335.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnQueue_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/lounge_music_playlist_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="btnPlay11111" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="585.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent" textFill="#00000005">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/voice_30px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="10.0" layoutY="55.0" text="0:00" textFill="WHITE" />
+                  <Label layoutX="485.0" layoutY="55.0" text="0:00" textFill="WHITE" />
+               </children>
+            </Pane>
+         </children></Pane>
+    </children>
+</AnchorPane>
