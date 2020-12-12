@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="700.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.MainWindowController">
+            fx:controller="sample.Controllers.MainWindowController">
     <children>
       <Pane fx:id="pnlMainParent" layoutX="200.0" layoutY="35.0" prefHeight="565.0" prefWidth="800.0">
          <children>
@@ -41,7 +41,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/home_icon.png" />
+                                <Image url="@../img/home_icon.png" />
                             </image></ImageView>
                     </graphic>
                     <font>
@@ -55,7 +55,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/playlist.png" />
+                                <Image url="@../img/playlist.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -70,7 +70,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/cut_30px.png" />
+                                <Image url="@../img/cut_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -85,7 +85,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/change_30px.png" />
+                                <Image url="@../img/change_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -100,7 +100,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/time_30px.png" />
+                                <Image url="@../img/time_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -117,7 +117,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/time_30px.png" />
+                              <Image url="@../img/time_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -132,7 +132,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/time_30px.png" />
+                              <Image url="@../img/time_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -147,7 +147,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/time_30px.png" />
+                              <Image url="@../img/time_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -162,7 +162,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/time_30px.png" />
+                              <Image url="@../img/time_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -180,7 +180,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@img/info_30px.png" />
+                                <Image url="@../img/info_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -199,7 +199,7 @@
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/close.png" />
+                        <Image url="@../img/close.png" />
                      </image></ImageView>
                </graphic>
                <cursor>
@@ -209,7 +209,7 @@
                  <graphic>
                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@img/subtract_30px.png" />
+                             <Image url="@../img/subtract_30px.png" />
                          </image></ImageView>
                  </graphic>
                  <cursor>
@@ -245,7 +245,7 @@
                        <graphic>
                            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                <image>
-                                   <Image url="@img/play_90px.png" />
+                                   <Image url="@../img/play_90px.png" />
                                </image></ImageView>
                        </graphic>
                        <cursor>
@@ -255,7 +255,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/back_30px.png" />
+                              <Image url="@../img/back_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -267,7 +267,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/shuffle_30px.png" />
+                              <Image url="@../img/shuffle_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -279,7 +279,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/forward_30px.png" />
+                              <Image url="@../img/forward_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -291,7 +291,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/lounge_music_playlist_30px.png" />
+                              <Image url="@../img/lounge_music_playlist_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -306,7 +306,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/voice_30px.png" />
+                              <Image url="@../img/voice_30px.png" />
                            </image>
                         </ImageView>
                      </graphic>

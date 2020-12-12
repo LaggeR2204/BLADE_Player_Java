@@ -1,4 +1,4 @@
-package sample;
+package sample.Controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -113,19 +113,19 @@ public class MainWindowController {
         });
 
         try {
-            pnlQueue = FXMLLoader.load(getClass().getResource("PanelQueue.fxml"));
+            pnlQueue = FXMLLoader.load(getClass().getResource("../Views/PanelQueue.fxml"));
             pnlQueue.setLayoutY(0);
-            pnlSearch = FXMLLoader.load(getClass().getResource("PanelSearch.fxml"));
+            pnlSearch = FXMLLoader.load(getClass().getResource("../Views/PanelSearch.fxml"));
             pnlSearch.setLayoutY(0);
             pnlQueueSearchParent.getChildren().setAll(pnlQueue, pnlSearch);
             pnlSearch.setVisible(false);
             pnlQueue.setVisible(false);
 
-            pnlHome = FXMLLoader.load(getClass().getResource("PanelHome.fxml"));
-            pnlPlaylist = FXMLLoader.load(getClass().getResource("PanelPlaylist.fxml"));
-            pnlCutter = FXMLLoader.load(getClass().getResource("PanelCutter.fxml"));
-            pnlConverter = FXMLLoader.load(getClass().getResource("PanelConverter.fxml"));
-            pnlAboutUs = FXMLLoader.load(getClass().getResource("PanelAboutUs.fxml"));
+            pnlHome = FXMLLoader.load(getClass().getResource("../Views/PanelHome.fxml"));
+            pnlPlaylist = FXMLLoader.load(getClass().getResource("../Views/PanelPlaylist.fxml"));
+            pnlCutter = FXMLLoader.load(getClass().getResource("../Views/PanelCutter.fxml"));
+            pnlConverter = FXMLLoader.load(getClass().getResource("../Views/PanelConverter.fxml"));
+            pnlAboutUs = FXMLLoader.load(getClass().getResource("../Views/PanelAboutUs.fxml"));
             pnlHome.setLayoutY(0);
             pnlPlaylist.setLayoutY(565);
             pnlCutter.setLayoutY(1130);

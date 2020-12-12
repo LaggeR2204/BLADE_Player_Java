@@ -8,10 +8,9 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.PanelCutterController"
+            fx:controller="sample.Controllers.PanelAboutUsController"
             prefHeight="400.0" prefWidth="600.0">
     <children>
-        <Button layoutX="41.0" layoutY="52.0" mnemonicParsing="false" text="cutter" />
+        <Button layoutX="41.0" layoutY="52.0" mnemonicParsing="false" text="aboutus" />
     </children>
-
 </AnchorPane>

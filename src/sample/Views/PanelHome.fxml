@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PanelHomeController">
+<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelHomeController">
    <children>
       <ImageView fitHeight="240.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@img/musicbackground.jpg" />
+            <Image url="@../img/musicbackground.jpg" />
          </image>
       </ImageView>
       <Label layoutX="10.0" layoutY="250.0" text="RECENTLY PLAYED" textFill="WHITE">
@@ -22,7 +22,7 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/bar_chart_30px.png" />
+                  <Image url="@../img/bar_chart_30px.png" />
                </image></ImageView>
          </graphic>
          <font>

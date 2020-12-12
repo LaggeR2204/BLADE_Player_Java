@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PanelConverterController">
+<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelConverterController">
     <Label alignment="CENTER" prefHeight="120.0" prefWidth="800.0" text="TITLE" textAlignment="CENTER" textFill="WHITE">
         <font>
             <Font name="Century Gothic" size="35.0" />
@@ -50,7 +50,7 @@
          <graphic>
                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                    <image>
-                       <Image url="@img/opened_folder_30px.png" />
+                       <Image url="@../img/opened_folder_30px.png" />
                    </image>
             </ImageView>
          </graphic></Button>
@@ -81,7 +81,7 @@
            <graphic>
                <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                    <image>
-                       <Image url="@img/change_60px.png" />
+                       <Image url="@../img/change_60px.png" />
                    </image></ImageView>
            </graphic>
            <font>

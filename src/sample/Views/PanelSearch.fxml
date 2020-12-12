@@ -6,11 +6,11 @@
 <?import javafx.scene.text.*?>
 
 
-<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PanelSearchController">
+<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelSearchController">
    <children>
       <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="300.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@img/search_120px.png" />
+            <Image url="@../img/search_120px.png" />
          </image>
       </ImageView>
       <Label layoutX="303.0" layoutY="383.0" text="Find your favorite songs" textFill="WHITE">
