@@ -1,16 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.Controllers.PanelAboutUsController"
-            prefHeight="400.0" prefWidth="600.0">
-    <children>
-        <Button layoutX="41.0" layoutY="52.0" mnemonicParsing="false" text="aboutus" />
-    </children>
+<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelAboutUsController">
+    <Label fx:id="lblBLADE" alignment="CENTER" layoutY="183.0" onMouseEntered="#changeLabelColor" onMouseExited="#changeLabelColor" prefHeight="200.0" prefWidth="400.0" text="BLADE" textAlignment="CENTER" textFill="WHITE">
+        <font>
+            <Font name="Showcard Gothic" size="90.0" />
+        </font>
+    </Label>
+    <Button fx:id="btnVoThanhBinh" alignment="TOP_LEFT" layoutX="420.0" layoutY="178.0" mnemonicParsing="false" onAction="#openInfo" prefHeight="45.0" prefWidth="260.0" style="-fx-background-color: rgb(40, 40, 40)" text="  Võ Thanh Bình" textFill="WHITE">
+        <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../img/facebook_30px.png" />
+                </image></ImageView>
+        </graphic>
+        <font>
+            <Font name="Tahoma Bold" size="17.0" />
+        </font>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+   <Button fx:id="btnBeHaiLong" alignment="TOP_LEFT" layoutX="420.0" layoutY="233.0" mnemonicParsing="false" onAction="#openInfo" prefHeight="45.0" prefWidth="260.0" style="-fx-background-color: rgb(40, 40, 40)" text="  Bế Hải Long" textFill="WHITE">
+      <graphic>
+         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../img/facebook_30px.png" />
+            </image>
+         </ImageView>
+      </graphic>
+      <font>
+         <Font name="Tahoma Bold" size="17.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="btnPhanQuocAn" alignment="TOP_LEFT" layoutX="420.0" layoutY="288.0" mnemonicParsing="false" onAction="#openInfo" prefHeight="45.0" prefWidth="260.0" style="-fx-background-color: rgb(40, 40, 40)" text="  Phan Quốc An" textFill="WHITE">
+      <graphic>
+         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../img/facebook_30px.png" />
+            </image>
+         </ImageView>
+      </graphic>
+      <font>
+         <Font name="Tahoma Bold" size="17.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
+   <Button fx:id="btnTruongHuuMinhDuc" alignment="TOP_LEFT" layoutX="420.0" layoutY="343.0" mnemonicParsing="false" onAction="#openInfo" prefHeight="45.0" prefWidth="260.0" style="-fx-background-color: rgb(40, 40, 40)" text="  Trương Hữu Minh Đức" textFill="WHITE">
+      <graphic>
+         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../img/facebook_30px.png" />
+            </image>
+         </ImageView>
+      </graphic>
+      <font>
+         <Font name="Tahoma Bold" size="17.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </Button>
 </AnchorPane>

@@ -21,6 +21,7 @@ public class MainWindow extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("Views/MainWindow.fxml"));
             Scene scene = new Scene(root, 1000, 700);
             primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.setTitle("BLADE Player");
             primaryStage.setScene(scene);
             primaryStage.getIcons().add(new Image("sample/img/play_90px.png"));
             primaryStage.show();

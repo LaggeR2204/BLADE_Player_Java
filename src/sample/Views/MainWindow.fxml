@@ -6,10 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0"
-            xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.Controllers.MainWindowController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.MainWindowController">
     <children>
       <Pane fx:id="pnlMainParent" layoutX="200.0" layoutY="35.0" prefHeight="565.0" prefWidth="800.0">
          <children>
@@ -32,11 +29,16 @@
       </Pane>
         <Pane prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: rgb(35, 35, 35)">
             <children>
-                <Label alignment="CENTER" prefHeight="65.0" prefWidth="200.0" text="BLADE" textAlignment="CENTER" textFill="WHITE">
-                    <font>
-                        <Font name="Showcard Gothic" size="46.0" />
-                    </font>
-                </Label>
+            <Pane fx:id="pnlLogo" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: rgb(35, 35, 35)">
+               <children>
+                      <ImageView fx:id="imgLogo" fitHeight="50.0" fitWidth="170.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true">
+                         <image>
+                            <Image url="@../img/BladeLogo.png" />
+                         </image>
+                      </ImageView>
+               </children>
+            </Pane>
+                
                 <Button fx:id="btnHome" alignment="TOP_LEFT" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnHome_Clicked" prefHeight="45.0" prefWidth="195.0" style="-fx-background-color: rgb(35, 35, 35)" text="  Home" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -191,7 +193,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </Button>
-                <Pane fx:id="pnlSelectedButton" layoutY="90.0" prefHeight="45.0" prefWidth="5.0" style="-fx-background-color: rgb(0,192,192);" />
+                <Pane fx:id="pnlSelectedButton" layoutY="90.0" prefHeight="45.0" prefWidth="5.0" style="-fx-background-color: rgb(255,163,26);" />
             </children></Pane>
         <Pane layoutX="200.0" onMouseDragged="#dragWindow" onMousePressed="#mousePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);">
          <children>
@@ -215,11 +217,11 @@
                  <cursor>
                      <Cursor fx:constant="HAND" />
                  </cursor></Button>
-            <TextField fx:id="tbxSearch" layoutX="80.0" layoutY="6.5" prefHeight="22.0" prefWidth="200.0" promptText="Search">
-               <font>
-                  <Font name="Arial" size="11.0" />
-               </font>
-            </TextField>
+             <TextField fx:id="tbxSearch" layoutX="50.0" layoutY="6" prefHeight="22.0" prefWidth="200.0" promptText="Search" style="-fx-background-color: whitesmoke; -fx-background-radius: 20px;-fx-text-fill: rgb(35, 35, 35);">
+                 <font>
+                     <Font name="Arial" size="11.0" />
+                 </font>
+             </TextField>
          </children></Pane>
         <Pane layoutY="600.0" prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: rgb(50,50,50);">
          <children>
@@ -239,13 +241,13 @@
                </children></Pane>
             <Pane layoutX="250.0" prefHeight="100.0" prefWidth="750.0">
                <children>
-                  <Slider layoutX="10.0" layoutY="75.0" prefWidth="500.0" />
-                  <Slider layoutX="635.0" layoutY="43.0" prefWidth="100.0" />
+                  <Slider fx:id="sldMusic" layoutX="10.0" layoutY="75.0" prefWidth="500.0" />
+                  <Slider fx:id="sldVolume" layoutX="635.0" layoutY="43.0" prefWidth="100.0" />
                    <Button fx:id="btnPlay" alignment="TOP_LEFT" layoutX="225.0" layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                        <graphic>
                            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                <image>
-                                   <Image url="@../img/play_90px.png" />
+                                   <Image url="@../img/play_60px.png" />
                                </image></ImageView>
                        </graphic>
                        <cursor>

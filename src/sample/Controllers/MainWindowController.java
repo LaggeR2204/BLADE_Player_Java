@@ -21,6 +21,9 @@ public class MainWindowController {
     private String selectedButtonId = "btnHome";
 
     @FXML
+    private Pane pnlLogo;
+
+    @FXML
     private Button btnClose;
 
     @FXML
@@ -85,6 +88,9 @@ public class MainWindowController {
 
     @FXML
     private Pane pnlTemp;
+
+    @FXML
+    private Slider sldMusic;
 
     @FXML
     public void initialize()
@@ -242,6 +248,7 @@ public class MainWindowController {
     }
 
     void switchMainPanel(String btnId){
+        pnlLogo.setVisible(true);
         if (isDropDown){
             dropDownTimerPanel();
         }
@@ -294,6 +301,8 @@ public class MainWindowController {
 
                 pnlQueue.setVisible(false);
                 pnlSearch.setVisible(false);
+
+                pnlLogo.setVisible(false);
 
                 selectedButtonId = btnId;
                 pnlMain.toFront();
