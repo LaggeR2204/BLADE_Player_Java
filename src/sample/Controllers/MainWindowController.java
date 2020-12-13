@@ -1,5 +1,6 @@
 package sample.Controllers;
 
+import com.jfoenix.controls.JFXSlider;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -90,7 +91,7 @@ public class MainWindowController {
     private Pane pnlTemp;
 
     @FXML
-    private Slider sldMusic;
+    private JFXSlider sldMusic;
 
     @FXML
     public void initialize()

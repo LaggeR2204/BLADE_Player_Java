@@ -20,6 +20,7 @@ public class MainWindow extends Application {
         try{
             Parent root = FXMLLoader.load(getClass().getResource("Views/MainWindow.fxml"));
             Scene scene = new Scene(root, 1000, 700);
+            scene.getStylesheets().add(getClass().getResource("stylesheet/MainWindow.css").toExternalForm());
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setTitle("BLADE Player");
             primaryStage.setScene(scene);

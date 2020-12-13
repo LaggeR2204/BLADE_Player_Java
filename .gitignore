@@ -40,7 +40,6 @@
 # .idea/libraries
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
