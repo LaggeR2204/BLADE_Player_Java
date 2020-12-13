@@ -58,6 +58,9 @@ public class MainWindowController {
     private Pane pnlSelectedButton;
 
     @FXML
+    private Pane pnlMainParent;
+
+    @FXML
     private Pane pnlMain;
 
     @FXML
@@ -101,10 +104,19 @@ public class MainWindowController {
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
                 if (oldValue.isEmpty()) {
-                    switchMainPanel(tbxSearch.getId());
+                    if (isDropDown){
+                        dropDownTimerPanel();
+                    }
+                    if (isDropDownQueue){
+                        dropDownQueuePanelForSearch();
+                    }
+                    pnlSearch.setVisible(true);
+                    pnlSearch.toFront();
                     return;
                 }
                 if (newValue.isEmpty()){
+                    pnlSearch.setVisible(false);
+                    pnlSearch.toBack();
                     switchMainPanel(selectedButtonId);
                 }
             }
@@ -114,19 +126,25 @@ public class MainWindowController {
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
                 if (!tbxSearch.getText().isEmpty())
                 {
-                    switchMainPanel(tbxSearch.getId());
+                    if (isDropDown){
+                        dropDownTimerPanel();
+                    }
+                    if (isDropDownQueue){
+                        dropDownQueuePanelForSearch();
+                    }
+                    pnlSearch.setVisible(true);
+                    pnlSearch.toFront();
                 }
             }
         });
 
         try {
-            pnlQueue = FXMLLoader.load(getClass().getResource("../Views/PanelQueue.fxml"));
-            pnlQueue.setLayoutY(0);
             pnlSearch = FXMLLoader.load(getClass().getResource("../Views/PanelSearch.fxml"));
-            pnlSearch.setLayoutY(0);
-            pnlQueueSearchParent.getChildren().setAll(pnlQueue, pnlSearch);
-            pnlSearch.setVisible(false);
-            pnlQueue.setVisible(false);
+            pnlMainParent.getChildren().set(0,pnlSearch);
+
+            pnlQueue = FXMLLoader.load(getClass().getResource("../Views/PanelQueue.fxml"));
+            pnlQueue.setLayoutY(565);
+            pnlQueueSearchParent.getChildren().setAll( pnlQueue);
 
             pnlHome = FXMLLoader.load(getClass().getResource("../Views/PanelHome.fxml"));
             pnlPlaylist = FXMLLoader.load(getClass().getResource("../Views/PanelPlaylist.fxml"));
@@ -190,14 +208,7 @@ public class MainWindowController {
     }
 
     public void btnQueue_Clicked(ActionEvent actionEvent){
-        if (pnlQueue.isVisible()){
-            pnlSelectedButton.setVisible(true);
-            pnlQueue.setVisible(false);
-        }
-        else {
-            pnlSelectedButton.setVisible(false);
-            switchMainPanel(btnQueue.getId());
-        }
+        dropDownQueuePanel();
     }
 
     public void mousePressed(MouseEvent event) {
@@ -215,7 +226,7 @@ public class MainWindowController {
         pnlSelectedButton.setVisible(true);
         DoubleProperty pnlSelectedButtonLayoutY = pnlSelectedButton.layoutYProperty();
         javafx.animation.KeyValue pnlSelectedButtonDropDown;
-        Double tempLayoutY;
+        double tempLayoutY;
         if (selectedButton == btnAboutUs){
             tempLayoutY = pnlDropDownTimer.getLayoutY();
         }
@@ -235,7 +246,7 @@ public class MainWindowController {
         javafx.animation.KeyValue btnAboutUsDropDown;
         DoubleProperty pnlTempLayoutY = pnlTemp.layoutYProperty();
         javafx.animation.KeyValue pnlTempDropDown;
-        if (isDropDown == true){
+        if (isDropDown){
             btnAboutUsDropDown = new javafx.animation.KeyValue(btnAboutUsLayoutY, 340);
             pnlTempDropDown = new javafx.animation.KeyValue(pnlTempLayoutY, 340);
         }
@@ -248,11 +259,69 @@ public class MainWindowController {
         isDropDown = !isDropDown;
     }
 
+    private boolean isDropDownQueue = false;
+    void dropDownQueuePanel()
+    {
+        DoubleProperty pnlQueueSearchParentLayoutY = pnlQueueSearchParent.layoutYProperty();
+        javafx.animation.KeyValue pnlQueueSearchParentDropDown;
+        if (isDropDownQueue){
+            pnlQueueSearchParentDropDown = new javafx.animation.KeyValue(pnlQueueSearchParentLayoutY, 0);
+            Timeline tl = new Timeline(new KeyFrame(Duration.seconds(0.5), pnlQueueSearchParentDropDown));
+            tl.play();
+            tl.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    pnlMain.toFront();
+                }
+            });
+            pnlSelectedButton.setVisible(true);
+        }
+        else {
+            pnlQueueSearchParent.toFront();
+            pnlQueueSearchParentDropDown = new javafx.animation.KeyValue(pnlQueueSearchParentLayoutY, -565);
+            new Timeline(new KeyFrame(Duration.seconds(0.5), pnlQueueSearchParentDropDown)).play();
+            pnlSelectedButton.setVisible(false);
+        }
+        isDropDownQueue = !isDropDownQueue;
+    }
+
+    void dropDownQueuePanelForSearch()
+    {
+        DoubleProperty pnlQueueSearchParentLayoutY = pnlQueueSearchParent.layoutYProperty();
+        javafx.animation.KeyValue pnlQueueSearchParentDropDown;
+        if (isDropDownQueue){
+            pnlQueueSearchParentDropDown = new javafx.animation.KeyValue(pnlQueueSearchParentLayoutY, 0);
+            Timeline tl = new Timeline(new KeyFrame(Duration.seconds(0.5), pnlQueueSearchParentDropDown));
+            tl.play();
+            tl.onFinishedProperty().set(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    pnlSearch.toFront();
+                }
+            });
+            pnlSelectedButton.setVisible(true);
+        }
+        else {
+            pnlQueueSearchParent.toFront();
+            pnlQueueSearchParentDropDown = new javafx.animation.KeyValue(pnlQueueSearchParentLayoutY, -565);
+            new Timeline(new KeyFrame(Duration.seconds(0.5), pnlQueueSearchParentDropDown)).play();
+            pnlSelectedButton.setVisible(false);
+        }
+        isDropDownQueue = !isDropDownQueue;
+    }
+
     void switchMainPanel(String btnId){
         pnlLogo.setVisible(true);
         if (isDropDown){
             dropDownTimerPanel();
         }
+        if (isDropDownQueue){
+            dropDownQueuePanel();
+        }
+
+        pnlSearch.setVisible(false);
+        pnlSearch.toBack();
+
         DoubleProperty pnlMainLayoutY = pnlMain.layoutYProperty();
         javafx.animation.KeyValue pnlMainDropDown;
         switch (btnId) {
@@ -260,63 +329,33 @@ public class MainWindowController {
                 pnlMainDropDown = new KeyValue(pnlMainLayoutY, 0);
                 new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainDropDown)).play();
 
-                pnlQueue.setVisible(false);
-                pnlSearch.setVisible(false);
-
                 selectedButtonId = btnId;
-                pnlMain.toFront();
                 break;
             case "btnPlaylist":
                 pnlMainDropDown = new KeyValue(pnlMainLayoutY, - 565);
                 new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainDropDown)).play();
 
-                pnlQueue.setVisible(false);
-                pnlSearch.setVisible(false);
-
                 selectedButtonId = btnId;
-                pnlMain.toFront();
                 break;
             case "btnCutter":
                 pnlMainDropDown = new KeyValue(pnlMainLayoutY, - 565*2);
                 new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainDropDown)).play();
 
-                pnlQueue.setVisible(false);
-                pnlSearch.setVisible(false);
-
                 selectedButtonId = btnId;
-                pnlMain.toFront();
                 break;
             case "btnConverter":
                 pnlMainDropDown = new KeyValue(pnlMainLayoutY, - 565*3);
                 new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainDropDown)).play();
 
-                pnlQueue.setVisible(false);
-                pnlSearch.setVisible(false);
-
                 selectedButtonId = btnId;
-                pnlMain.toFront();
                 break;
             case "btnAboutUs":
                 pnlMainDropDown = new KeyValue(pnlMainLayoutY, - 565*4);
                 new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainDropDown)).play();
 
-                pnlQueue.setVisible(false);
-                pnlSearch.setVisible(false);
-
                 pnlLogo.setVisible(false);
 
                 selectedButtonId = btnId;
-                pnlMain.toFront();
-                break;
-            case "btnQueue":
-                pnlQueueSearchParent.toFront();
-                pnlQueue.setVisible(true);
-                pnlQueue.toFront();
-                break;
-            case "tbxSearch":
-                pnlQueueSearchParent.toFront();
-                pnlSearch.setVisible(true);
-                pnlSearch.toFront();
                 break;
         }
     }

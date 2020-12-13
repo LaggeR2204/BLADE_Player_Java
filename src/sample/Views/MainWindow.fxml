@@ -11,10 +11,10 @@
     <children>
       <Pane fx:id="pnlMainParent" layoutX="200.0" layoutY="35.0" prefHeight="565.0" prefWidth="800.0">
          <children>
-            <Pane fx:id="pnlQueueSearchParent" prefHeight="565.0" prefWidth="800.0">
+             <Pane fx:id="pnlSearch" prefHeight="565.0" prefWidth="800.0" />
+            <Pane fx:id="pnlQueueSearchParent" prefHeight="1130.0" prefWidth="800.0"  style="-fx-background-color: transparent;">
                <children>
-                  <Pane fx:id="pnlSearch" prefHeight="565.0" prefWidth="800.0" visible="false" />
-                  <Pane fx:id="pnlQueue" prefHeight="565.0" prefWidth="800.0" visible="false" />
+                  <Pane fx:id="pnlQueue" layoutY="565.0" prefHeight="565.0" prefWidth="800.0" />
                </children>
             </Pane>
             <Pane fx:id="pnlMain" layoutY="0.0" prefHeight="2825.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);">
@@ -242,7 +242,7 @@
                </children></Pane>
             <Pane layoutX="250.0" prefHeight="100.0" prefWidth="750.0">
                <children>
-                  <JFXSlider fx:id="sldVolume" layoutX="635.0" layoutY="43.0" prefHeight="20.0" prefWidth="100.0"/>
+                  <JFXSlider fx:id="sldVolume" layoutX="635.0" layoutY="43.0" prefHeight="20.0" prefWidth="100.0" />
                    <Button fx:id="btnPlay" alignment="TOP_LEFT" layoutX="225.0" layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                        <graphic>
                            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
