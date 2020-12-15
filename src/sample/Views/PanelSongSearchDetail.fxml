@@ -8,9 +8,9 @@
 
 <AnchorPane prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: rgb(35,35,35);-fx-border-radius: 5px;-fx-border-width: 1px;-fx-border-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelSongSearchDetailController">
    <children>
-       <Label fx:id="lblSongName" layoutX="15.0" layoutY="10.0" prefHeight="20.0" text="Song name" textFill="WHITE">
+       <Label fx:id="lblSongName" layoutX="15.0" layoutY="10.0" prefHeight="20.0" text="Song Name" textFill="WHITE">
            <font>
-               <Font name="Arial Bold" size="13.0" />
+               <Font name="Segoe UI Bold" size="13.0" />
            </font>
        </Label>
        <Label fx:id="lblArtist" layoutX="15.0" layoutY="30.0" prefHeight="20.0" text="Artist" textFill="WHITE">

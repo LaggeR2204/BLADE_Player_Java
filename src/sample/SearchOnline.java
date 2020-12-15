@@ -88,7 +88,7 @@ public class SearchOnline {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
         fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setInitialFileName(song.getSongName());
+        fileChooser.setInitialFileName(song.getSongName().replace(" ", "_"));
 
         File file = fileChooser.showSaveDialog(stage);
 
