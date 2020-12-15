@@ -11,15 +11,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.event.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class MainWindowController {
     private double xOffset = 0;
     private double yOffset = 0;
     private String selectedButtonId = "btnHome";
+    private PanelSearchController searchController;
 
     @FXML
     private Pane pnlLogo;
@@ -99,49 +107,14 @@ public class MainWindowController {
     @FXML
     public void initialize()
     {
-        tbxSearch.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
-                if (oldValue.isEmpty()) {
-                    if (isDropDown){
-                        dropDownTimerPanel();
-                    }
-                    if (isDropDownQueue){
-                        dropDownQueuePanelForSearch();
-                    }
-                    pnlSearch.setVisible(true);
-                    pnlSearch.toFront();
-                    return;
-                }
-                if (newValue.isEmpty()){
-                    pnlSearch.setVisible(false);
-                    pnlSearch.toBack();
-                    switchMainPanel(selectedButtonId);
-                }
-            }
-        });
-        tbxSearch.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-                if (!tbxSearch.getText().isEmpty())
-                {
-                    if (isDropDown){
-                        dropDownTimerPanel();
-                    }
-                    if (isDropDownQueue){
-                        dropDownQueuePanelForSearch();
-                    }
-                    pnlSearch.setVisible(true);
-                    pnlSearch.toFront();
-                }
-            }
-        });
-
         try {
-            pnlSearch = FXMLLoader.load(getClass().getResource("../Views/PanelSearch.fxml"));
+            //pnlSearch = FXMLLoader.load(getClass().getResource("../Views/PanelSearch.fxml"));
+            //pnlMainParent.getChildren().set(0,pnlSearch);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../Views/PanelSearch.fxml"));
+            pnlSearch = (Pane) loader.load();
+            searchController = loader.getController();
             pnlMainParent.getChildren().set(0,pnlSearch);
-
             pnlQueue = FXMLLoader.load(getClass().getResource("../Views/PanelQueue.fxml"));
             pnlQueue.setLayoutY(565);
             pnlQueueSearchParent.getChildren().setAll( pnlQueue);
@@ -162,6 +135,76 @@ public class MainWindowController {
         }
         catch (Exception e) {
             System.out.println(e.toString());
+        }
+
+        tbxSearch.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                if (oldValue.isEmpty()) {
+                    if (isDropDown){
+                        dropDownTimerPanel();
+                    }
+                    if (isDropDownQueue){
+                        dropDownQueuePanelForSearch();
+                    }
+                    pnlSearch.setVisible(true);
+                    pnlSearch.toFront();
+                    return;
+                }
+                if (newValue.isEmpty()){
+                    pnlSearch.setVisible(false);
+                    pnlSearch.toBack();
+                    searchController.cancelSearch();
+                    switchMainPanel(selectedButtonId);
+                }
+            }
+        });
+        tbxSearch.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
+                if (!tbxSearch.getText().isEmpty())
+                {
+                    if (isDropDown){
+                        dropDownTimerPanel();
+                    }
+                    if (isDropDownQueue){
+                        dropDownQueuePanelForSearch();
+                    }
+                    pnlSearch.setVisible(true);
+                    pnlSearch.toFront();
+                }
+            }
+        });
+    }
+
+    public void tbxSearch_KeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER && !tbxSearch.getText().isEmpty()){
+            if (isConnectedToInternet()){
+                try{
+                    searchController.search(tbxSearch.getText());
+                }
+                catch (IOException e){
+                    System.out.print(e.toString());
+                }
+            }
+//            else {
+//                //thong bao deo co mang
+//            }
+        }
+    }
+
+    private static boolean isConnectedToInternet() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
         }
     }
 

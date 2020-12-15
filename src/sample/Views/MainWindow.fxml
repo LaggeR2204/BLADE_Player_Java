@@ -12,7 +12,7 @@
       <Pane fx:id="pnlMainParent" layoutX="200.0" layoutY="35.0" prefHeight="565.0" prefWidth="800.0">
          <children>
              <Pane fx:id="pnlSearch" prefHeight="565.0" prefWidth="800.0" />
-            <Pane fx:id="pnlQueueSearchParent" prefHeight="1130.0" prefWidth="800.0"  style="-fx-background-color: transparent;">
+            <Pane fx:id="pnlQueueSearchParent" prefHeight="1130.0" prefWidth="800.0" style="-fx-background-color: transparent;">
                <children>
                   <Pane fx:id="pnlQueue" layoutY="565.0" prefHeight="565.0" prefWidth="800.0" />
                </children>
@@ -218,7 +218,7 @@
                  <cursor>
                      <Cursor fx:constant="HAND" />
                  </cursor></Button>
-             <TextField fx:id="tbxSearch" layoutX="50.0" layoutY="6" prefHeight="22.0" prefWidth="200.0" promptText="Search" style="-fx-background-color: whitesmoke; -fx-background-radius: 20px;-fx-text-fill: rgb(35, 35, 35);">
+             <TextField fx:id="tbxSearch" layoutX="50.0" layoutY="6" onKeyPressed="#tbxSearch_KeyPressed" prefHeight="22.0" prefWidth="200.0" promptText="Search" style="-fx-background-color: whitesmoke; -fx-background-radius: 20px;-fx-text-fill: rgb(35, 35, 35);">
                  <font>
                      <Font name="Arial" size="11.0" />
                  </font>
