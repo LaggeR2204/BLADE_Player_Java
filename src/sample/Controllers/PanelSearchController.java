@@ -31,11 +31,15 @@ public class PanelSearchController {
     @FXML
     private FlowPane fpnlSearchItems;
 
+    @FXML
+    private Pane pnlLoading;
+
     public void cancelSearch(){
         pnlSearchResult.setVisible(false);
         lblTextSearch.setText("");
         fpnlSearchItems.getChildren().clear();
         listSongSearch.clear();
+        pnlLoading.setVisible(false);
     }
 
 
@@ -44,6 +48,7 @@ public class PanelSearchController {
         fpnlSearchItems.getChildren().clear();
         listSongSearch.clear();
         pnlSearchResult.setVisible(false);
+        pnlLoading.setVisible(true);
 
         new Thread(new Runnable() {
             @Override
@@ -67,6 +72,7 @@ public class PanelSearchController {
                                     System.out.print(e.toString());
                                 }
                                 pnlSearchResult.setVisible(true);
+                                pnlLoading.setVisible(false);
                             }
                         }
                     }
