@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelChartController">
+   <children>
+
+      <Button fx:id="btnReturn" alignment="TOP_LEFT" layoutX="0.0" layoutY="2.5" mnemonicParsing="false" onAction="#btnReturn_Clicked" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent" text="Return" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/left_30px.png" />
+               </image></ImageView>
+         </graphic>
+         <font>
+            <Font name="Segoe UI Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+
+      <Button layoutX="491.0" layoutY="2.5" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Việt Nam" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="15.0" />
+         </font>
+      </Button>
+
+      <Pane layoutX="591.0" layoutY="2.5" prefHeight="35.0" prefWidth="2.0" style="-fx-background-color: rgb(255,255,255);" />
+      <Button layoutX="593.0" layoutY="2.5" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="US-UK" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="15.0" />
+         </font>
+      </Button>
+
+      <Pane layoutX="693.0" layoutY="2.5" prefHeight="35.0" prefWidth="2.0" style="-fx-background-color: rgb(255,255,255);" />
+      <Button layoutX="695.0" layoutY="2.5" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Korea" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="15.0" />
+         </font>
+      </Button>
+
+      <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="365.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/loading.gif" />
+         </image>
+      </ImageView>
+      <Pane fx:id="pnlContent" layoutY="40.0" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" visible="false">
+         <children>
+            <Pane fx:id="pnlDropDownChart" prefHeight="525.0" prefWidth="2400.0" style="-fx-background-color: rgb(40,40,40);" />
+         </children></Pane>
+   </children>
+</AnchorPane>
