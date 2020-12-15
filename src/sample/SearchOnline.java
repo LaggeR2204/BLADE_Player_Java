@@ -1,11 +1,15 @@
 package sample;
 
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -35,6 +39,7 @@ public class SearchOnline{
         Pattern patternSearchSongName = Pattern.compile("title=\"(.*?)\">", Pattern.DOTALL);
         Pattern patternSearchSongURL = Pattern.compile("href=\"(.*?)\"", Pattern.DOTALL);
         Pattern patternSearchSinger = Pattern.compile("author\">(.*?)</div>", Pattern.DOTALL);
+        Pattern patternSearchSongImageURL = Pattern.compile("img src=\"(.*?)\" alt", Pattern.DOTALL);
         Pattern patternSearchSongTime = Pattern.compile("<small class=\"time_stt\">(.*?)</small>", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(html);
 
@@ -46,24 +51,48 @@ public class SearchOnline{
 
         for (String item : listSongHTML) {
             Song newSongSearch = new Song();
-            matcher = patternSearchSongName.matcher(item);
-            if (matcher.find()){
-                newSongSearch.setSongName(matcher.group(1));
-            }
-            matcher = patternSearchSongURL.matcher(item);
-            if (matcher.find()){
-                newSongSearch.setSongURL(matcher.group(1));
-            }
-            matcher = patternSearchSinger.matcher(item);
-            if (matcher.find()){
-                newSongSearch.setSinger(matcher.group(1).trim());
-            }
+
             matcher = patternSearchSongTime.matcher(item);
             if (matcher.find()){
                 int songNumber = Integer.parseInt(matcher.group(1).replace(",", "").trim());
                 newSongSearch.setSongNumber(songNumber);
             }
-            listSongSearch.add(newSongSearch);
+
+            if (newSongSearch.getSongNumber() != 0){
+                matcher = patternSearchSongName.matcher(item);
+                if (matcher.find()){
+                    newSongSearch.setSongName(matcher.group(1));
+                }
+                matcher = patternSearchSongURL.matcher(item);
+                if (matcher.find()){
+                    newSongSearch.setSongURL(matcher.group(1));
+                }
+                matcher = patternSearchSinger.matcher(item);
+                if (matcher.find()){
+                    newSongSearch.setSinger(matcher.group(1).trim());
+                }
+                matcher = patternSearchSongImageURL.matcher(item);
+                if (matcher.find()){
+                    if (!matcher.group(1).trim().equals("https://chiasenhac.vn/imgs/no_cover.jpg")){
+                        String imageURL = matcher.group(1).trim();
+                        try {
+                            BufferedImage bufferedImage = ImageIO.read(new URL(imageURL));
+                            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                            if (!image.isError()) {
+                                newSongSearch.setSongImage(image);
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else
+                        newSongSearch.setSongImage(null);
+                }
+                listSongSearch.add(newSongSearch);
+            }
+
         }
 
         return listSongSearch;

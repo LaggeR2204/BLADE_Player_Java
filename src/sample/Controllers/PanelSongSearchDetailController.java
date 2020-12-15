@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sample.SearchOnline;
 import sample.Song;
@@ -22,12 +24,17 @@ public class PanelSongSearchDetailController {
     private Label lblArtist;
     @FXML
     private Label lblSongNumber;
+    @FXML
+    private ImageView imgSongImage;
 
     public void setSongInfo(Song song){
         _song = song;
         lblSongName.setText(song.getSongName());
         lblArtist.setText(song.getSinger());
         lblSongNumber.setText(String.valueOf(song.getSongNumber()));
+        if (song.getSongImage() != null){
+            imgSongImage.setImage(song.getSongImage());
+        }
     }
 
     public void btnDownload_Clicked(ActionEvent actionEvent){
