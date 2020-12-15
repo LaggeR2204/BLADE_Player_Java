@@ -43,6 +43,7 @@ public class PanelSearchController {
         lblTextSearch.setText(textSearch);
         fpnlSearchItems.getChildren().clear();
         listSongSearch.clear();
+        pnlSearchResult.setVisible(false);
 
         new Thread(new Runnable() {
             @Override

@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -119,7 +118,7 @@ class DownloadTask extends Task<Void>{
     }
     @Override
     protected void succeeded(){
-        System.out.println("Downloaded");
+        System.out.println("Download complete");
     }
 
     @Override
