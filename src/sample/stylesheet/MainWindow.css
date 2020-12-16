@@ -31,6 +31,23 @@
     -fx-effect: innershadow( gaussian , rgb(255,163,26) , 15 , 1 , 1 , 1 );
 }
 
+#btnVN:hover {
+    -fx-text-fill: WHITE;
+    -fx-underline: true;
+}
+
+#btnUSUK:hover {
+    -fx-text-fill: WHITE;
+    -fx-underline: true;
+}
+
+
+#btnKorea:hover {
+    -fx-text-fill: WHITE;
+    -fx-underline: true;
+}
+
+
 #btnClose:hover ImageView {
     -fx-effect: innershadow( gaussian , red , 15 , 1 , 1 , 1 );
 }

@@ -23,22 +23,23 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Pane fx:id="pnlSelectedButton" layoutX="491.0" layoutY="2.5" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: rgb(255,163,26);" />
 
-      <Button layoutX="491.0" layoutY="2.5" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Việt Nam" textFill="WHITE">
+      <Button fx:id="btnVN" layoutX="491.0" layoutY="2.5" mnemonicParsing="false" onAction="#changeAreaChart" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Việt Nam" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="15.0" />
          </font>
       </Button>
 
       <Pane layoutX="591.0" layoutY="2.5" prefHeight="35.0" prefWidth="2.0" style="-fx-background-color: rgb(255,255,255);" />
-      <Button layoutX="593.0" layoutY="2.5" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="US-UK" textFill="WHITE">
+      <Button fx:id="btnUSUK" layoutX="593.0" layoutY="2.5" mnemonicParsing="false" onAction="#changeAreaChart" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="US-UK" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="15.0" />
          </font>
       </Button>
 
       <Pane layoutX="693.0" layoutY="2.5" prefHeight="35.0" prefWidth="2.0" style="-fx-background-color: rgb(255,255,255);" />
-      <Button layoutX="695.0" layoutY="2.5" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Korea" textFill="WHITE">
+      <Button fx:id="btnKorea" layoutX="695.0" layoutY="2.5" mnemonicParsing="false" onAction="#changeAreaChart" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Korea" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="15.0" />
          </font>
@@ -49,9 +50,25 @@
             <Image url="@../img/loading.gif" />
          </image>
       </ImageView>
-      <Pane fx:id="pnlContent" layoutY="40.0" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" visible="false">
+      <Pane fx:id="pnlContent" layoutY="40.0" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: transparent;">
          <children>
-            <Pane fx:id="pnlDropDownChart" prefHeight="525.0" prefWidth="2400.0" style="-fx-background-color: rgb(40,40,40);" />
+            <Pane fx:id="pnlDropDownChart" prefHeight="525.0" prefWidth="2400.0" style="-fx-background-color: transparent;">
+               <ScrollPane fx:id="spnlVN" hbarPolicy="NEVER" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                  <content>
+                     <FlowPane fx:id="fpnlVNItems" alignment="TOP_CENTER" columnHalignment="CENTER" maxHeight="Infinity" maxWidth="800.0" minHeight="0.0" prefWidth="800.0" prefWrapLength="800.0" style="-fx-background-color: rgb(40,40,40);" />
+                  </content>
+               </ScrollPane>
+               <ScrollPane fx:id="spnlUSUK" hbarPolicy="NEVER" layoutX="800.0" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                  <content>
+                     <FlowPane fx:id="fpnlUSUKItems" alignment="TOP_CENTER" columnHalignment="CENTER" maxHeight="Infinity" maxWidth="800.0" minHeight="0.0" prefWidth="800.0" prefWrapLength="800.0" style="-fx-background-color: rgb(40,40,40);" />
+                  </content>
+               </ScrollPane>
+               <ScrollPane fx:id="spnlKorea" hbarPolicy="NEVER" layoutX="1600.0" prefHeight="525.0" prefWidth="800.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                  <content>
+                     <FlowPane fx:id="fpnlKoreaItems" alignment="TOP_CENTER" columnHalignment="CENTER" maxHeight="Infinity" maxWidth="800.0" minHeight="0.0" prefWidth="800.0" prefWrapLength="800.0" style="-fx-background-color: rgb(40,40,40);" />
+                  </content>
+               </ScrollPane>
+            </Pane>
          </children></Pane>
    </children>
 </AnchorPane>

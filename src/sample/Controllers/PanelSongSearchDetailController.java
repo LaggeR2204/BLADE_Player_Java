@@ -49,7 +49,7 @@ public class PanelSongSearchDetailController {
             lblSongIndex.setTextFill(Color.ORANGE);
         }
         else if (songIndex == 2){
-            lblSongIndex.setTextFill(Color.GREEN);
+            lblSongIndex.setTextFill(Color.rgb(0,255,0));
         }
         else if (songIndex == 3){
             lblSongIndex.setTextFill(Color.CYAN);

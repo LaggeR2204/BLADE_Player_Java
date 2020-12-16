@@ -22,7 +22,10 @@ public class PanelHomeController {
     private Pane pnlChart;
 
     @FXML
-    private AnchorPane pnlMainHome;
+    private Pane pnlMainHome;
+
+    @FXML
+    private Pane pnlHomeBackground;
 
     @FXML
     public void initialize(){
@@ -40,16 +43,18 @@ public class PanelHomeController {
     }
 
     public void btnChart_Clicked(ActionEvent actionEvent) {
-        DoubleProperty pnlChartLayoutX = pnlChart.layoutXProperty();
-        javafx.animation.KeyValue pnlChartDropDown;
-        pnlChartDropDown = new javafx.animation.KeyValue(pnlChartLayoutX, 0);
-        new Timeline(new KeyFrame(Duration.seconds(0.5), pnlChartDropDown)).play();
+        pnlHomeBackground.toFront();
+        DoubleProperty pnlMainHomeLayoutX = pnlMainHome.layoutXProperty();
+        javafx.animation.KeyValue pnlMainHomeDropDown;
+        pnlMainHomeDropDown = new javafx.animation.KeyValue(pnlMainHomeLayoutX, -800);
+        new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainHomeDropDown)).play();
     }
 
     public void returnHome(){
-        DoubleProperty pnlChartLayoutX = pnlChart.layoutXProperty();
-        javafx.animation.KeyValue pnlChartDropDown;
-        pnlChartDropDown = new javafx.animation.KeyValue(pnlChartLayoutX, 800);
-        new Timeline(new KeyFrame(Duration.seconds(0.5), pnlChartDropDown)).play();
+        pnlHomeBackground.toFront();
+        DoubleProperty pnlMainHomeLayoutX = pnlMainHome.layoutXProperty();
+        javafx.animation.KeyValue pnlMainHomeDropDown;
+        pnlMainHomeDropDown = new javafx.animation.KeyValue(pnlMainHomeLayoutX, 0);
+        new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainHomeDropDown)).play();
     }
 }

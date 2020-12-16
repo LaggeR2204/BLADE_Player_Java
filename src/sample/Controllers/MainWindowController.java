@@ -188,9 +188,9 @@ public class MainWindowController {
                     System.out.print(e.toString());
                 }
             }
-//            else {
-//                //thong bao deo co mang
-//            }
+            else {
+                System.out.print("Khong co internet");
+            }
         }
     }
 
