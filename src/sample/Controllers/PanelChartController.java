@@ -16,7 +16,6 @@ import sample.ChartOnline;
 import sample.Song;
 
 import java.io.IOException;
-import java.text.RuleBasedCollator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +34,6 @@ public class PanelChartController {
 
     @FXML
     private Pane pnlSelectedButton;
-
-    @FXML
-    private Pane pnlContent;
 
     @FXML
     private Pane pnlDropDownChart;
@@ -68,12 +64,15 @@ public class PanelChartController {
         listSongUSUK = new ArrayList<Song>();
         listSongKorea = new ArrayList<Song>();
 
-
-        refreshFullChart();
+        refreshAllChart();
     }
 
     public void setParentController(PanelHomeController _panelHomeController){
         this.panelHomeController = _panelHomeController;
+    }
+
+    public void btnRefreshAll_Clicked(ActionEvent actionEvent){
+        refreshAllChart();
     }
 
     public void btnReturn_Clicked(ActionEvent actionEvent) {
@@ -232,90 +231,9 @@ public class PanelChartController {
         }).start();
     }
 
-    private void refreshFullChart(){
-        pnlContent.setVisible(false);
-        fpnlVNItems.setVisible(false);
-        fpnlUSUKItems.setVisible(false);
-        fpnlKoreaItems.setVisible(false);
-        fpnlVNItems.getChildren().clear();
-        fpnlUSUKItems.getChildren().clear();
-        fpnlKoreaItems.getChildren().clear();
-        listSongVN.clear();
-        listSongUSUK.clear();
-        listSongKorea.clear();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                listSongVN = chartOnline.crawlVietNamChart();
-                listSongUSUK = chartOnline.crawlUSUKChart();
-                listSongKorea = chartOnline.crawlKoreaChart();
-
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!listSongVN.isEmpty()){
-                            int songIndex = 1;
-                            for (Song item:listSongVN) {
-
-                                FXMLLoader loader = new FXMLLoader();
-                                loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
-
-                                try {
-                                    Pane newSongSearchDetail = (Pane) loader.load();
-                                    PanelSongSearchDetailController controller = loader.getController();
-                                    controller.setSongInfo(item, songIndex);
-                                    songIndex++;
-                                    fpnlVNItems.getChildren().add(newSongSearchDetail);
-                                } catch (IOException e) {
-                                    System.out.print(e.toString());
-                                }
-                            }
-                        }
-
-                        if (!listSongUSUK.isEmpty()){
-                            int songIndex = 1;
-                            for (Song item:listSongUSUK) {
-                                FXMLLoader loader = new FXMLLoader();
-                                loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
-
-                                try {
-                                    Pane newSongSearchDetail = (Pane) loader.load();
-                                    PanelSongSearchDetailController controller = loader.getController();
-                                    controller.setSongInfo(item, songIndex);
-                                    songIndex++;
-                                    fpnlUSUKItems.getChildren().add(newSongSearchDetail);
-                                } catch (IOException e) {
-                                    System.out.print(e.toString());
-                                }
-                            }
-                        }
-
-                        if (!listSongKorea.isEmpty()){
-                            int songIndex = 1;
-                            for (Song item:listSongKorea) {
-                                FXMLLoader loader = new FXMLLoader();
-                                loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
-
-                                try {
-                                    Pane newSongSearchDetail = (Pane) loader.load();
-                                    PanelSongSearchDetailController controller = loader.getController();
-                                    controller.setSongInfo(item, songIndex);
-                                    songIndex++;
-                                    fpnlKoreaItems.getChildren().add(newSongSearchDetail);
-                                } catch (IOException e) {
-                                    System.out.print(e.toString());
-                                }
-                            }
-                        }
-
-                        fpnlVNItems.setVisible(true);
-                        fpnlUSUKItems.setVisible(true);
-                        fpnlKoreaItems.setVisible(true);
-                        pnlContent.setVisible(true);
-                    }
-                });
-            }
-        }).start();
+    private void refreshAllChart(){
+        refreshVNChart();
+        refreshUSUKChart();
+        refreshKoreaChart();
     }
 }
