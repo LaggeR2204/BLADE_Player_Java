@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.SearchOnline;
-import sample.Song;
+import sample.Model.Song;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

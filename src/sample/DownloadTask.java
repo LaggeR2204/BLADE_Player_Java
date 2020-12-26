@@ -3,6 +3,7 @@ package sample;
 import javafx.concurrent.Task;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import sample.Model.Song;
 
 import java.io.*;
 import java.net.URL;

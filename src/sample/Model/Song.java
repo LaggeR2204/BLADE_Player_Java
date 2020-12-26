@@ -1,4 +1,4 @@
-package sample;
+package sample.Model;
 
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.ID3v2;
