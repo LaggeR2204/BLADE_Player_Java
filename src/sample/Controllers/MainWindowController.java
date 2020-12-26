@@ -17,15 +17,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import java.util.Timer;
+import javax.swing.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import javax.swing.JOptionPane;
+import sample.ExitAppTask;
 
 public class MainWindowController {
     private double xOffset = 0;
     private double yOffset = 0;
+    private Timer sTimer;
+    private ExitAppTask exitTask = new ExitAppTask();
+    private double sec;
     private String selectedButtonId = "btnHome";
     private PanelSearchController searchController;
 
@@ -52,6 +58,9 @@ public class MainWindowController {
 
     @FXML
     private Button btnTimer;
+
+    @FXML
+    private Button btnStopTimer;
 
     @FXML
     private Button btnAboutUs;
@@ -244,6 +253,73 @@ public class MainWindowController {
         selectedButtonId = btnTimer.getId();
         dropDownTimerPanel();
     }
+
+    public void btnStopTimer_Clicked(ActionEvent actionEvent)
+    {
+        sTimer.cancel();
+        btnTimer.setVisible(true);
+        btnStopTimer.setVisible(false);
+    }
+
+    public void btnTimer10m_Clicked (ActionEvent actionEvent)
+    {
+        if (sTimer!=null)
+            sTimer.cancel();
+        else {
+                sTimer = new Timer();
+                sTimer.schedule(exitTask, 600000);
+            }
+        dropDownTimerPanel();
+        btnStopTimer.setVisible(true);
+        btnTimer.setVisible(false);
+        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 10 phút","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+    }
+
+    public void btnTimer15m_Clicked (ActionEvent actionEvent)
+    {
+        if (sTimer!=null)
+            sTimer.cancel();
+        else
+        {
+            sTimer = new Timer();
+            sTimer.schedule(exitTask, 900000);
+        }
+        dropDownTimerPanel();
+        btnStopTimer.setVisible(true);
+        btnTimer.setVisible(false);
+        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 15 phút","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+    }
+
+    public void btnTimer30m_Clicked (ActionEvent actionEvent)
+    {
+        if (sTimer!=null)
+            sTimer.cancel();
+        else
+        {
+            sTimer = new Timer();
+            sTimer.schedule(exitTask, 1800000);
+        }
+        dropDownTimerPanel();
+        btnStopTimer.setVisible(true);
+        btnTimer.setVisible(false);
+        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 30 phút","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+    }
+
+    public void btnTimer1h_Clicked (ActionEvent actionEvent)
+    {
+        if (sTimer!=null)
+            sTimer.cancel();
+        else
+        {
+            sTimer = new Timer();
+            sTimer.schedule(exitTask, 3600000);
+        }
+        dropDownTimerPanel();
+        btnStopTimer.setVisible(true);
+        btnTimer.setVisible(false);
+        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 1 tiếng","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+    }
+
 
     public void btnAboutUs_Clicked(ActionEvent actionEvent) {
         setPnlSelectedButtonPosition(btnAboutUs);

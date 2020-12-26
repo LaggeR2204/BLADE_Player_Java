@@ -1,6 +1,15 @@
 package sample;
 
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import com.mpatric.mp3agic.Mp3File;
 
 public class Song {
 
@@ -9,6 +18,7 @@ public class Song {
     private String SongPath;
     private String Singer;
     private String Genre;
+    private String Album;
     private Image SongImage;
     private boolean IsFavorite;
     private String SongURL;
@@ -39,6 +49,13 @@ public class Song {
     public void setSinger(String singer) {
         Singer = singer;
     }
+    public String getAlbum() {
+        return Album;
+    }
+
+    public void setAlbum(String album) {
+        Album = album;
+    }
 
     public String getGenre() {
         return Genre;
@@ -50,6 +67,18 @@ public class Song {
 
     public Image getSongImage() {
         return SongImage;
+    }
+    public Image getImage(byte[] data)
+    {
+        try {
+            ByteArrayInputStream bis = new ByteArrayInputStream(data);
+            BufferedImage bImage = ImageIO.read(bis);
+            Image songImage = SwingFXUtils.toFXImage(bImage, null );
+            return songImage;
+        }
+        catch (Exception e) {
+        e.printStackTrace();}
+        return null;
     }
 
     public void setSongImage(Image songImage) {
@@ -85,5 +114,21 @@ public class Song {
     public Song() {
 
     }
+
+    public Song(File file) {
+        try {
+            setSongPath(file.getPath());
+            Mp3File mp3File = new Mp3File(file);
+            ID3v2 id3v2Tag = mp3File.getId3v2Tag();
+            setSongName(id3v2Tag.getTitle());
+            setSinger(id3v2Tag.getArtist());
+            setAlbum(id3v2Tag.getAlbum());
+            setGenre(id3v2Tag.getGenreDescription());
+            setSongImage(getImage(id3v2Tag.getAlbumImage()));
+        }
+        catch (Exception e) {
+            e.printStackTrace();}
+    }
+
     //endregion
 }
