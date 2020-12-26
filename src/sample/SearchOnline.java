@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import sample.Model.Song;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

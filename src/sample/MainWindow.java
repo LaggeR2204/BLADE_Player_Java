@@ -31,4 +31,9 @@ public class MainWindow extends Application {
             System.out.println(e.toString());
         }
     }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+    }
 }

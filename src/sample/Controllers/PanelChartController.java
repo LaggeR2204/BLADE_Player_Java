@@ -13,7 +13,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.ChartOnline;
-import sample.Song;
+import sample.Model.Song;
 
 import java.io.IOException;
 import java.util.ArrayList;
