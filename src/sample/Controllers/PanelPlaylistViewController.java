@@ -1,7 +1,7 @@
 package sample.Controllers;
 
 import javafx.fxml.FXML;
-import sample.Model.Playlist;
+import sample.model.Playlist;
 
 import java.awt.*;
 

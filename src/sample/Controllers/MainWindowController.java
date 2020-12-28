@@ -14,6 +14,7 @@ import javafx.event.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -114,6 +115,12 @@ public class MainWindowController {
     private JFXSlider sldMusic;
 
     @FXML
+    private Pane pnlNowPlaying;
+
+    @FXML
+    private Pane nowPlayingBar;
+
+    @FXML
     public void initialize()
     {
         try {
@@ -128,6 +135,8 @@ public class MainWindowController {
             pnlQueue.setLayoutY(565);
             pnlQueueSearchParent.getChildren().setAll( pnlQueue);
 
+
+
             pnlHome = FXMLLoader.load(getClass().getResource("../Views/PanelHome.fxml"));
             pnlPlaylist = FXMLLoader.load(getClass().getResource("../Views/PanelPlaylist.fxml"));
             pnlCutter = FXMLLoader.load(getClass().getResource("../Views/PanelCutter.fxml"));
@@ -141,6 +150,10 @@ public class MainWindowController {
             pnlMain.getChildren().setAll(pnlHome, pnlPlaylist, pnlCutter, pnlConverter, pnlAboutUs);
 
             switchMainPanel(btnHome.getId());
+            //Pane now playing
+            nowPlayingBar = FXMLLoader.load(getClass().getResource("../Views/PanelNowPlaying.fxml"));
+            pnlNowPlaying.getChildren().setAll(nowPlayingBar);
+            //
         }
         catch (Exception e) {
             System.out.println(e.toString());

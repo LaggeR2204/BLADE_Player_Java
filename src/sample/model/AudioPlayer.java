@@ -3,15 +3,16 @@ package sample.model;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
-public class AudioPlayer implements LineListener {
+public class AudioPlayer {
     public static int STATUS_NONE = 0;
     public static int STATUS_PLAY = 1;
     public static int STATUS_PAUSE = 2;
 
     private static AudioPlayer _instance;
 
-    public static AudioPlayer getInstance() {
+    public static AudioPlayer getInstance() throws LineUnavailableException {
         if (_instance == null)
             _instance = new AudioPlayer();
         return _instance;
@@ -26,24 +27,29 @@ public class AudioPlayer implements LineListener {
 
     AudioInputStream audioInputStream;
 
-    private AudioPlayer() {
+    private AudioPlayer() throws LineUnavailableException {
+        status = STATUS_NONE;
+        currentFrame = 0L;
+        // create clip reference
+        clip = AudioSystem.getClip();
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public Song getSong() {
+        return song;
     }
 
     public void changeAudio(Song song) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         this.song = song;
+        if(status != STATUS_NONE) {
+            stop();
+        }
 
-        // create AudioInputStream object
-        audioInputStream =
-                AudioSystem.getAudioInputStream(new File(song.getSongPath()).getAbsoluteFile());
-
-        // create clip reference
-        clip = AudioSystem.getClip();
-        clip.addLineListener(this);
-
-        // open audioInputStream to the clip
-        clip.open(audioInputStream);
-
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        resetAudioStream();
+        play();
     }
 
     // Method to play the audio
@@ -96,14 +102,15 @@ public class AudioPlayer implements LineListener {
         currentFrame = 0L;
         clip.stop();
         clip.close();
+        clip.flush();
+        status = STATUS_NONE;
     }
 
     // Method to jump over a specific part
     public void jump(long c) throws UnsupportedAudioFileException, IOException,
             LineUnavailableException {
-        if (c > 0 && c < clip.getMicrosecondLength()) {
-            clip.stop();
-            clip.close();
+        if (c >= 0 && c < clip.getMicrosecondLength()) {
+            stop();
             resetAudioStream();
             currentFrame = c;
             clip.setMicrosecondPosition(c);
@@ -117,16 +124,27 @@ public class AudioPlayer implements LineListener {
         audioInputStream = AudioSystem.getAudioInputStream(
                 new File(song.getSongPath()).getAbsoluteFile());
         clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
-    @Override
-    public void update(LineEvent event) {
     }
 
     public void addLineEventListenerForClip(LineListener listener) {
         if (clip != null) {
             clip.addLineListener(listener);
         }
+    }
+
+    public int getCurrentSecondDuration() {
+        if(clip != null && clip.isRunning())
+        {
+            return (int) (clip.getMicrosecondPosition() / 1000000);
+        }
+        return -1;
+    }
+
+    public int getTotalSecondDuration() {
+        if(clip != null)
+        {
+            return (int) (clip.getMicrosecondLength() / 1000000);
+        }
+        return -1;
     }
 }

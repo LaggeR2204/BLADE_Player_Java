@@ -2,7 +2,7 @@ package sample.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
-import sample.Model.Library;
+import sample.model.Library;
 
 
 public class PanelPlaylistController {
