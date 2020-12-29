@@ -8,10 +8,8 @@
 
 <AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelPlaylistController">
    <children>
-      <FlowPane id="fpnlListPL" layoutY="40.0" prefHeight="525.0" prefWidth="180.0">
-         <children>
-            <Pane layoutX="179.0" layoutY="0.0" prefHeight="525.0" prefWidth="1.0" style="-fx-background-color: gray;" />
-         </children></FlowPane>
+      <FlowPane fx:id="fpnlListPL" layoutY="40.0" prefHeight="525.0" prefWidth="180.0">
+         </FlowPane>
       <Pane layoutX="180.0" layoutY="40.0" prefHeight="525.0" prefWidth="620.0" />
       <Label layoutX="10.0" layoutY="10.0" text="PLAYLISTS" textFill="WHITE">
          <font>
