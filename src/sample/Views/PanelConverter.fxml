@@ -14,7 +14,7 @@
     </Label>
    <Pane layoutY="120.0" prefHeight="230.0" prefWidth="800.0">
       <children>
-         <ImageView  fx:id="ivAlbumImg" fitHeight="200.0" fitWidth="200.0" layoutX="150.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="ivAlbumImg" fitHeight="200.0" fitWidth="200.0" layoutX="150.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
           <Label layoutX="360.0" layoutY="53.0" prefHeight="35.0" prefWidth="100.0" text="Name:" textFill="WHITE">
               <font>
                   <Font name="Century Gothic" size="18.0" />
@@ -70,25 +70,7 @@
                    </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="259.0" layoutY="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="To WAV" textFill="WHITE">
-         <font>
-            <Font name="Century Gothic" size="18.0" />
-         </font>
-      </Button>
-      <Pane layoutX="399.0" layoutY="60.0" prefHeight="40.0" prefWidth="2.0" style="-fx-background-color: rgb(255,255,255);" />
-      <Button layoutX="401.0" layoutY="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="To AAC" textFill="WHITE">
-         <font>
-            <Font name="Century Gothic" size="18.0" />
-         </font>
-      </Button>
-      <Pane layoutX="257.0" layoutY="60.0" prefHeight="40.0" prefWidth="2.0" style="-fx-background-color: rgb(255,255,255);" />
-      <Pane layoutX="541.0" layoutY="60.0" prefHeight="40.0" prefWidth="2.0" style="-fx-background-color: rgb(255,255,255);" />
-      <Button layoutX="117.0" layoutY="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="To MP3" textFill="WHITE">
-         <font>
-            <Font name="Century Gothic" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="543.0" layoutY="60.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="To WMA" textFill="WHITE">
+      <Button layoutX="331.0" layoutY="68.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="MP3 To WAV" textFill="WHITE">
          <font>
             <Font name="Century Gothic" size="18.0" />
          </font>
