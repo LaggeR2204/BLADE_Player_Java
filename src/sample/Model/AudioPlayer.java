@@ -1,5 +1,8 @@
 package sample.Model;
 
+
+import sample.helper.Helper;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +32,6 @@ public class AudioPlayer {
     private AudioPlayer() throws LineUnavailableException {
         status = STATUS_NONE;
         currentFrame = 0L;
-        // create clip reference
         clip = AudioSystem.getClip();
     }
 
@@ -46,7 +48,6 @@ public class AudioPlayer {
         if(status != STATUS_NONE) {
             stop();
         }
-
         resetAudioStream();
         play();
     }
@@ -120,8 +121,7 @@ public class AudioPlayer {
     // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
             LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(
-                new File(song.getSongPath()).getAbsoluteFile());
+        audioInputStream = Helper.getStreamFromFile(song.getSongPath());
         clip.open(audioInputStream);
     }
 

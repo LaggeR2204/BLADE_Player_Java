@@ -106,7 +106,7 @@
                             <Cursor fx:constant="HAND"/>
                         </cursor>
                     </Button>
-                    <Button fx:id="btnVolume" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="585.0"
+                    <Button onAction="#setBtnVolume_Clicked" fx:id="btnVolume" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="585.0"
                             layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"
                             style="-fx-background-color: transparent" textFill="#00000005">
                         <cursor>

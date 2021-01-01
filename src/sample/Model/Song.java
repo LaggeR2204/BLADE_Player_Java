@@ -5,9 +5,15 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+
 import com.mpatric.mp3agic.Mp3File;
 
 public class Song {
@@ -128,6 +134,5 @@ public class Song {
         catch (Exception e) {
             e.printStackTrace();}
     }
-
     //endregion
 }

@@ -6,9 +6,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import sample.audioInterface.INowSongChangeListener;
 import sample.Model.AudioPlayer;
 import sample.Model.AudioQueue;
@@ -16,6 +19,7 @@ import sample.Model.Song;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
 import java.io.IOException;
 
 public class NowPlayingController implements INowSongChangeListener {
@@ -148,6 +152,19 @@ public class NowPlayingController implements INowSongChangeListener {
         } else if (audioPlayer.getStatus() == AudioPlayer.STATUS_PAUSE) {
             audioPlayer.play();
             createPlayThread();
+        } else{
+            try {
+                Song song = audioQueue.nextSong();
+                audioPlayer.changeAudio(song);
+                setDisplayData(song);
+                createPlayThread();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -163,6 +180,16 @@ public class NowPlayingController implements INowSongChangeListener {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setBtnVolume_Clicked(ActionEvent actionEvent) {
+        Node node = (Node) actionEvent.getSource();
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog((Stage) node.getScene().getWindow());
+        Song song = new Song(file);
+        audioQueue.addQueue(song);
     }
 
     public void setBtnPreSong_Clicked(ActionEvent actionEvent) {
