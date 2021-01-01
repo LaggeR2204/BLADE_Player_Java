@@ -9,15 +9,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import sample.model.AudioPlayer;
-import sample.model.AudioQueue;
-import sample.model.Song;
+import sample.audioInterface.INowSongChangeListener;
+import sample.Model.AudioPlayer;
+import sample.Model.AudioQueue;
+import sample.Model.Song;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
-public class NowPlayingController {
+public class NowPlayingController implements INowSongChangeListener {
     @FXML
     private ImageView imvCoverArt;
 
@@ -66,29 +67,32 @@ public class NowPlayingController {
             e.printStackTrace();
         }
         initEventListener();
-        Song song = new Song();
-        song.setSongPath("D:\\Music\\US-UK\\Lemon Tree - Fools Garden.wav");
-        Song song1 = new Song();
-        song1.setSongPath("D:\\Music\\US-UK\\On My Way - Alan Walker_ Sabrina Carpent.wav");
-        Song song2 = new Song();
-        song2.setSongPath("D:\\Music\\US-UK\\Can We Kiss Forever_ - Kina_ Adriana Pro.wav");
-        audioQueue.addQueue(song);
-        audioQueue.addQueue(song1);
-        audioQueue.addQueue(song2);
-        try {
-            audioPlayer.changeAudio(audioQueue.nextSong());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        setDisplayData(song);
-        createPlayThread();
+//        Song song0 = new Song();
+//        song0.setSongPath("D:\\Music\\US-UK\\Lemon Tree - Fools Garden.mp3");
+//        Song song = new Song();
+//        song.setSongPath("D:\\Music\\US-UK\\Lemon Tree - Fools Garden.wav");
+//        Song song1 = new Song();
+//        song1.setSongPath("D:\\Music\\US-UK\\On My Way - Alan Walker_ Sabrina Carpent.wav");
+//        Song song2 = new Song();
+//        song2.setSongPath("D:\\Music\\US-UK\\Can We Kiss Forever_ - Kina_ Adriana Pro.wav");
+//        //audioQueue.addQueue(song0);
+//        audioQueue.addQueue(song);
+//        audioQueue.addQueue(song1);
+//        audioQueue.addQueue(song2);
+//        try {
+//            audioPlayer.changeAudio(audioQueue.nextSong());
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        } catch (UnsupportedAudioFileException e) {
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        } catch (LineUnavailableException e) {
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        }
+//        setDisplayData(song);
+//        createPlayThread();
     }
     private void initEventListener(){
         sldMusic.valueProperty().addListener(new ChangeListener<Number>() {
@@ -109,6 +113,7 @@ public class NowPlayingController {
                 }
             }
         });
+        audioQueue.addNowSongChangeListener(this);
     }
     private void createPlayThread() {
         playingThread = new Thread() {
@@ -196,5 +201,10 @@ public class NowPlayingController {
             return totalNew;
         }
         return totalOut;
+    }
+
+    @Override
+    public void onNowSongChangeListener(Object sender, Song newSong) {
+        setDisplayData(newSong);
     }
 }

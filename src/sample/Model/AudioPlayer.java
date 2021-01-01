@@ -1,9 +1,8 @@
-package sample.model;
+package sample.Model;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class AudioPlayer {
     public static int STATUS_NONE = 0;

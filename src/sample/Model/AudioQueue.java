@@ -1,8 +1,14 @@
-package sample.model;
+package sample.Model;
+
+import sample.audioInterface.INowSongChangeListener;
+import sample.audioInterface.IQueueChangeListener;
 
 import java.util.*;
 
 public class AudioQueue {
+    //listener
+    private ArrayList<IQueueChangeListener> queueListeners;
+    private ArrayList<INowSongChangeListener> nowSongListeners;
     private ArrayList<Song> queue;
     private int currentSongPos;
     private boolean isShuffle, isRepeat;
@@ -17,6 +23,9 @@ public class AudioQueue {
 
     private AudioQueue() {
         queue = new ArrayList<>();
+        queueListeners = new ArrayList<>();
+        nowSongListeners = new ArrayList<>();
+
         isRepeat = false;
         isShuffle = false;
         currentSongPos = -1;
@@ -24,7 +33,7 @@ public class AudioQueue {
 
     //check if current position is valid
     public boolean isValidPosition(int pos) {
-        if(pos >=0 && pos < queue.size())
+        if (pos >= 0 && pos < queue.size())
             return true;
         return false;
     }
@@ -45,8 +54,11 @@ public class AudioQueue {
         } else if (!isShuffle && !isRepeat) {
             currentSongPos = (currentSongPos + 1) % queue.size();
         }
-        if (isValidPosition(currentSongPos))
+        if (isValidPosition(currentSongPos)) {
+            NotifyNowSongChange();
             return queue.get(currentSongPos);
+        }
+
         return null;
     }
 
@@ -59,8 +71,11 @@ public class AudioQueue {
         } else if (!isShuffle && !isRepeat) {
             currentSongPos = (currentSongPos - 1 + queue.size()) % queue.size();
         }
-        if (isValidPosition(currentSongPos))
+        if (isValidPosition(currentSongPos)) {
+            NotifyNowSongChange();
             return queue.get(currentSongPos);
+        }
+
         return null;
     }
 
@@ -70,28 +85,69 @@ public class AudioQueue {
     }
 
     //clear all queue
-    public void clearQueue(){
-        queue.clear();
+    public void clearQueue() {
+        if (queue.size() > 0) {
+            queue.clear();
+            NotifyQueueChange();
+        }
     }
 
     //add a list of song to queue
-    public void addQueue(ArrayList<Song> addList){
+    public void addQueue(ArrayList<Song> addList) {
         for (Song song : addList) {
-            if(!queue.contains(song))
+            if (!queue.contains(song)){
                 queue.add(song);
+                NotifyQueueChange();
+            }
+
         }
     }
 
     //add a song to queue
     public void addQueue(Song song) {
-        if(!queue.contains(song))
+        if (!queue.contains(song)) {
             queue.add(song);
+            NotifyQueueChange();
+        }
+
     }
 
     //remove a song from queue
     public void removeQueue(Song song) {
-        if(queue.contains(song)) {
+        if (queue.contains(song)) {
             queue.remove(song);
         }
+    }
+
+    //add and remove listener
+    public void addQueueChangeListener(IQueueChangeListener listener) {
+        if (!queueListeners.contains(listener))
+            queueListeners.add(listener);
+    }
+
+    public void removeQueueChangeListener(IQueueChangeListener listener) {
+        if (queueListeners.contains(listener))
+            queueListeners.remove(listener);
+    }
+
+    public void addNowSongChangeListener(INowSongChangeListener listener) {
+        if (!nowSongListeners.contains(listener))
+            nowSongListeners.add(listener);
+    }
+
+    public void removeNowSongChangeListener(INowSongChangeListener listener) {
+        if (nowSongListeners.contains(listener))
+            nowSongListeners.remove(listener);
+    }
+
+    //Notify to listener
+    public void NotifyQueueChange() {
+        for (IQueueChangeListener ls : queueListeners)
+            ls.onQueueChangeListener(this, queue);
+    }
+
+    public void NotifyNowSongChange() {
+        for (INowSongChangeListener ls : nowSongListeners)
+            ls.onNowSongChangeListener(this, getCurrentSong());
     }
 }
