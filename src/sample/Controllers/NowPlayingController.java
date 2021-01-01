@@ -16,11 +16,14 @@ import sample.audioInterface.INowSongChangeListener;
 import sample.Model.AudioPlayer;
 import sample.Model.AudioQueue;
 import sample.Model.Song;
+import sample.helper.Helper;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
+
+import static sample.helper.Helper.formattedTime;
 
 public class NowPlayingController implements INowSongChangeListener {
     @FXML
@@ -71,39 +74,14 @@ public class NowPlayingController implements INowSongChangeListener {
             e.printStackTrace();
         }
         initEventListener();
-//        Song song0 = new Song();
-//        song0.setSongPath("D:\\Music\\US-UK\\Lemon Tree - Fools Garden.mp3");
-//        Song song = new Song();
-//        song.setSongPath("D:\\Music\\US-UK\\Lemon Tree - Fools Garden.wav");
-//        Song song1 = new Song();
-//        song1.setSongPath("D:\\Music\\US-UK\\On My Way - Alan Walker_ Sabrina Carpent.wav");
-//        Song song2 = new Song();
-//        song2.setSongPath("D:\\Music\\US-UK\\Can We Kiss Forever_ - Kina_ Adriana Pro.wav");
-//        //audioQueue.addQueue(song0);
-//        audioQueue.addQueue(song);
-//        audioQueue.addQueue(song1);
-//        audioQueue.addQueue(song2);
-//        try {
-//            audioPlayer.changeAudio(audioQueue.nextSong());
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//        } catch (UnsupportedAudioFileException e) {
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//        } catch (LineUnavailableException e) {
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//        }
-//        setDisplayData(song);
-//        createPlayThread();
+        setDisplayData(null);
     }
-    private void initEventListener(){
+
+    private void initEventListener() {
         sldMusic.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldNum, Number newNum) {
-                if(newNum.intValue() - oldNum.intValue() > 1 || newNum.intValue() < oldNum.intValue())
-                {
+                if (newNum.intValue() - oldNum.intValue() > 1 || newNum.intValue() < oldNum.intValue()) {
                     try {
                         audioPlayer.jump(newNum.longValue() * 1000000);
                         lbCurrentDuration.setText(formattedTime(newNum.intValue()));
@@ -119,6 +97,7 @@ public class NowPlayingController implements INowSongChangeListener {
         });
         audioQueue.addNowSongChangeListener(this);
     }
+
     private void createPlayThread() {
         playingThread = new Thread() {
             @Override
@@ -152,12 +131,15 @@ public class NowPlayingController implements INowSongChangeListener {
         } else if (audioPlayer.getStatus() == AudioPlayer.STATUS_PAUSE) {
             audioPlayer.play();
             createPlayThread();
-        } else{
+        } else {
             try {
                 Song song = audioQueue.nextSong();
-                audioPlayer.changeAudio(song);
+                if(song != null)
+                {
+                    audioPlayer.changeAudio(song);
+                    createPlayThread();
+                }
                 setDisplayData(song);
-                createPlayThread();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (UnsupportedAudioFileException e) {
@@ -170,9 +152,13 @@ public class NowPlayingController implements INowSongChangeListener {
 
     public void setBtnNextSong_Clicked(ActionEvent actionEvent) {
         try {
-            Song next = audioQueue.nextSong();
-            audioPlayer.changeAudio(next);
-            setDisplayData(next);
+            Song song = audioQueue.nextSong();
+            if(song != null)
+            {
+                audioPlayer.changeAudio(song);
+                createPlayThread();
+            }
+            setDisplayData(song);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {
@@ -185,18 +171,42 @@ public class NowPlayingController implements INowSongChangeListener {
     public void setBtnVolume_Clicked(ActionEvent actionEvent) {
         Node node = (Node) actionEvent.getSource();
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
-        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav"));
         File file = fileChooser.showOpenDialog((Stage) node.getScene().getWindow());
-        Song song = new Song(file);
-        audioQueue.addQueue(song);
+        Thread thr = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                Song song;
+                if (Helper.getFileExtension(file).equals("mp3")) {
+                    song = new Song(file);
+                } else {
+                    song = new Song();
+                    song.setSongPath(file.getPath());
+                    try {
+                        song.loadData();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedAudioFileException e) {
+                        e.printStackTrace();
+                    }
+                }
+                audioQueue.addQueue(song);
+            }
+        };
+        thr.start();
     }
 
     public void setBtnPreSong_Clicked(ActionEvent actionEvent) {
         try {
-            Song next = audioQueue.preSong();
-            audioPlayer.changeAudio(next);
-            setDisplayData(next);
+            Song song = audioQueue.preSong();
+            if(song != null)
+            {
+                audioPlayer.changeAudio(song);
+                createPlayThread();
+            }
+            setDisplayData(song);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {
@@ -205,9 +215,21 @@ public class NowPlayingController implements INowSongChangeListener {
             e.printStackTrace();
         }
     }
+
     private void setDisplayData(Song song) {
-        lbArtist.setText(song.getSongPath());
-        lbSongName.setText(song.getSongPath());
+        if(song == null)
+        {
+            lbArtist.setText("...");
+            lbSongName.setText("...");
+            imvCoverArt.setImage(null);
+            lbCurrentDuration.setText("...");
+            lbTotalDuration.setText("...");
+            sldMusic.setDisable(true);
+            return;
+        }
+        lbArtist.setText(song.getSinger());
+        lbSongName.setText(song.getSongName());
+        imvCoverArt.setImage(song.getSongImage());
         String cur = formattedTime(0);
         int totalDuration = audioPlayer.getTotalSecondDuration();
         String total = formattedTime(totalDuration);
@@ -215,20 +237,9 @@ public class NowPlayingController implements INowSongChangeListener {
         lbTotalDuration.setText(total);
         sldMusic.setMax(totalDuration);
         sldMusic.setValue(0);
+        sldMusic.setDisable(false);
     }
 
-    private String formattedTime(int mCurrentPosition) {
-        String totalOut;
-        String totalNew;
-        String seconds = String.valueOf(mCurrentPosition % 60);
-        String minutes = String.valueOf(mCurrentPosition / 60);
-        totalOut = minutes + ":" + seconds;
-        totalNew = minutes + ":0" + seconds;
-        if (seconds.length() == 1) {
-            return totalNew;
-        }
-        return totalOut;
-    }
 
     @Override
     public void onNowSongChangeListener(Object sender, Song newSong) {

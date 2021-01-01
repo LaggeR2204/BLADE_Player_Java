@@ -1,20 +1,13 @@
 package sample.Model;
 
 import com.mpatric.mp3agic.ID3v2;
-import javafx.embed.swing.SwingFXUtils;
+import com.mpatric.mp3agic.Mp3File;
 import javafx.scene.image.Image;
+import sample.helper.Helper;
 
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-
-import com.mpatric.mp3agic.Mp3File;
 
 public class Song {
 
@@ -28,9 +21,15 @@ public class Song {
     private boolean IsFavorite;
     private String SongURL;
     private int SongNumber;
+    private byte[] data;
+
     //endregion
 
     //region Get_Set_Properties
+    public byte[] getData() {
+        return data;
+    }
+
     public String getSongName() {
         return SongName;
     }
@@ -54,6 +53,7 @@ public class Song {
     public void setSinger(String singer) {
         Singer = singer;
     }
+
     public String getAlbum() {
         return Album;
     }
@@ -72,18 +72,6 @@ public class Song {
 
     public Image getSongImage() {
         return SongImage;
-    }
-    public Image getImage(byte[] data)
-    {
-        try {
-            ByteArrayInputStream bis = new ByteArrayInputStream(data);
-            BufferedImage bImage = ImageIO.read(bis);
-            Image songImage = SwingFXUtils.toFXImage(bImage, null );
-            return songImage;
-        }
-        catch (Exception e) {
-        e.printStackTrace();}
-        return null;
     }
 
     public void setSongImage(Image songImage) {
@@ -117,7 +105,16 @@ public class Song {
 
     //region Constructor
     public Song() {
-
+        SongName = "";
+        SongPath = "";
+        Singer = "";
+        Genre = "";
+        Album = "";
+        SongImage = null;
+        IsFavorite = false;
+        SongURL = "";
+        SongNumber = -1;
+        data = null;
     }
 
     public Song(File file) {
@@ -129,10 +126,16 @@ public class Song {
             setSinger(id3v2Tag.getArtist());
             setAlbum(id3v2Tag.getAlbum());
             setGenre(id3v2Tag.getGenreDescription());
-            setSongImage(getImage(id3v2Tag.getAlbumImage()));
+            setSongImage(Helper.getImage(id3v2Tag.getAlbumImage()));
+            data = Helper.readMP3AudioFileData(file);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) {
-            e.printStackTrace();}
+    }
+
+    public void loadData() throws IOException, UnsupportedAudioFileException {
+        byte[] temp = Helper.readWAVAudioFileData(this.SongPath);
+        data = temp;
     }
     //endregion
 }

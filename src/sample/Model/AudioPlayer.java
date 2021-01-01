@@ -4,6 +4,7 @@ package sample.Model;
 import sample.helper.Helper;
 
 import javax.sound.sampled.*;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -45,7 +46,7 @@ public class AudioPlayer {
 
     public void changeAudio(Song song) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         this.song = song;
-        if(status != STATUS_NONE) {
+        if (status != STATUS_NONE) {
             stop();
         }
         resetAudioStream();
@@ -121,7 +122,9 @@ public class AudioPlayer {
     // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
             LineUnavailableException {
-        audioInputStream = Helper.getStreamFromFile(song.getSongPath());
+        byte[] data = song.getData();
+        ByteArrayInputStream bais = new ByteArrayInputStream(data);
+        audioInputStream = new AudioInputStream(bais, Helper.getPCMFormat(), data.length / 4);
         clip.open(audioInputStream);
     }
 
@@ -132,16 +135,14 @@ public class AudioPlayer {
     }
 
     public int getCurrentSecondDuration() {
-        if(clip != null && clip.isRunning())
-        {
+        if (clip != null && clip.isRunning()) {
             return (int) (clip.getMicrosecondPosition() / 1000000);
         }
         return -1;
     }
 
     public int getTotalSecondDuration() {
-        if(clip != null)
-        {
+        if (clip != null) {
             return (int) (clip.getMicrosecondLength() / 1000000);
         }
         return -1;
