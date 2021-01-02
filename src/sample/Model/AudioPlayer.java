@@ -5,7 +5,6 @@ import sample.helper.Helper;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 
 public class AudioPlayer {
@@ -146,5 +145,19 @@ public class AudioPlayer {
             return (int) (clip.getMicrosecondLength() / 1000000);
         }
         return -1;
+    }
+
+    public void setVolume(final float volume) {
+        if (status != AudioPlayer.STATUS_NONE) {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            float max = gainControl.getMaximum();
+            float min = gainControl.getMinimum();
+            float range = max - min;
+            max = max - range * 20 / 100;
+            min = min + range * 50 / 100;
+            range = max - min;
+            float gain = (range * volume) + min;
+            gainControl.setValue(gain);
+        }
     }
 }
