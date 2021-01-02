@@ -14,6 +14,7 @@ import javafx.event.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -114,6 +115,12 @@ public class MainWindowController {
     private JFXSlider sldMusic;
 
     @FXML
+    private Pane pnlNowPlaying;
+
+    @FXML
+    private Pane nowPlayingBar;
+
+    @FXML
     public void initialize()
     {
         try {
@@ -128,6 +135,8 @@ public class MainWindowController {
             pnlQueue.setLayoutY(565);
             pnlQueueSearchParent.getChildren().setAll( pnlQueue);
 
+
+
             pnlHome = FXMLLoader.load(getClass().getResource("../Views/PanelHome.fxml"));
             pnlPlaylist = FXMLLoader.load(getClass().getResource("../Views/PanelPlaylist.fxml"));
             pnlCutter = FXMLLoader.load(getClass().getResource("../Views/PanelCutter.fxml"));
@@ -141,6 +150,10 @@ public class MainWindowController {
             pnlMain.getChildren().setAll(pnlHome, pnlPlaylist, pnlCutter, pnlConverter, pnlAboutUs);
 
             switchMainPanel(btnHome.getId());
+            //Pane now playing
+            nowPlayingBar = FXMLLoader.load(getClass().getResource("../Views/PanelNowPlaying.fxml"));
+            pnlNowPlaying.getChildren().setAll(nowPlayingBar);
+            //
         }
         catch (Exception e) {
             System.out.println(e.toString());
@@ -385,7 +398,7 @@ public class MainWindowController {
         javafx.animation.KeyValue pnlQueueSearchParentDropDown;
         if (isDropDownQueue){
             pnlQueueSearchParentDropDown = new javafx.animation.KeyValue(pnlQueueSearchParentLayoutY, 0);
-            Timeline tl = new Timeline(new KeyFrame(Duration.seconds(0.5), pnlQueueSearchParentDropDown));
+            Timeline tl = new Timeline(new KeyFrame(Duration.seconds(0.25), pnlQueueSearchParentDropDown));
             tl.play();
             tl.onFinishedProperty().set(new EventHandler<ActionEvent>() {
                 @Override
@@ -398,7 +411,7 @@ public class MainWindowController {
         else {
             pnlQueueSearchParent.toFront();
             pnlQueueSearchParentDropDown = new javafx.animation.KeyValue(pnlQueueSearchParentLayoutY, -565);
-            new Timeline(new KeyFrame(Duration.seconds(0.5), pnlQueueSearchParentDropDown)).play();
+            new Timeline(new KeyFrame(Duration.seconds(0.25), pnlQueueSearchParentDropDown)).play();
             pnlSelectedButton.setVisible(false);
         }
         isDropDownQueue = !isDropDownQueue;
