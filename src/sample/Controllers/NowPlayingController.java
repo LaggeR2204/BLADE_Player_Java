@@ -26,6 +26,7 @@ import java.io.IOException;
 import static sample.helper.Helper.formattedTime;
 
 public class NowPlayingController implements INowSongChangeListener {
+    private MainWindowController parent;
     @FXML
     private ImageView imvCoverArt;
 
@@ -95,9 +96,18 @@ public class NowPlayingController implements INowSongChangeListener {
                 }
             }
         });
+        sldVolume.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldNum, Number newNum) {
+                audioPlayer.setVolume(newNum.floatValue() / 100);
+            }
+        });
         audioQueue.addNowSongChangeListener(this);
     }
 
+    public void setParentController(final MainWindowController parent) {
+        this.parent = parent;
+    }
     private void createPlayThread() {
         playingThread = new Thread() {
             @Override
@@ -137,6 +147,7 @@ public class NowPlayingController implements INowSongChangeListener {
                 if(song != null)
                 {
                     audioPlayer.changeAudio(song);
+                    sldVolume.setValue(100);
                     createPlayThread();
                 }
                 setDisplayData(song);
@@ -225,6 +236,8 @@ public class NowPlayingController implements INowSongChangeListener {
             lbCurrentDuration.setText("...");
             lbTotalDuration.setText("...");
             sldMusic.setDisable(true);
+            sldVolume.setMax(100);
+            sldVolume.setMin(0);
             return;
         }
         lbArtist.setText(song.getSinger());
@@ -240,7 +253,9 @@ public class NowPlayingController implements INowSongChangeListener {
         sldMusic.setDisable(false);
     }
 
-
+    public void setBtnQueue_Clicked(ActionEvent actionEvent) {
+        this.parent.dropDownQueuePanel();
+    }
     @Override
     public void onNowSongChangeListener(Object sender, Song newSong) {
         setDisplayData(newSong);

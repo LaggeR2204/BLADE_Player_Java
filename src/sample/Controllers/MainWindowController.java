@@ -35,7 +35,7 @@ public class MainWindowController {
     private double sec;
     private String selectedButtonId = "btnHome";
     private PanelSearchController searchController;
-
+    private NowPlayingController nowPlayingController;
     @FXML
     private Pane pnlLogo;
 
@@ -151,7 +151,12 @@ public class MainWindowController {
 
             switchMainPanel(btnHome.getId());
             //Pane now playing
-            nowPlayingBar = FXMLLoader.load(getClass().getResource("../Views/PanelNowPlaying.fxml"));
+            loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../Views/PanelNowPlaying.fxml"));
+            //nowPlayingBar = FXMLLoader.load();
+            nowPlayingBar = loader.load();
+            nowPlayingController = loader.getController();
+            nowPlayingController.setParentController(this);
             pnlNowPlaying.getChildren().setAll(nowPlayingBar);
             //
         }
