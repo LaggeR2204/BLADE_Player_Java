@@ -8,13 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import sample.Converter;
+import sample.Editor;
 import sample.Model.Song;
-import com.mpatric.mp3agic.Mp3File;
 
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import java.io.File;
 
 public class PanelConverterController {
@@ -56,7 +52,7 @@ public class PanelConverterController {
         File file = fileChooser.showSaveDialog((Stage) node.getScene().getWindow());
         oFile = file;
         try {
-            Converter.mp3ToWav(iFile,oFile.getAbsolutePath());
+            Editor.mp3ToWav(iFile, oFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }
