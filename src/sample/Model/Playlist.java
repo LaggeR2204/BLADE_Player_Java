@@ -1,21 +1,20 @@
 package sample.Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Playlist {
 
     private String PlaylistName;
-    //private List<Song> ListSong;
+    private List<Song> ListSong;
     private boolean Deletable;
 
-//    public List<Song> getListSong() {
-//        return ListSong;
-//    }
-//
-//    public void setListSong(List<Song> listSong) {
-//        ListSong = listSong;
-//    }
+    public List<Song> getListSong() {
+        return ListSong;
+    }
+
+    public void setListSong(List<Song> listSong) {
+        ListSong = listSong;
+    }
 
     public String getPlaylistName() {
         return PlaylistName;
@@ -33,13 +32,17 @@ public class Playlist {
         Deletable = deletable;
     }
 
+    public void addSongToPL(Song song) {
+        this.ListSong.add(song);
+    }
+
     public Playlist() {
 
     }
 
     public Playlist(String name, boolean deletable) {
         PlaylistName = name;
-        //ListSong = null;
+        ListSong = new ArrayList<Song>();
         Deletable = deletable;
     }
 }

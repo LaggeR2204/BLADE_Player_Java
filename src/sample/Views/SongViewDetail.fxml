@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="40.0" prefWidth="620.0" style="-fx-background-color: rgb(35,35,35);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelSongViewDetailController">
+   <children>
+      <Button fx:id="btnPlaySong" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
+          <graphic>
+              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../img/play_60px.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
+      <Button fx:id="btnFavoriteSong" layoutX="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
+          <graphic>
+              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../img/love_30px.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
+      <Label fx:id="lblSongName" layoutX="86.0" layoutY="12.0" maxHeight="16.0" maxWidth="171.0" minHeight="0.0" minWidth="0.0" prefHeight="16.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="Song Name" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="13.0" />
+         </font></Label>
+      <Label fx:id="lblArtist" layoutX="270.0" layoutY="12.0" maxHeight="17.0" maxWidth="135.0" text="Artist" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblGenre" layoutX="420.0" layoutY="12.0" prefHeight="17.0" prefWidth="69.0" text="Genre" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTime" layoutX="525.0" layoutY="12.0" prefHeight="16.0" prefWidth="37.0" text="time" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Italic" size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnMore" layoutX="580.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
+          <graphic>
+              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../img/more_30px.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
+   </children>
+</AnchorPane>

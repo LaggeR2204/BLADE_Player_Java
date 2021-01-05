@@ -10,7 +10,7 @@
    <children>
       <FlowPane fx:id="fpnlListPL" layoutY="40.0" prefHeight="525.0" prefWidth="180.0">
          </FlowPane>
-      <Pane layoutX="180.0" layoutY="40.0" prefHeight="525.0" prefWidth="620.0" />
+      <FlowPane fx:id="fpnlListSong" layoutX="180.0" layoutY="40.0" prefHeight="525.0" prefWidth="620.0" />
       <Label layoutX="10.0" layoutY="10.0" text="PLAYLISTS" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="17.0" />
@@ -27,22 +27,22 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Label layoutX="227.0" layoutY="12.0" text="TITLE" textFill="WHITE">
+      <Label layoutX="268.0" layoutY="12.0" text="TITLE" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="474.0" layoutY="13.0" text="ARTIST" textFill="WHITE">
+      <Label layoutX="450.0" layoutY="13.0" text="ARTIST" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="598.0" layoutY="12.0" text="CATEGORY" textFill="WHITE">
+      <Label layoutX="600.0" layoutY="12.0" text="GENRE" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="737.0" layoutY="13.0" text="TIME" textFill="WHITE">
+      <Label layoutX="700.0" layoutY="13.0" text="TIME" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>

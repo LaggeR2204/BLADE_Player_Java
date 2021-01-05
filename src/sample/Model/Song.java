@@ -22,8 +22,17 @@ public class Song {
     private String SongURL;
     private int SongNumber;
     private byte[] data;
+    private int Duration;
 
     //endregion
+
+    public int getDuration() {
+        return Duration;
+    }
+
+    public void setDuration(int duration) {
+        Duration = duration;
+    }
 
     //region Get_Set_Properties
     public byte[] getData() {
@@ -115,6 +124,7 @@ public class Song {
         SongURL = "";
         SongNumber = -1;
         data = null;
+        Duration = 0;
     }
 
     public Song(File file) {
@@ -128,6 +138,7 @@ public class Song {
             setGenre(id3v2Tag.getGenreDescription());
             setSongImage(Helper.getImage(id3v2Tag.getAlbumImage()));
             data = Helper.readMP3AudioFileData(file);
+            Duration = data.length / 4 / 41100;
         } catch (Exception e) {
             e.printStackTrace();
         }
