@@ -29,8 +29,16 @@ public class Library {
         return INSTANCE;
     }
 
+    public void addPlaylistToLibrary(Playlist playlist) {
+        this.ListPL.add(playlist);
+    }
+
     public List<Playlist> getListPL() {
         return ListPL;
+    }
+
+    public void deletePL(int index) {
+        ListPL.remove(index);
     }
 
     public void setListPL(List<Playlist> listPL) {

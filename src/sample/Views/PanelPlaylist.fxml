@@ -16,7 +16,7 @@
             <Font name="Century Gothic Bold" size="17.0" />
          </font>
       </Label>
-      <Button fx:id="btnAddNewPlaylist" alignment="TOP_LEFT" layoutX="145.0" layoutY="5.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+      <Button fx:id="btnAddNewPlaylist" alignment="TOP_LEFT" layoutX="145.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#setBtnAddNewPlaylist" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -47,5 +47,26 @@
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
+      <Pane fx:id="pnlBGAddPlaylist" prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgba(40,40,40,0.5);">
+         <children>
+            <Pane fx:id="pnlAddPlaylist" layoutX="300.0" layoutY="220.0" prefHeight="125.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="tbxPLName" layoutX="26.0" layoutY="40.0" style="-fx-background-color: whitesmoke; -fx-background-radius: 20px;-fx-text-fill: rgb(35, 35, 35);" />
+                  <Button fx:id="btnAddPlaylist" layoutX="26.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#addPlaylist" prefWidth="60.0" style="-fx-background-color: transparent;" text="Add">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font></Button>
+                  <Button fx:id="btnCancel" layoutX="115.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#cancelAddNewPlaylist" prefWidth="60.0" style="-fx-background-color: transparent;" text="Cancel">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font></Button>
+                  <Label layoutX="26.0" layoutY="14.0" text="Enter playlist name:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font></Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -38,12 +38,14 @@ public class PanelPlaylistViewController {
     private void initialize() {
         contextMenu = new ContextMenu();
 
-        MenuItem addSong = new MenuItem("Add Song");
-        MenuItem delete = new MenuItem("Delete");
-        contextMenu.getItems().addAll(addSong, delete);
+        MenuItem addSongItem = new MenuItem("Add Song");
+        contextMenu.getItems().add(addSongItem);
 
-        MenuItem playAll = new MenuItem("Play All");
-        contextMenu.getItems().add(playAll);
+        MenuItem deleteItem = new MenuItem("Delete");
+        contextMenu.getItems().add(deleteItem);
+
+        MenuItem playAllItem = new MenuItem("Play All");
+        contextMenu.getItems().add(playAllItem);
         pnlPlaylistView.setOnContextMenuRequested(event -> contextMenu.show(pnlPlaylistView, event.getScreenX(), event.getScreenY()));
 
         pnlPlaylistView.setOnMouseClicked(event -> {
@@ -53,7 +55,7 @@ public class PanelPlaylistViewController {
             }
         });
 
-        addSong.setOnAction((event) -> {
+        addSongItem.setOnAction((event) -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
             ExtensionFilter exMp3 = new ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
@@ -66,6 +68,12 @@ public class PanelPlaylistViewController {
                     Song temp = new Song(f);
                     _playlist.addSongToPL(temp);
                 }
+            }
+        });
+
+        deleteItem.setOnAction(event -> {
+            if (_playlist.isDeletable()) {
+                _panelPLCtrl.deletePlaylist(_playlist.getPlaylistName());
             }
         });
     }

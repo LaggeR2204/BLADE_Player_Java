@@ -32,13 +32,15 @@ public class PanelConverterController {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog((Stage) node.getScene().getWindow());
-        iFile= file;
-        song = new Song(file);
-        lblName.setText(song.getSongName());
-        lblArtist.setText(song.getSinger());
-        lblCategory.setText(song.getGenre());
-        ivAlbumImg.setImage(song.getSongImage());
-        tfFilePath.setText(file.getAbsolutePath());
+        if (file != null) {
+            iFile = file;
+            song = new Song(file);
+            lblName.setText(song.getSongName());
+            lblArtist.setText(song.getSinger());
+            lblCategory.setText(song.getGenre());
+            ivAlbumImg.setImage(song.getSongImage());
+            tfFilePath.setText(file.getAbsolutePath());
+        }
     }
 
 
