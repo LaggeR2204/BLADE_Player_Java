@@ -100,10 +100,24 @@
 }
 
 .context-menu {
-    -fx-background-color: rgb(255,163,26);
+    -fx-text-fill: white;
+    -fx-background-color: rgb(50,50,50);
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+
+.menu-item .label {
+    -fx-text-fill: rgb(255,163,26);
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused{
+    -fx-background-color: rgb(255,163,26);
+    -fx-background-radius: 5px
 }
 
 #pnlAddPlaylist {
@@ -111,6 +125,42 @@
     -fx-border-color: rgb(255,163,26);
 }
 
+.spinner:focused,
+.spinner:contains-focus {
+    -fx-background-color: rgb(255,163,26);
+    -fx-background-insets: -1.4 -1.4 -0.4 -1.4, 0 0 1 0, 1 1 2 1;
+    -fx-background-radius: 4, 3, 2;
+}
+
+.spinner > .text-field {
+    -fx-background-color:  rgb(40,40,40);
+    -fx-border-width: 0.5;
+    -fx-border-color: whitesmoke;
+    -fx-text-fill: white;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-body-color: rgb(50,50,50);
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-body-color: rgb(255,163,26);
+}
+
+.spinner .increment-arrow-button:hover:pressed,
+.spinner .decrement-arrow-button:hover:pressed,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+    -fx-body-color: rgb(255,163,26);
+}
+
+#lblBLADELogo: hover {
+    -fx-text-fill: rgb(255,163,26);
+    -fx-font-family: "Showcard Gothic";
+    -fx-font-size: 48
+}
 .scroll-pane > .viewport {
     -fx-background-color: rgb(40,40,40);
 }

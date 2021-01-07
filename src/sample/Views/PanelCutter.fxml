@@ -1,17 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.Controllers.PanelCutterController"
-            prefHeight="400.0" prefWidth="600.0">
-    <children>
-        <Button layoutX="41.0" layoutY="52.0" mnemonicParsing="false" text="cutter" />
-    </children>
+<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelCutterController">
+   <children>
+      <Pane prefHeight="95.0" prefWidth="800.0">
+          <children>
+              <Label alignment="CENTER" prefHeight="120.0" prefWidth="800.0" text="TITLE" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                      <Font name="Century Gothic" size="35.0" />
+                  </font>
+              </Label>
+          </children>
+      </Pane>
+      <Pane layoutY="95.0" prefHeight="230.0" prefWidth="800.0">
+          <children>
+              <ImageView fx:id="ivAlbumImg" fitHeight="200.0" fitWidth="200.0" layoutX="150.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+              <Label layoutX="360.0" layoutY="53.0" prefHeight="35.0" prefWidth="100.0" text="Name:" textFill="WHITE">
+                  <font>
+                      <Font name="Century Gothic" size="18.0" />
+                  </font>
+              </Label>
+              <Label layoutX="360.0" layoutY="98.0" prefHeight="35.0" prefWidth="100.0" text="Artist:" textFill="WHITE">
+                  <font>
+                      <Font name="Century Gothic" size="18.0" />
+                  </font>
+              </Label>
+              <Label layoutX="360.0" layoutY="143.0" prefHeight="35.0" prefWidth="100.0" text="Category:" textFill="WHITE">
+                  <font>
+                      <Font name="Century Gothic" size="18.0" />
+                  </font>
+              </Label>
 
+              <Label fx:id="lblName" layoutX="460.0" layoutY="53.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
+                  <font>
+                      <Font name="Segoe UI" size="18.0" />
+                  </font>
+              </Label>
+              <Label fx:id="lblArtist" layoutX="460.0" layoutY="98.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
+                  <font>
+                      <Font name="Segoe UI" size="18.0" />
+                  </font>
+              </Label>
+              <Label fx:id="lblCategory" layoutX="460.0" layoutY="143.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
+                  <font>
+                      <Font name="Segoe UI" size="18.0" />
+                  </font>
+              </Label>
+          </children>
+      </Pane>
+      <Pane layoutY="325.0" prefHeight="240.0" prefWidth="800.0">
+          <children>
+              <Button fx:id="btnPlayStop" alignment="TOP_LEFT" layoutX="380.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <graphic>
+                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../img/play_30px.png" />
+                          </image>
+                      </ImageView>
+                  </graphic>
+              </Button>
+              <Button fx:id="btnSave" alignment="TOP_LEFT" layoutX="420.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <graphic>
+                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../img/save_30px.png" />
+                          </image>
+                      </ImageView>
+                  </graphic>
+              </Button>
+              <Button fx:id="btnAddFile" alignment="TOP_LEFT" layoutX="340.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <graphic>
+                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../img/opened_folder_30px.png" />
+                          </image>
+                      </ImageView>
+                  </graphic>
+              </Button>
+            <Label alignment="CENTER" layoutX="340.0" layoutY="120.0" prefHeight="20.0" prefWidth="120.0" text="Cut from, sec:" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="385.0" layoutY="170.0" prefHeight="20.0" prefWidth="30.0" text="to" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="16.0" />
+               </font>
+            </Label>
+            <Spinner editable="true" layoutX="280.0" layoutY="168.0" prefHeight="25.0" prefWidth="100.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Spinner>
+            <Spinner editable="true" layoutX="420.0" layoutY="168.0" prefHeight="25.0" prefWidth="100.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Spinner>
+            <Label alignment="CENTER" layoutX="340.0" layoutY="70.0" prefHeight="20.0" prefWidth="120.0" text="00:00:00" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="16.0" />
+               </font>
+            </Label>
+          </children>
+      </Pane>
+   </children>
 </AnchorPane>
