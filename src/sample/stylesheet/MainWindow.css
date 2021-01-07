@@ -124,3 +124,34 @@
     -fx-border-width: 2;
     -fx-border-color: rgb(255,163,26);
 }
+
+.spinner:focused,
+.spinner:contains-focus {
+    -fx-background-color: rgb(255,163,26);
+    -fx-background-insets: -1.4 -1.4 -0.4 -1.4, 0 0 1 0, 1 1 2 1;
+    -fx-background-radius: 4, 3, 2;
+}
+
+.spinner > .text-field {
+    -fx-background-color:  rgb(40,40,40);
+    -fx-border-width: 0.5;
+    -fx-border-color: whitesmoke;
+    -fx-text-fill: white;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-body-color: rgb(50,50,50);
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-body-color: rgb(255,163,26);
+}
+
+.spinner .increment-arrow-button:hover:pressed,
+.spinner .decrement-arrow-button:hover:pressed,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+    -fx-body-color: rgb(255,163,26);
+}
