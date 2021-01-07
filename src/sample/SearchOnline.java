@@ -58,7 +58,7 @@ public class SearchOnline{
                 newSongSearch.setSongNumber(songNumber);
             }
 
-            if (newSongSearch.getSongNumber() != 0){
+            if (newSongSearch.getSongNumber() >= 0){
                 matcher = patternSearchSongName.matcher(item);
                 if (matcher.find()){
                     newSongSearch.setSongName(matcher.group(1));

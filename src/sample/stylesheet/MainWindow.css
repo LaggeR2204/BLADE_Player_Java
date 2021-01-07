@@ -155,3 +155,9 @@
 .spinner .decrement-arrow-button:pressed {
     -fx-body-color: rgb(255,163,26);
 }
+
+#lblBLADELogo: hover {
+    -fx-text-fill: rgb(255,163,26);
+    -fx-font-family: "Showcard Gothic";
+    -fx-font-size: 48
+}
