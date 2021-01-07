@@ -87,7 +87,7 @@ public class PanelPlaylistController {
 
     public void resetSelected() {
         for (Node children : this.fpnlListPL.getChildren()) {
-            children.setStyle("-fx-background-color: rgb(35,35,35)");
+            children.setStyle("-fx-background-color: rgb(35,35,35); -fx-border-width: 1px; -fx-border-color: rgb(50,50,50)");
         }
     }
 
