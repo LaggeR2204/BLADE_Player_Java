@@ -29,6 +29,8 @@ public class PanelPlaylistViewController {
     private AnchorPane pnlPlaylistView;
     @FXML
     private Label lblPlaylistName;
+    @FXML
+    private Button btnMenuPlaylist;
 
     private Playlist _playlist;
     private ContextMenu contextMenu;
@@ -40,18 +42,32 @@ public class PanelPlaylistViewController {
 
         MenuItem addSongItem = new MenuItem("Add Song");
         contextMenu.getItems().add(addSongItem);
-
         MenuItem deleteItem = new MenuItem("Delete");
         contextMenu.getItems().add(deleteItem);
-
         MenuItem playAllItem = new MenuItem("Play All");
         contextMenu.getItems().add(playAllItem);
-        pnlPlaylistView.setOnContextMenuRequested(event -> contextMenu.show(pnlPlaylistView, event.getScreenX(), event.getScreenY()));
+//
+//        if (_playlist.isDefaultPL()) {
+//            deleteItem.setVisible(false);
+//        }
+//        else if (_playlist.isFavoritePL()) {
+//            addSongItem.setVisible(false);
+//            deleteItem.setVisible(false);
+//        }
+
+        btnMenuPlaylist.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                contextMenu.show(pnlPlaylistView, event.getScreenX(), event.getScreenY());
+                _panelPLCtrl.resetSelected();
+                pnlPlaylistView.setStyle("-fx-background-color: rgb(255,163,26)");
+            }
+        });
 
         pnlPlaylistView.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY)
-            {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                _panelPLCtrl.resetSelected();
                 showListSong();
+                pnlPlaylistView.setStyle("-fx-background-color: rgb(255,163,26)");
             }
         });
 
@@ -66,8 +82,9 @@ public class PanelPlaylistViewController {
             if (songs != null) {
                 for (File f : songs) {
                     Song temp = new Song(f);
-                    _playlist.addSongToPL(temp);
+                    _playlist.getListSong().add(temp);
                 }
+                showListSong();
             }
         });
 
@@ -76,6 +93,10 @@ public class PanelPlaylistViewController {
                 _panelPLCtrl.deletePlaylist(_playlist.getPlaylistName());
             }
         });
+    }
+
+    public Playlist getCurrentPL() {
+        return _playlist;
     }
 
     public void setParentController(PanelPlaylistController pnl) {

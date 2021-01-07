@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="pnlPlaylistView" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: rgb(40, 40, 40); -fx-border-width: 1px; -fx-border-color: rgb(50, 50, 50);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelPlaylistViewController">
+<AnchorPane fx:id="pnlPlaylistView" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: rgb(35,35,35); -fx-border-width: 1px; -fx-border-color: rgb(50, 50, 50);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelPlaylistViewController">
     <children>
         <Label fx:id="lblPlaylistName" layoutX="5.0" layoutY="8.0" text="Playlist Name" textFill="WHITE">
             <font>
                 <Font name="Century Gothic" size="18.0" />
             </font>
         </Label>
+      <Button fx:id="btnMenuPlaylist" layoutX="140.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
+          <graphic>
+              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../img/more_30px.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
     </children>
 </AnchorPane>

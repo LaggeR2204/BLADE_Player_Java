@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="40.0" prefWidth="620.0" style="-fx-background-color: rgb(35,35,35);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelSongViewDetailController">
+<AnchorPane fx:id="pnlSongDetail" prefHeight="40.0" prefWidth="620.0" style="-fx-background-color: rgb(35,35,35);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelSongViewDetailController">
    <children>
       <Button fx:id="btnPlaySong" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
           <cursor>
@@ -20,7 +20,7 @@
               </ImageView>
           </graphic>
       </Button>
-      <Button fx:id="btnFavoriteSong" layoutX="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnFavoriteSong" layoutX="40.0" mnemonicParsing="false" onMouseClicked="#setBtnFavoriteSong" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
           <cursor>
               <Cursor fx:constant="HAND" />
           </cursor>
@@ -48,10 +48,10 @@
       </Label>
       <Label fx:id="lblTime" layoutX="525.0" layoutY="12.0" prefHeight="16.0" prefWidth="37.0" text="time" textFill="WHITE">
          <font>
-            <Font name="Century Gothic Italic" size="13.0" />
+            <Font name="Century Gothic" size="13.0" />
          </font>
       </Label>
-      <Button fx:id="btnMore" layoutX="580.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnMenuSong" layoutX="580.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;">
           <cursor>
               <Cursor fx:constant="HAND" />
           </cursor>

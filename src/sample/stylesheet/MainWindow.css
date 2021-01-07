@@ -110,3 +110,15 @@
     -fx-border-width: 2;
     -fx-border-color: rgb(255,163,26);
 }
+
+.scroll-pane > .viewport {
+    -fx-background-color: rgb(40,40,40);
+}
+
+#btnFavoriteSong:hover ImageView{
+    -fx-effect: innershadow( gaussian , transparent , 15 , 1 , 1 , 1 );
+}
+
+#btnMenuPlaylist:hover ImageView{
+    -fx-effect: innershadow( gaussian , transparent , 15 , 1 , 1 , 1 );
+}

@@ -32,8 +32,18 @@ public class Playlist {
         Deletable = deletable;
     }
 
-    public void addSongToPL(Song song) {
-        this.ListSong.add(song);
+    public boolean isDefaultPL() {
+        if (PlaylistName.equalsIgnoreCase("Default")) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isFavoritePL() {
+        if (PlaylistName.equalsIgnoreCase("Favorite")) {
+            return true;
+        }
+        return false;
     }
 
     public Playlist() {

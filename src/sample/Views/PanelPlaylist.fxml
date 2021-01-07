@@ -8,9 +8,16 @@
 
 <AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelPlaylistController">
    <children>
-      <FlowPane fx:id="fpnlListPL" layoutY="40.0" prefHeight="525.0" prefWidth="180.0">
-         </FlowPane>
-      <FlowPane fx:id="fpnlListSong" layoutX="180.0" layoutY="40.0" prefHeight="525.0" prefWidth="620.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutY="40.0" prefHeight="525.0" prefWidth="180.0" style="-fx-background-color: rgb(40,40,40);" vbarPolicy="NEVER">
+         <content>
+         <FlowPane fx:id="fpnlListPL" alignment="TOP_CENTER" columnHalignment="CENTER" layoutY="40.0" minHeight="525.0" minWidth="180.0" prefHeight="525.0" prefWidth="180.0" />
+         </content>
+      </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" layoutX="180.0" layoutY="40.0" prefHeight="525.0" prefWidth="620.0" style="-fx-background-color: rgb(40,40,40);" vbarPolicy="NEVER">
+         <content>
+         <FlowPane fx:id="fpnlListSong" alignment="TOP_CENTER" columnHalignment="CENTER" layoutX="180.0" layoutY="40.0" minHeight="525.0" minWidth="620.0" prefHeight="525.0" prefWidth="620.0" />
+         </content>
+      </ScrollPane>
       <Label layoutX="10.0" layoutY="10.0" text="PLAYLISTS" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="17.0" />
@@ -68,5 +75,6 @@
             </Pane>
          </children>
       </Pane>
+      <Separator layoutX="179" layoutY="40" maxWidth="2.0" opacity="0.4" orientation="VERTICAL" prefHeight="525.0" prefWidth="2.0" style="-fx-background-color: rgb(60,60,60)" />
    </children>
 </AnchorPane>
