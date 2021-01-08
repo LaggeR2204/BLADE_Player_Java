@@ -148,5 +148,14 @@ public class Song {
         byte[] temp = Helper.readWAVAudioFileData(this.SongPath);
         data = temp;
     }
+
+    public boolean existedSong(Song song) {
+        if(this.getSongName().equals(song.getSongName()) && this.getSongPath().equals(song.getSongPath())
+        && this.getAlbum().equals(song.getAlbum()) && this.getGenre().equals(song.getAlbum())
+        && this.getSinger().equals(song.getSinger()) && this.getDuration() == song.getDuration()) {
+            return true;
+        }
+        return false;
+    }
     //endregion
 }

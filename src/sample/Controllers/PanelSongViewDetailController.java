@@ -76,6 +76,11 @@ public class PanelSongViewDetailController {
 
         removeItem.setOnAction(event -> {
             Playlist playlist = _panelPLCtrl.getSelectedPL();
+            if (_song.isFavorite()) {
+                Library library = Library.getInstance();
+                Playlist favPlaylist = library.getFavoritePL();
+                favPlaylist.getListSong().remove(_song);
+            }
             playlist.getListSong().remove(_song);
             _panelPLCtrl.removePaneSong(pnlSongDetail);
         });

@@ -34,30 +34,39 @@ public class PanelPlaylistViewController {
 
     private Playlist _playlist;
     private ContextMenu contextMenu;
+    private ContextMenu contextMenuDef;
+    private ContextMenu contextMenuFav;
+
     private List<File> songs;
 
     @FXML
     private void initialize() {
         contextMenu = new ContextMenu();
+        contextMenuDef = new ContextMenu();
+        contextMenuFav = new ContextMenu();
 
         MenuItem addSongItem = new MenuItem("Add Song");
-        contextMenu.getItems().add(addSongItem);
+        MenuItem addSongItem2 = new MenuItem("Add song");
         MenuItem deleteItem = new MenuItem("Delete");
-        contextMenu.getItems().add(deleteItem);
         MenuItem playAllItem = new MenuItem("Play All");
-        contextMenu.getItems().add(playAllItem);
-//
-//        if (_playlist.isDefaultPL()) {
-//            deleteItem.setVisible(false);
-//        }
-//        else if (_playlist.isFavoritePL()) {
-//            addSongItem.setVisible(false);
-//            deleteItem.setVisible(false);
-//        }
+        MenuItem playAllItem2 = new MenuItem("Play All");
+        MenuItem playAllItem3 = new MenuItem("Play All");
+
+        contextMenu.getItems().addAll(addSongItem, deleteItem, playAllItem);
+        contextMenuDef.getItems().addAll(addSongItem2, playAllItem2);
+        contextMenuFav.getItems().add(playAllItem3);
 
         btnMenuPlaylist.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                contextMenu.show(pnlPlaylistView, event.getScreenX(), event.getScreenY());
+                if (_playlist.isDefaultPL()) {
+                    contextMenuDef.show(pnlPlaylistView, event.getScreenX(), event.getScreenY());
+                }
+                else if (_playlist.isFavoritePL()) {
+                    contextMenuFav.show(pnlPlaylistView, event.getScreenX(), event.getScreenY());
+                }
+                else {
+                    contextMenu.show(pnlPlaylistView, event.getScreenX(), event.getScreenY());
+                }
                 _panelPLCtrl.resetSelected();
                 pnlPlaylistView.setStyle("-fx-background-color: rgb(255,163,26)");
             }
@@ -71,14 +80,25 @@ public class PanelPlaylistViewController {
             }
         });
 
-        addSongItem.setOnAction((event) -> {
+        addSongItem.setOnAction(btnAdd_clicked(addSongItem));
+        addSongItem2.setOnAction(btnAdd_clicked(addSongItem2));
+
+        deleteItem.setOnAction(event -> {
+            if (_playlist.isDeletable()) {
+                _panelPLCtrl.deletePlaylist(_playlist.getPlaylistName());
+            }
+        });
+    }
+
+    public EventHandler btnAdd_clicked(MenuItem item) {
+        EventHandler event = (e) -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
             ExtensionFilter exMp3 = new ExtensionFilter("MP3 files (*.mp3)", "*.mp3");
             ExtensionFilter exWav = new ExtensionFilter("WAV files (*.wav)", "*.wav");
             ExtensionFilter exAll = new ExtensionFilter("All files", "*.*");
             fileChooser.getExtensionFilters().addAll(exMp3, exWav, exAll);
-            songs = fileChooser.showOpenMultipleDialog(((MenuItem)event.getTarget()).getParentPopup().getScene().getWindow());
+            songs = fileChooser.showOpenMultipleDialog(item.getParentPopup().getScene().getWindow());
             if (songs != null) {
                 for (File f : songs) {
                     Song temp = new Song(f);
@@ -86,13 +106,8 @@ public class PanelPlaylistViewController {
                 }
                 showListSong();
             }
-        });
-
-        deleteItem.setOnAction(event -> {
-            if (_playlist.isDeletable()) {
-                _panelPLCtrl.deletePlaylist(_playlist.getPlaylistName());
-            }
-        });
+        };
+        return event;
     }
 
     public Playlist getCurrentPL() {
