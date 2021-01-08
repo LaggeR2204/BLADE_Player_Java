@@ -46,6 +46,15 @@ public class Playlist {
         return false;
     }
 
+    public void addSongToPlaylist(Song song) {
+        for (Song s : getListSong()) {
+            if (s.getSongPath().equals(song.getSongPath())) {
+                return;
+            }
+        }
+        getListSong().add(song);
+    }
+
     public Playlist() {
 
     }

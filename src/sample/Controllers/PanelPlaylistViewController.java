@@ -102,7 +102,7 @@ public class PanelPlaylistViewController {
             if (songs != null) {
                 for (File f : songs) {
                     Song temp = new Song(f);
-                    _playlist.getListSong().add(temp);
+                    _playlist.addSongToPlaylist(temp);
                 }
                 showListSong();
             }
