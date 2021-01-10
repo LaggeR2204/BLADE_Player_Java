@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="pnlSongQueueDetail" prefHeight="40.0" prefWidth="495.0" style="-fx-background-color: rgb(35,35,35);"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.Controllers.PanelSongQueueDetailController">
+    <children>
+        <Label fx:id="lblSongName" layoutX="40.0" layoutY="12.0" maxHeight="16.0" maxWidth="171.0" minHeight="0.0"
+               minWidth="0.0" prefHeight="16.0" prefWidth="170.0" style="-fx-background-color: transparent;"
+               text="Song Name" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Bold" size="13.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblArtist" layoutX="200.0" layoutY="12.0" maxHeight="17.0" maxWidth="135.0" text="Artist"
+               textFill="WHITE">
+            <font>
+                <Font name="Century Gothic" size="13.0"/>
+            </font>
+        </Label>
+        <Label fx:id="lblTime" layoutX="325.0" layoutY="12.0" prefHeight="16.0" prefWidth="37.0" text="time"
+               textFill="WHITE">
+            <font>
+                <Font name="Century Gothic" size="13.0"/>
+            </font>
+        </Label>
+        <Button fx:id="btnMenuSong" layoutX="455.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"
+                style="-fx-background-color: transparent;">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/more_30px.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>
