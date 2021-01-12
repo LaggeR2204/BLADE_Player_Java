@@ -146,6 +146,7 @@ public class Song {
 
     public void loadData() throws IOException, UnsupportedAudioFileException {
         byte[] temp = Helper.readWAVAudioFileData(this.SongPath);
+        Duration = data.length / 4 / 41100;
         data = temp;
     }
 

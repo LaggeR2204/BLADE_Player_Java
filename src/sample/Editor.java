@@ -45,4 +45,25 @@ public class Editor {
             e.printStackTrace();
         }
     }
+
+    public static int getWavDuration(File file) throws Exception {
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        AudioFormat format = audioInputStream.getFormat();
+        long audioFileLength = file.length();
+        int frameSize = format.getFrameSize();
+        float frameRate = format.getFrameRate();
+        float durationInSeconds = (audioFileLength / (frameSize * frameRate));
+        return ((int)durationInSeconds);
+    }
+
+    public static String getExtension(File file) {
+        String fileName = file.toString();
+
+        int index = fileName.lastIndexOf('.');
+        if (index > 0) {
+            String extension = fileName.substring(index + 1);
+            return extension;
+        }
+        return null;
+    }
 }

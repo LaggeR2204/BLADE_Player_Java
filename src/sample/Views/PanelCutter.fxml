@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -21,33 +20,33 @@
       <Pane layoutY="95.0" prefHeight="230.0" prefWidth="800.0">
           <children>
               <ImageView fx:id="ivAlbumImg" fitHeight="200.0" fitWidth="200.0" layoutX="150.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-              <Label layoutX="360.0" layoutY="53.0" prefHeight="35.0" prefWidth="100.0" text="Name:" textFill="WHITE">
+              <Label layoutX="371.0" layoutY="63.0" prefHeight="35.0" prefWidth="100.0" text="Name:" textFill="WHITE">
                   <font>
                       <Font name="Century Gothic" size="18.0" />
                   </font>
               </Label>
-              <Label layoutX="360.0" layoutY="98.0" prefHeight="35.0" prefWidth="100.0" text="Artist:" textFill="WHITE">
+              <Label layoutX="371.0" layoutY="98.0" prefHeight="35.0" prefWidth="100.0" text="Artist:" textFill="WHITE">
                   <font>
                       <Font name="Century Gothic" size="18.0" />
                   </font>
               </Label>
-              <Label layoutX="360.0" layoutY="143.0" prefHeight="35.0" prefWidth="100.0" text="Category:" textFill="WHITE">
+              <Label layoutX="371.0" layoutY="133.0" prefHeight="35.0" prefWidth="100.0" text="Category:" textFill="WHITE">
                   <font>
                       <Font name="Century Gothic" size="18.0" />
                   </font>
               </Label>
 
-              <Label fx:id="lblName" layoutX="460.0" layoutY="53.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
+              <Label fx:id="lblName" layoutX="483.0" layoutY="63.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
                   <font>
                       <Font name="Segoe UI" size="18.0" />
                   </font>
               </Label>
-              <Label fx:id="lblArtist" layoutX="460.0" layoutY="98.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
+              <Label fx:id="lblArtist" layoutX="483.0" layoutY="98.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
                   <font>
                       <Font name="Segoe UI" size="18.0" />
                   </font>
               </Label>
-              <Label fx:id="lblCategory" layoutX="460.0" layoutY="143.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
+              <Label fx:id="lblCategory" layoutX="483.0" layoutY="133.0" prefHeight="35.0" prefWidth="194.0" textFill="WHITE">
                   <font>
                       <Font name="Segoe UI" size="18.0" />
                   </font>
@@ -60,15 +59,8 @@
                   <cursor>
                       <Cursor fx:constant="HAND" />
                   </cursor>
-                  <graphic>
-                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                              <Image url="@../img/play_30px.png" />
-                          </image>
-                      </ImageView>
-                  </graphic>
               </Button>
-              <Button fx:id="btnSave" alignment="TOP_LEFT" layoutX="420.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+              <Button fx:id="btnSave" alignment="TOP_LEFT" layoutX="420.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSave_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
                   <cursor>
                       <Cursor fx:constant="HAND" />
                   </cursor>
@@ -80,7 +72,7 @@
                       </ImageView>
                   </graphic>
               </Button>
-              <Button fx:id="btnAddFile" alignment="TOP_LEFT" layoutX="340.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+              <Button fx:id="btnAddFile" alignment="TOP_LEFT" layoutX="340.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnAddFile_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
                   <cursor>
                       <Cursor fx:constant="HAND" />
                   </cursor>
@@ -102,21 +94,27 @@
                   <Font name="Century Gothic" size="16.0" />
                </font>
             </Label>
-            <Spinner editable="true" layoutX="280.0" layoutY="168.0" prefHeight="25.0" prefWidth="100.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Spinner>
-            <Spinner editable="true" layoutX="420.0" layoutY="168.0" prefHeight="25.0" prefWidth="100.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Spinner>
-            <Label alignment="CENTER" layoutX="340.0" layoutY="70.0" prefHeight="20.0" prefWidth="120.0" text="00:00:00" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="lblDuration" alignment="CENTER" layoutX="340.0" layoutY="70.0" prefHeight="20.0" prefWidth="120.0" text="00:00:00" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century Gothic" size="16.0" />
                </font>
             </Label>
+            <TextField fx:id="bSec" alignment="CENTER" layoutX="340.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfbSecPressed">
+               <font>
+                  <Font name="Century Gothic Bold" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="bMin" alignment="CENTER" layoutX="304.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfbMinPressed">
+               <font>
+                  <Font name="Century Gothic Bold" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="eMin" alignment="CENTER" layoutX="431.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfeMinPressed">
+               <font>
+                  <Font name="Century Gothic Bold" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="eSec" alignment="CENTER" layoutX="467.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfeSecPressed">
+               <font>
+                  <Font name="Century Gothic Bold" size="12.0" />
+               </font></TextField>
           </children>
       </Pane>
    </children>
