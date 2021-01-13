@@ -15,7 +15,7 @@ public class AudioQueue {
     //Singleton
     private static AudioQueue _instance;
 
-    public static AudioQueue getInstance() {
+    synchronized public static AudioQueue getInstance() {
         if (_instance == null)
             _instance = new AudioQueue();
         return _instance;
@@ -112,8 +112,12 @@ public class AudioQueue {
 
     }
 
+    public ArrayList<Song> getQueue() {
+        return queue;
+    }
+
     //remove a song from queue
-    public void removeQueue(Song song) {
+    public void removeFromQueue(Song song) {
         if (queue.contains(song)) {
             queue.remove(song);
         }
