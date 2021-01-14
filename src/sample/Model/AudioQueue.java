@@ -112,14 +112,11 @@ public class AudioQueue {
 
     }
 
-    public ArrayList<Song> getQueue() {
-        return queue;
-    }
-
     //remove a song from queue
     public void removeFromQueue(Song song) {
         if (queue.contains(song)) {
             queue.remove(song);
+            NotifyQueueChange();
         }
     }
 

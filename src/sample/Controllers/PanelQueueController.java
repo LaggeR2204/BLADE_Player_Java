@@ -38,24 +38,32 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
 
     @Override
     public void onQueueChangeListener(Object sender, Collection<Song> newQueue) {
-        RefreshQueue();
+        RefreshQueue(newQueue);
     }
 
     @Override
     public void onNowSongChangeListener(Object sender, Song newSong) {
-
+        ShowNowSongInfo(newSong);
     }
 
     public void ShowNowSongInfo(Song song)
     {
         if(song == null) {
+            lblSongName.setText("...");
+            lblArtist.setText("...");
+            coverArt.setVisible(false);
             return;
         }
+        lblSongName.setText(song.getSongName());
+        lblArtist.setText(song.getSinger());
+        coverArt.setImage(song.getSongImage());
+        coverArt.setVisible(true);
     }
 
-    public void RefreshQueue()
+    public void RefreshQueue(Collection<Song> newQueue)
     {
-        ArrayList<Song> songs = queue.getQueue();
+        listQueue.getChildren().clear();
+        ArrayList<Song> songs = (ArrayList<Song>)newQueue;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -74,7 +82,6 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
                             } catch (IOException e) {
                                 System.out.print(e.toString());
                             }
-
                         }
                         listQueue.setVisible(true);
                     }

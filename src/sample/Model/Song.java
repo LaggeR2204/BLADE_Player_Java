@@ -138,7 +138,7 @@ public class Song {
             setGenre(id3v2Tag.getGenreDescription());
             setSongImage(Helper.getImage(id3v2Tag.getAlbumImage()));
             data = Helper.readMP3AudioFileData(file);
-            Duration = data.length / 4 / 41100;
+            Duration = data.length / 4 / 44100;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,7 +146,7 @@ public class Song {
 
     public void loadData() throws IOException, UnsupportedAudioFileException {
         byte[] temp = Helper.readWAVAudioFileData(this.SongPath);
-        Duration = data.length / 4 / 41100;
+        Duration = data.length / 4 / 44100;
         data = temp;
     }
 
