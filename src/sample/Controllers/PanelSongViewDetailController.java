@@ -2,6 +2,8 @@ package sample.Controllers;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -12,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import sample.Model.AudioQueue;
 import sample.Model.Library;
 import sample.Model.Playlist;
 import sample.Model.Song;
@@ -83,6 +86,10 @@ public class PanelSongViewDetailController {
             }
             playlist.getListSong().remove(_song);
             _panelPLCtrl.removePaneSong(pnlSongDetail);
+        });
+
+        addToQueueItem.setOnAction(event -> {
+            AudioQueue.getInstance().addQueue(_song);
         });
     }
 
