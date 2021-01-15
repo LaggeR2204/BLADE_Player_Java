@@ -3,6 +3,9 @@ package sample.Model;
 import sample.audioInterface.INowSongChangeListener;
 import sample.audioInterface.IQueueChangeListener;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.*;
 
 public class AudioQueue {
@@ -10,25 +13,34 @@ public class AudioQueue {
     private ArrayList<IQueueChangeListener> queueListeners;
     private ArrayList<INowSongChangeListener> nowSongListeners;
     private ArrayList<Song> queue;
+    private AudioPlayer player;
     private int currentSongPos;
     private boolean isShuffle, isRepeat;
     //Singleton
     private static AudioQueue _instance;
 
-    synchronized public static AudioQueue getInstance() {
+    synchronized public static AudioQueue getInstance() throws LineUnavailableException {
         if (_instance == null)
             _instance = new AudioQueue();
         return _instance;
     }
 
-    private AudioQueue() {
+    private AudioQueue() throws LineUnavailableException {
         queue = new ArrayList<>();
         queueListeners = new ArrayList<>();
         nowSongListeners = new ArrayList<>();
-
+        player = AudioPlayer.getInstance();
         isRepeat = false;
         isShuffle = false;
         currentSongPos = -1;
+    }
+
+    public void setShuffle() {
+        isShuffle = !isShuffle;
+    }
+
+    public boolean isShuffle() {
+        return isShuffle;
     }
 
     //check if current position is valid
@@ -46,37 +58,56 @@ public class AudioQueue {
     }
 
     //choose next song
-    public Song nextSong() {
+    public Song nextSong() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (queue == null || queue.size() == 0)
             return null;
         if (isShuffle && !isRepeat) {
-            currentSongPos = getRandom(queue.size() - 1);
+            int temp = getRandom(queue.size() - 1);
+            while (temp == currentSongPos) {
+                temp = getRandom(queue.size() - 1);
+            }
+            currentSongPos = temp;
         } else if (!isShuffle && !isRepeat) {
             currentSongPos = (currentSongPos + 1) % queue.size();
         }
         if (isValidPosition(currentSongPos)) {
+            player.changeAudio(queue.get(currentSongPos));
             NotifyNowSongChange();
+            return queue.get(currentSongPos);
+        }
+        return null;
+    }
+
+    //choose previous song
+    public Song preSong() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        if (queue == null || queue.size() == 0)
+            return null;
+        if (isShuffle && !isRepeat) {
+            int temp = getRandom(queue.size() - 1);
+            while (temp == currentSongPos) {
+                temp = getRandom(queue.size() - 1);
+            }
+            currentSongPos = temp;
+        } else if (!isShuffle && !isRepeat) {
+            currentSongPos = (currentSongPos - 1 + queue.size()) % queue.size();
+        }
+        if (isValidPosition(currentSongPos)) {
+            NotifyNowSongChange();
+            player.changeAudio(queue.get(currentSongPos));
             return queue.get(currentSongPos);
         }
 
         return null;
     }
 
-    //choose previous song
-    public Song preSong() {
-        if (queue == null || queue.size() == 0)
-            return null;
-        if (isShuffle && !isRepeat) {
-            currentSongPos = getRandom(queue.size() - 1);
-        } else if (!isShuffle && !isRepeat) {
-            currentSongPos = (currentSongPos - 1 + queue.size()) % queue.size();
-        }
-        if (isValidPosition(currentSongPos)) {
+    public int playSong(Song song) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        if (queue.contains(song)) {
+            currentSongPos = queue.indexOf(song);
+            player.changeAudio(song);
             NotifyNowSongChange();
-            return queue.get(currentSongPos);
+            return 1;
         }
-
-        return null;
+        return -1;
     }
 
     private int getRandom(int i) {
@@ -93,28 +124,39 @@ public class AudioQueue {
     }
 
     //add a list of song to queue
-    public void addQueue(ArrayList<Song> addList) {
+    public void addQueue(Collection<Song> addList) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        int num = addList.size();
         for (Song song : addList) {
-            if (!queue.contains(song)){
+            if (!queue.contains(song)) {
                 queue.add(song);
-                NotifyQueueChange();
+                num--;
             }
-
         }
+        if (num != addList.size())
+            NotifyQueueChange();
+        if (queue.size() == addList.size())
+            nextSong();
     }
 
     //add a song to queue
-    public void addQueue(Song song) {
+    public void addQueue(Song song, boolean play) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (!queue.contains(song)) {
             queue.add(song);
             NotifyQueueChange();
+            if (play) {
+                currentSongPos = queue.indexOf(song);
+                player.changeAudio(song);
+                NotifyNowSongChange();
+            }
         }
 
     }
 
     //remove a song from queue
-    public void removeFromQueue(Song song) {
+    public void removeFromQueue(Song song) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (queue.contains(song)) {
+            if (song == queue.get(currentSongPos))
+                nextSong();
             queue.remove(song);
             NotifyQueueChange();
         }

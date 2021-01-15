@@ -1,11 +1,14 @@
 package sample.Controllers;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -14,6 +17,7 @@ import sample.Model.Song;
 import sample.audioInterface.INowSongChangeListener;
 import sample.audioInterface.IQueueChangeListener;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +35,11 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
 
     @FXML
     private void initialize() {
-        queue = AudioQueue.getInstance();
+        try {
+            queue = AudioQueue.getInstance();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
         queue.addQueueChangeListener(this);
         queue.addNowSongChangeListener(this);
     }
@@ -72,11 +80,12 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
                     public void run() {
                         for (int i = 0; i < songs.size(); i++) {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(getClass().getResource("../Views/SongViewDetail.fxml"));
+                            loader.setLocation(getClass().getResource("../Views/SongQueueDetail.fxml"));
                             try {
                                 Pane newSong = loader.load();
-                                PanelSongViewDetailController controller = loader.getController();
+                                PanelSongQueueDetailController controller = loader.getController();
                                 controller.setSongInfo(songs.get(i));
+
                                // controller.setParentController(PanelQueueController.this);
                                 listQueue.getChildren().add(newSong);
                             } catch (IOException e) {

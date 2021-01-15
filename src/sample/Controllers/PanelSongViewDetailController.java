@@ -1,9 +1,5 @@
 package sample.Controllers;
 
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -19,6 +15,10 @@ import sample.Model.Library;
 import sample.Model.Playlist;
 import sample.Model.Song;
 import sample.helper.Helper;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 public class PanelSongViewDetailController {
 
@@ -82,6 +82,7 @@ public class PanelSongViewDetailController {
             if (_song.isFavorite()) {
                 Library library = Library.getInstance();
                 Playlist favPlaylist = library.getFavoritePL();
+                _song.setFavorite(false);
                 favPlaylist.getListSong().remove(_song);
             }
             playlist.getListSong().remove(_song);
@@ -89,22 +90,34 @@ public class PanelSongViewDetailController {
         });
 
         addToQueueItem.setOnAction(event -> {
-            AudioQueue.getInstance().addQueue(_song);
+            try {
+                AudioQueue.getInstance().addQueue(_song, false);
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
         });
     }
 
     public void setBtnFavoriteSong(MouseEvent mouseEvent) {
-        Library library = Library.getInstance();
-        Playlist favPlaylist = library.getFavoritePL();
-        if (_song.isFavorite()) {
-            favPlaylist.getListSong().remove(_song);
-            btnFavoriteSong.setGraphic(imageViewWhite);
-            _song.setFavorite(false);
-        }
-        else {
-            favPlaylist.getListSong().add(_song);
-            btnFavoriteSong.setGraphic(imageViewOrange);
-            _song.setFavorite(true);
+        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+            if (_panelPLCtrl.getSelectedPL().isFavoritePL()) {
+                _panelPLCtrl.removePaneSong(pnlSongDetail);
+            }
+            Library library = Library.getInstance();
+            Playlist favPlaylist = library.getFavoritePL();
+            if (_song.isFavorite()) {
+                favPlaylist.getListSong().remove(_song);
+                btnFavoriteSong.setGraphic(imageViewWhite);
+                _song.setFavorite(false);
+            } else {
+                favPlaylist.getListSong().add(_song);
+                btnFavoriteSong.setGraphic(imageViewOrange);
+                _song.setFavorite(true);
+            }
         }
     }
 
@@ -117,6 +130,22 @@ public class PanelSongViewDetailController {
         lblArtist.setText(song.getSinger());
         lblGenre.setText(song.getGenre());
         lblTime.setText(Helper.formattedTime(song.getDuration()));
+    }
+
+    public void onMouseDoubleClick(MouseEvent mouseEvent)  {
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+            if(mouseEvent.getClickCount() == 2){
+                try {
+                    AudioQueue.getInstance().addQueue(_song, true);
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void setParentController(PanelPlaylistController pnl) {

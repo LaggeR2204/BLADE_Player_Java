@@ -17,10 +17,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
+import sample.Model.AudioQueue;
 import sample.Model.Playlist;
 import sample.Model.Song;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class PanelPlaylistViewController {
@@ -83,11 +87,33 @@ public class PanelPlaylistViewController {
         addSongItem.setOnAction(btnAdd_clicked(addSongItem));
         addSongItem2.setOnAction(btnAdd_clicked(addSongItem2));
 
+        playAllItem.setOnAction(btnPlayAllClick(playAllItem));
+        playAllItem2.setOnAction(btnPlayAllClick(playAllItem2));
+        playAllItem3.setOnAction(btnPlayAllClick(playAllItem3));
+
         deleteItem.setOnAction(event -> {
             if (_playlist.isDeletable()) {
                 _panelPLCtrl.deletePlaylist(_playlist.getPlaylistName());
             }
         });
+    }
+
+    public EventHandler btnPlayAllClick(MenuItem item) {
+        EventHandler event = (e) -> {
+
+            try {
+                try {
+                    AudioQueue.getInstance().addQueue(_playlist.getListSong());
+                } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                    unsupportedAudioFileException.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            } catch (LineUnavailableException lineUnavailableException) {
+                lineUnavailableException.printStackTrace();
+            }
+        };
+        return event;
     }
 
     public EventHandler btnAdd_clicked(MenuItem item) {

@@ -68,7 +68,7 @@
                         <Cursor fx:constant="HAND"/>
                     </cursor>
                 </Button>
-                <Button fx:id="btnShuffle" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="115.0"
+                <Button onAction="#setBtnShuffle_Clicked" fx:id="btnShuffle" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="115.0"
                         layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
                         style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>

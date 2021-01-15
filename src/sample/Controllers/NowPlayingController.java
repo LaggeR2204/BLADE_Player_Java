@@ -6,26 +6,22 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import sample.audioInterface.INowSongChangeListener;
 import sample.Model.AudioPlayer;
 import sample.Model.AudioQueue;
 import sample.Model.Song;
-import sample.helper.Helper;
+import sample.audioInterface.INowSongChangeListener;
+import sample.audioInterface.IStatusChangeListener;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
 import java.io.IOException;
 
 import static sample.helper.Helper.formattedTime;
 
-public class NowPlayingController implements INowSongChangeListener {
+public class NowPlayingController implements INowSongChangeListener, IStatusChangeListener {
     private MainWindowController parent;
     @FXML
     private ImageView imvCoverArt;
@@ -68,7 +64,11 @@ public class NowPlayingController implements INowSongChangeListener {
 
     @FXML
     private void initialize() {
-        audioQueue = AudioQueue.getInstance();
+        try {
+            audioQueue = AudioQueue.getInstance();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
         try {
             audioPlayer = AudioPlayer.getInstance();
         } catch (LineUnavailableException e) {
@@ -103,6 +103,7 @@ public class NowPlayingController implements INowSongChangeListener {
             }
         });
         audioQueue.addNowSongChangeListener(this);
+        audioPlayer.addStatusChangeListener(this);
     }
 
     public void setParentController(final MainWindowController parent) {
@@ -137,94 +138,64 @@ public class NowPlayingController implements INowSongChangeListener {
     public void setBtnPlayPause_Clicked(ActionEvent actionEvent) {
         if (audioPlayer.getStatus() == AudioPlayer.STATUS_PLAY) {
             audioPlayer.pause();
-            playingThread.stop();
         } else if (audioPlayer.getStatus() == AudioPlayer.STATUS_PAUSE) {
             audioPlayer.play();
-            createPlayThread();
         } else {
+            Song song = null;
             try {
-                Song song = audioQueue.nextSong();
-                if(song != null)
-                {
-                    audioPlayer.changeAudio(song);
-                    sldVolume.setValue(100);
-                    createPlayThread();
-                }
-                setDisplayData(song);
-            } catch (IOException e) {
-                e.printStackTrace();
+                song = audioQueue.nextSong();
             } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
+            if (song != null) {
+                setDisplayData(song);
+                }
+
         }
     }
 
     public void setBtnNextSong_Clicked(ActionEvent actionEvent) {
+        Song song = null;
         try {
-            Song song = audioQueue.nextSong();
-            if(song != null)
-            {
-                audioPlayer.changeAudio(song);
-                createPlayThread();
-            }
-            setDisplayData(song);
-        } catch (IOException e) {
-            e.printStackTrace();
+            song = audioQueue.nextSong();
         } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+        if(song != null)
+            {
+                setDisplayData(song);
+            }
+
     }
 
     public void setBtnVolume_Clicked(ActionEvent actionEvent) {
-        Node node = (Node) actionEvent.getSource();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3"));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav"));
-        File file = fileChooser.showOpenDialog((Stage) node.getScene().getWindow());
-        Thread thr = new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                Song song;
-                if (Helper.getFileExtension(file).equals("mp3")) {
-                    song = new Song(file);
-                } else {
-                    song = new Song();
-                    song.setSongPath(file.getPath());
-                    try {
-                        song.loadData();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedAudioFileException e) {
-                        e.printStackTrace();
-                    }
-                }
-                audioQueue.addQueue(song);
-            }
-        };
-        thr.start();
+
     }
 
     public void setBtnPreSong_Clicked(ActionEvent actionEvent) {
+        Song song = null;
         try {
-            Song song = audioQueue.preSong();
-            if(song != null)
-            {
-                audioPlayer.changeAudio(song);
-                createPlayThread();
-            }
-            setDisplayData(song);
-        } catch (IOException e) {
-            e.printStackTrace();
+            song = audioQueue.preSong();
         } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+        if(song != null)
+            {
+                setDisplayData(song);
+            }
+
     }
 
     private void setDisplayData(Song song) {
@@ -253,11 +224,31 @@ public class NowPlayingController implements INowSongChangeListener {
         sldMusic.setDisable(false);
     }
 
+    public void setBtnShuffle_Clicked(ActionEvent actionEvent)
+    {
+        audioQueue.setShuffle();
+    }
+
     public void setBtnQueue_Clicked(ActionEvent actionEvent) {
         this.parent.dropDownQueuePanel();
     }
     @Override
     public void onNowSongChangeListener(Object sender, Song newSong) {
         setDisplayData(newSong);
+    }
+
+    @Override
+    public void onStatusChangeListener(Object sender, int newStatus) {
+        if(newStatus == AudioPlayer.STATUS_PLAY)
+        {
+            audioPlayer.setVolume((float)(sldVolume.getValue() / 100.0f));
+            createPlayThread();
+        }
+        else
+        {
+            playingThread.stop();
+        }
+
+        System.out.println("status" + newStatus);
     }
 }

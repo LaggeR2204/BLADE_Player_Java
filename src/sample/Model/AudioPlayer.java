@@ -1,11 +1,13 @@
 package sample.Model;
 
 
+import sample.audioInterface.IStatusChangeListener;
 import sample.helper.Helper;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AudioPlayer {
     public static int STATUS_NONE = 0;
@@ -13,8 +15,9 @@ public class AudioPlayer {
     public static int STATUS_PAUSE = 2;
 
     private static AudioPlayer _instance;
+    private ArrayList<IStatusChangeListener> statusListeners;
 
-    public static AudioPlayer getInstance() throws LineUnavailableException {
+    synchronized public static AudioPlayer getInstance() throws LineUnavailableException {
         if (_instance == null)
             _instance = new AudioPlayer();
         return _instance;
@@ -33,8 +36,32 @@ public class AudioPlayer {
         status = STATUS_NONE;
         currentFrame = 0L;
         clip = AudioSystem.getClip();
+        statusListeners = new ArrayList<>();
     }
 
+    public void addStatusChangeListener(IStatusChangeListener listener) {
+        if (!statusListeners.contains(listener))
+            statusListeners.add(listener);
+    }
+
+    public void removeStatusChangeListener(IStatusChangeListener listener) {
+        if (statusListeners.contains(listener))
+            statusListeners.remove(listener);
+    }
+
+    public void NotifyStatusChange()
+    {
+        for (IStatusChangeListener ls : statusListeners)
+            ls.onStatusChangeListener(this, status);
+    }
+
+    public void setStatus(int status)
+    {
+        if(this.status != status){
+            this.status = status;
+            NotifyStatusChange();
+        }
+    }
     public int getStatus() {
         return status;
     }
@@ -56,7 +83,8 @@ public class AudioPlayer {
     public void play() {
         //start the clip
         clip.start();
-        status = STATUS_PLAY;
+        setStatus(STATUS_PLAY);
+        //status = STATUS_PLAY;
     }
 
     // Method to pause the audio
@@ -68,7 +96,8 @@ public class AudioPlayer {
         this.currentFrame =
                 this.clip.getMicrosecondPosition();
         clip.stop();
-        status = STATUS_PAUSE;
+        setStatus(STATUS_PAUSE);
+        //status = STATUS_PAUSE;
     }
 
     // Method to resume the audio
@@ -103,7 +132,8 @@ public class AudioPlayer {
         clip.stop();
         clip.close();
         clip.flush();
-        status = STATUS_NONE;
+        setStatus(STATUS_NONE);
+        //status = STATUS_NONE;
     }
 
     // Method to jump over a specific part
