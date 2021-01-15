@@ -99,19 +99,19 @@
                   <Font name="Century Gothic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="bSec" alignment="CENTER" layoutX="340.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfbSecPressed">
+            <TextField fx:id="bSec" alignment="CENTER" layoutX="340.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfbSecPressed" onKeyTyped="#tfbSecInput">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font></TextField>
-            <TextField fx:id="bMin" alignment="CENTER" layoutX="304.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfbMinPressed">
+            <TextField fx:id="bMin" alignment="CENTER" layoutX="304.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfbMinPressed" onKeyTyped="#tfbMinInput">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font></TextField>
-            <TextField fx:id="eMin" alignment="CENTER" layoutX="431.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfeMinPressed">
+            <TextField fx:id="eMin" alignment="CENTER" layoutX="431.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfeMinPressed" onKeyTyped="#tfeMinInput">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font></TextField>
-            <TextField fx:id="eSec" alignment="CENTER" layoutX="467.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfeSecPressed">
+            <TextField fx:id="eSec" alignment="CENTER" layoutX="467.0" layoutY="168.0" prefHeight="25.0" prefWidth="30.0" onMousePressed="#tfeSecPressed" onKeyTyped="#tfeSecInput">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font></TextField>

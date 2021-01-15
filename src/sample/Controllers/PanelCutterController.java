@@ -42,7 +42,7 @@ public class PanelCutterController {
     private Label lblDuration;
     private File iFile, oFile;
     private Song song;
-    int duration;
+    int duration,beginTime, endTime;
     public void btnAddFile_Clicked(ActionEvent actionEvent)
     {
         Node node = (Node) actionEvent.getSource();
@@ -64,6 +64,8 @@ public class PanelCutterController {
                 bSec.setText("00");
                 eMin.setText(String.valueOf(duration/60));
                 eSec.setText(String.valueOf(duration%60));
+                beginTime = 0;
+                endTime = Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText());
             }
             else {
                 try {
@@ -74,6 +76,8 @@ public class PanelCutterController {
                     eMin.setText(String.valueOf(duration/60));
                     eSec.setText(String.valueOf(duration%60));
                     lblName.setText(file.getName());
+                    beginTime = 0;
+                    endTime = Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -100,6 +104,43 @@ public class PanelCutterController {
         if (!bMin.getText().equals(""))
             bMin.clear();
     }
+    public void tfeSecInput ()
+    {
+        if (!eSec.getText().equals(""))
+        if (Integer.parseInt(eSec.getText())>60 || (Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText()))>endTime)
+            eSec.setText(String.valueOf(duration%60));
+        if ((Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText()))>(Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText())))
+        {
+            bMin.setText(eMin.getText());
+            bSec.setText(eSec.getText());
+        }
+    }
+    public void tfbSecInput ()
+    {
+        if (!bSec.getText().equals(""))
+        if (Integer.parseInt(bSec.getText())>60 || (Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText()))>(Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText()))) {
+            bSec.setText(eSec.getText());
+        }
+    }
+    public void tfeMinInput ()
+    {
+        if (!eMin.getText().equals(""))
+        if (Integer.parseInt(eMin.getText())>60 || (Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText()))>endTime)
+            eMin.setText(String.valueOf(duration/60));
+        if ((Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText()))>(Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText())))
+        {
+            bMin.setText(eMin.getText());
+            bSec.setText(eSec.getText());
+        }
+    }
+    public void tfbMinInput ()
+    {
+        if (!bMin.getText().equals(""))
+        if (Integer.parseInt(bMin.getText())>60 || (Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText()))>(Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText()))) {
+            bMin.setText(eMin.getText());
+            bSec.setText(eSec.getText());
+        }
+    }
     public void btnSave_Clicked(ActionEvent actionEvent)
     {
         Node node = (Node) actionEvent.getSource();
@@ -110,8 +151,8 @@ public class PanelCutterController {
         File file = fileChooser.showSaveDialog((Stage) node.getScene().getWindow());
         oFile = file;
         File wavFile = new File("proto.wav");
-        int beginTime = Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText());
-        int endTime = Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText());
+        beginTime = Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText());
+        endTime = Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText());
         int duration = endTime - beginTime;
         try {
             if (song!= null) {
