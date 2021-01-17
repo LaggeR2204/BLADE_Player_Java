@@ -21,6 +21,12 @@ public class PanelConverterController {
     @FXML
     private Label lblCategory;
     @FXML
+    private Label lblTextName;
+    @FXML
+    private Label lblTextArtist;
+    @FXML
+    private Label lblTextGenre;
+    @FXML
     private ImageView ivAlbumImg;
     @FXML
     private TextField tfFilePath;
@@ -35,6 +41,9 @@ public class PanelConverterController {
         if (file != null) {
             iFile = file;
             song = new Song(file);
+            lblTextName.setVisible(true);
+            lblTextArtist.setVisible(true);
+            lblTextGenre.setVisible(true);
             lblName.setText(song.getSongName());
             lblArtist.setText(song.getSinger());
             lblCategory.setText(song.getGenre());

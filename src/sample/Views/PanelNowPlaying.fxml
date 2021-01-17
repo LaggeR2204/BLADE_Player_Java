@@ -29,7 +29,7 @@
                 <JFXSlider fx:id="sldVolume" layoutX="635.0" layoutY="43.0" prefHeight="20.0" prefWidth="100.0" />
                 <Button fx:id="btnPlayPause" alignment="TOP_LEFT" layoutX="225.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnPlayPause_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgPlayPause" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../img/play_60px.png" />
                             </image>
@@ -53,9 +53,9 @@
                 </Button>
                 <Button fx:id="btnShuffle" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="115.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnShuffle_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgShuffle" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../img/shuffle_30px.png" />
+                                <Image url="@../img/repeat_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -92,7 +92,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgVolume" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../img/voice_30px.png" />
                             </image>

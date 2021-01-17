@@ -15,7 +15,11 @@ import javafx.util.Duration;
 import sample.ChartOnline;
 import sample.Model.Song;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +68,10 @@ public class PanelChartController {
         listSongUSUK = new ArrayList<Song>();
         listSongKorea = new ArrayList<Song>();
 
-        refreshAllChart();
+        if (isConnectedToInternet()){
+            refreshAllChart();
+        }
+
     }
 
     public void setParentController(PanelHomeController _panelHomeController){
@@ -120,120 +127,163 @@ public class PanelChartController {
     }
 
     private void refreshVNChart(){
-        spnlVN.setVisible(false);
-        fpnlVNItems.getChildren().clear();
-        listSongVN.clear();
+        if (isConnectedToInternet()){
+            spnlVN.setVisible(false);
+            fpnlVNItems.getChildren().clear();
+            listSongVN.clear();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                listSongVN = chartOnline.crawlVietNamChart();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    listSongVN = chartOnline.crawlVietNamChart();
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!listSongVN.isEmpty()){
-                            int songIndex = 1;
-                            for (Song item:listSongVN) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!listSongVN.isEmpty()){
+                                int songIndex = 1;
+                                for (Song item:listSongVN) {
 
-                                FXMLLoader loader = new FXMLLoader();
-                                loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
+                                    FXMLLoader loader = new FXMLLoader();
+                                    loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
 
-                                try {
-                                    Pane newSongSearchDetail = (Pane) loader.load();
-                                    PanelSongSearchDetailController controller = loader.getController();
-                                    controller.setSongInfo(item, songIndex);
-                                    songIndex++;
-                                    fpnlVNItems.getChildren().add(newSongSearchDetail);
-                                } catch (IOException e) {
-                                    System.out.print(e.toString());
+                                    try {
+                                        Pane newSongSearchDetail = (Pane) loader.load();
+                                        PanelSongSearchDetailController controller = loader.getController();
+                                        controller.setSongInfo(item, songIndex);
+                                        songIndex++;
+                                        fpnlVNItems.getChildren().add(newSongSearchDetail);
+                                    } catch (IOException e) {
+                                        System.out.print(e.toString());
+                                    }
                                 }
                             }
+                            spnlVN.setVisible(true);
                         }
-                        spnlVN.setVisible(true);
-                    }
-                });
-            }
-        }).start();
+                    });
+                }
+            }).start();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }
 
     private void refreshUSUKChart(){
-        spnlUSUK.setVisible(false);
-        fpnlUSUKItems.getChildren().clear();
-        listSongUSUK.clear();
+        if (isConnectedToInternet()){
+            spnlUSUK.setVisible(false);
+            fpnlUSUKItems.getChildren().clear();
+            listSongUSUK.clear();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                listSongUSUK = chartOnline.crawlUSUKChart();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    listSongUSUK = chartOnline.crawlUSUKChart();
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!listSongUSUK.isEmpty()){
-                            int songIndex = 1;
-                            for (Song item:listSongUSUK) {
-                                FXMLLoader loader = new FXMLLoader();
-                                loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!listSongUSUK.isEmpty()){
+                                int songIndex = 1;
+                                for (Song item:listSongUSUK) {
+                                    FXMLLoader loader = new FXMLLoader();
+                                    loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
 
-                                try {
-                                    Pane newSongSearchDetail = (Pane) loader.load();
-                                    PanelSongSearchDetailController controller = loader.getController();
-                                    controller.setSongInfo(item, songIndex);
-                                    songIndex++;
-                                    fpnlUSUKItems.getChildren().add(newSongSearchDetail);
-                                } catch (IOException e) {
-                                    System.out.print(e.toString());
+                                    try {
+                                        Pane newSongSearchDetail = (Pane) loader.load();
+                                        PanelSongSearchDetailController controller = loader.getController();
+                                        controller.setSongInfo(item, songIndex);
+                                        songIndex++;
+                                        fpnlUSUKItems.getChildren().add(newSongSearchDetail);
+                                    } catch (IOException e) {
+                                        System.out.print(e.toString());
+                                    }
                                 }
                             }
+                            spnlUSUK.setVisible(true);
                         }
-                        spnlUSUK.setVisible(true);
-                    }
-                });
-            }
-        }).start();
+                    });
+                }
+            }).start();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }
 
     private void refreshKoreaChart(){
-        spnlKorea.setVisible(false);
-        fpnlKoreaItems.getChildren().clear();
-        listSongKorea.clear();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                listSongKorea = chartOnline.crawlKoreaChart();
+        if (isConnectedToInternet()){
+            spnlKorea.setVisible(false);
+            fpnlKoreaItems.getChildren().clear();
+            listSongKorea.clear();
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!listSongKorea.isEmpty()){
-                            int songIndex = 1;
-                            for (Song item:listSongKorea) {
-                                FXMLLoader loader = new FXMLLoader();
-                                loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    listSongKorea = chartOnline.crawlKoreaChart();
 
-                                try {
-                                    Pane newSongSearchDetail = (Pane) loader.load();
-                                    PanelSongSearchDetailController controller = loader.getController();
-                                    controller.setSongInfo(item, songIndex);
-                                    songIndex++;
-                                    fpnlKoreaItems.getChildren().add(newSongSearchDetail);
-                                } catch (IOException e) {
-                                    System.out.print(e.toString());
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!listSongKorea.isEmpty()){
+                                int songIndex = 1;
+                                for (Song item:listSongKorea) {
+                                    FXMLLoader loader = new FXMLLoader();
+                                    loader.setLocation(getClass().getResource("../Views/PanelSongSearchDetail.fxml"));
+
+                                    try {
+                                        Pane newSongSearchDetail = (Pane) loader.load();
+                                        PanelSongSearchDetailController controller = loader.getController();
+                                        controller.setSongInfo(item, songIndex);
+                                        songIndex++;
+                                        fpnlKoreaItems.getChildren().add(newSongSearchDetail);
+                                    } catch (IOException e) {
+                                        System.out.print(e.toString());
+                                    }
                                 }
                             }
+                            spnlKorea.setVisible(true);
                         }
-                        spnlKorea.setVisible(true);
-                    }
-                });
-            }
-        }).start();
+                    });
+                }
+            }).start();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }
 
     private void refreshAllChart(){
-        refreshVNChart();
-        refreshUSUKChart();
-        refreshKoreaChart();
+
+        if (isConnectedToInternet()){
+            refreshVNChart();
+            refreshUSUKChart();
+            refreshKoreaChart();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private static boolean isConnectedToInternet() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
     }
 }

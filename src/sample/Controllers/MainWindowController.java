@@ -216,7 +216,7 @@ public class MainWindowController {
                 }
             }
             else {
-                System.out.print("Khong co internet");
+                JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }

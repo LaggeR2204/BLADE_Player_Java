@@ -29,6 +29,12 @@ public class PanelCutterController {
     @FXML
     private Label lblCategory;
     @FXML
+    private Label lblTextName;
+    @FXML
+    private Label lblTextArtist;
+    @FXML
+    private Label lblTextGenre;
+    @FXML
     private ImageView ivAlbumImg;
     @FXML
     private TextField bMin;
@@ -54,6 +60,9 @@ public class PanelCutterController {
             iFile = file;
             if (Editor.getExtension(iFile).equals("mp3")) {
                 song = new Song(file);
+                lblTextName.setVisible(true);
+                lblTextArtist.setVisible(true);
+                lblTextGenre.setVisible(true);
                 lblName.setText(song.getSongName());
                 lblArtist.setText(song.getSinger());
                 lblCategory.setText(song.getGenre());

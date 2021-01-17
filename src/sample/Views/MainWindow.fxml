@@ -212,9 +212,9 @@
             </children></Pane>
         <Pane layoutX="200.0" onMouseDragged="#dragWindow" onMousePressed="#mousePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);">
          <children>
-            <Button fx:id="btnClose" alignment="TOP_LEFT" layoutX="765.0" layoutY="0.0" mnemonicParsing="false" onAction="#btnClose_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: rgb(40,40,40);" textFill="#00000005">
+            <Button fx:id="btnClose" alignment="CENTER" contentDisplay="CENTER" layoutX="765.0" layoutY="0.0" mnemonicParsing="false" onAction="#btnClose_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: rgb(40,40,40);" textFill="#00000005">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/close.png" />
                      </image></ImageView>
@@ -222,9 +222,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-             <Button fx:id="btnMinimize" alignment="TOP_LEFT" layoutX="730.0" layoutY="0.0" mnemonicParsing="false" onAction="#btnMinimize_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+             <Button fx:id="btnMinimize" alignment="CENTER" contentDisplay="CENTER" layoutX="730.0" layoutY="0.0" mnemonicParsing="false" onAction="#btnMinimize_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
                  <graphic>
-                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                          <image>
                              <Image url="@../img/subtract_30px.png" />
                          </image></ImageView>

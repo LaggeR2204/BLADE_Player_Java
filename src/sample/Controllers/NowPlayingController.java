@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.Model.AudioPlayer;
 import sample.Model.AudioQueue;
@@ -17,6 +19,8 @@ import sample.audioInterface.IStatusChangeListener;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static sample.helper.Helper.formattedTime;
@@ -36,22 +40,13 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
     private JFXSlider sldVolume;
 
     @FXML
-    private Button btnPlayPause;
+    private ImageView imgPlayPause;
 
     @FXML
-    private Button btnPreSong;
+    private ImageView imgShuffle;
 
     @FXML
-    private Button btnShuffle;
-
-    @FXML
-    private Button btnNextSong;
-
-    @FXML
-    private Button btnQueue;
-
-    @FXML
-    private Button btnVolume;
+    private ImageView imgVolume;
 
     @FXML
     private Label lbCurrentDuration;
@@ -62,8 +57,26 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
     @FXML
     private JFXSlider sldMusic;
 
+    Image imgPlay = null;
+    Image imgPause = null;
+    Image imgIsShuffle_True = null;
+    Image imgIsShuffle_False = null;
+    Image imgVolume_True = null;
+    Image imgVolume_False = null;
+
     @FXML
     private void initialize() {
+
+        try {
+            imgVolume_True = new Image(new FileInputStream("src/sample/img/voice_30px.png"));
+            imgVolume_False = new Image(new FileInputStream("src/sample/img/mute_30px.png"));
+            imgIsShuffle_True = new Image(new FileInputStream("src/sample/img/shuffle_30px.png"));
+            imgIsShuffle_False = new Image(new FileInputStream("src/sample/img/repeat_30px.png"));
+            imgPause = new Image(new FileInputStream("src/sample/img/pause_60px.png"));
+            imgPlay = new Image(new FileInputStream("src/sample/img/play_60px.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         try {
             audioQueue = AudioQueue.getInstance();
         } catch (LineUnavailableException e) {
@@ -100,10 +113,33 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldNum, Number newNum) {
                 audioPlayer.setVolume(newNum.floatValue() / 100);
+                if (newNum.floatValue() / 100 == 0)
+                {
+                    imgVolume.setImage(imgVolume_False);
+                }
+                else
+                {
+                    imgVolume.setImage(imgVolume_True);
+                }
             }
         });
         audioQueue.addNowSongChangeListener(this);
         audioPlayer.addStatusChangeListener(this);
+
+        lbSongName.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                lbSongName.setTooltip(new Tooltip(lbSongName.getText()));
+
+            }
+        });
+        lbArtist.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                lbArtist.setTooltip(new Tooltip(lbArtist.getText()));
+
+            }
+        });
     }
 
     public void setParentController(final MainWindowController parent) {
@@ -137,8 +173,10 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
 
     public void setBtnPlayPause_Clicked(ActionEvent actionEvent) {
         if (audioPlayer.getStatus() == AudioPlayer.STATUS_PLAY) {
+            imgPlayPause.setImage(imgPlay);
             audioPlayer.pause();
         } else if (audioPlayer.getStatus() == AudioPlayer.STATUS_PAUSE) {
+            imgPlayPause.setImage(imgPause);
             audioPlayer.play();
         } else {
             Song song = null;
@@ -176,8 +214,21 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
 
     }
 
+    private float lastVolumeValue = 100.0f;
     public void setBtnVolume_Clicked(ActionEvent actionEvent) {
-
+        if (sldVolume.getValue() / 100.0f != 0){
+            lastVolumeValue = (float) sldVolume.getValue();
+            System.out.println("last volume: " + sldVolume.getValue());
+            audioPlayer.setVolume(0);
+            sldVolume.setValue(0);
+            imgVolume.setImage(imgVolume_False);
+        }
+        else{
+            audioPlayer.setVolume(lastVolumeValue / 100.0f);
+            sldVolume.setValue(lastVolumeValue);
+            imgVolume.setImage(imgVolume_True);
+            System.out.println("last volume: " + sldVolume.getValue());
+        }
     }
 
     public void setBtnPreSong_Clicked(ActionEvent actionEvent) {
@@ -228,6 +279,12 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
     public void setBtnShuffle_Clicked(ActionEvent actionEvent)
     {
         audioQueue.setShuffle();
+        if (audioQueue.isShuffle()){
+            imgShuffle.setImage(imgIsShuffle_True);
+        }
+        else{
+            imgShuffle.setImage(imgIsShuffle_False);
+        }
     }
 
     public void setBtnQueue_Clicked(ActionEvent actionEvent) {
@@ -244,10 +301,12 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
         {
             audioPlayer.setVolume((float)(sldVolume.getValue() / 100.0f));
             createPlayThread();
+            imgPlayPause.setImage(imgPause);
         }
         else
         {
             playingThread.stop();
+            imgPlayPause.setImage(imgPlay);
         }
 
         System.out.println("status" + newStatus);
