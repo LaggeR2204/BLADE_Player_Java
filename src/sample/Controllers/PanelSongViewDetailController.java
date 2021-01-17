@@ -48,12 +48,15 @@ public class PanelSongViewDetailController {
     @FXML
     private void initialize() {
         btnPlaySong.setVisible(false);
+        btnMenuSong.setVisible(false);
         pnlSongDetail.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 btnPlaySong.setVisible(true);
+                btnMenuSong.setVisible(true);
                 pnlSongDetail.setStyle("-fx-background-color: rgb(60,60,60)");
             } else {
                 btnPlaySong.setVisible(false);
+                btnMenuSong.setVisible(false);
                 pnlSongDetail.setStyle("-fx-background-color: rgb(35,35,35)");
             }
         });
@@ -66,6 +69,20 @@ public class PanelSongViewDetailController {
         btnMenuSong.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 contextMenu.show(pnlSongDetail, event.getScreenX(), event.getScreenY());
+            }
+        });
+
+        btnPlaySong.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                try {
+                    AudioQueue.getInstance().addQueue(_song, true);
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -107,17 +124,21 @@ public class PanelSongViewDetailController {
             if (_panelPLCtrl.getSelectedPL().isFavoritePL()) {
                 _panelPLCtrl.removePaneSong(pnlSongDetail);
             }
-            Library library = Library.getInstance();
-            Playlist favPlaylist = library.getFavoritePL();
-            if (_song.isFavorite()) {
-                favPlaylist.getListSong().remove(_song);
-                btnFavoriteSong.setGraphic(imageViewWhite);
-                _song.setFavorite(false);
-            } else {
-                favPlaylist.getListSong().add(_song);
-                btnFavoriteSong.setGraphic(imageViewOrange);
-                _song.setFavorite(true);
-            }
+            setFavoriteSong();
+        }
+    }
+
+    public void setFavoriteSong() {
+        Library library = Library.getInstance();
+        Playlist favPlaylist = library.getFavoritePL();
+        if (_song.isFavorite()) {
+            favPlaylist.getListSong().remove(_song);
+            btnFavoriteSong.setGraphic(imageViewWhite);
+            _song.setFavorite(false);
+        } else {
+            favPlaylist.getListSong().add(_song);
+            btnFavoriteSong.setGraphic(imageViewOrange);
+            _song.setFavorite(true);
         }
     }
 

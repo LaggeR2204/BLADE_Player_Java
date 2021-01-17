@@ -1,139 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.text.Font?>
-<?import com.jfoenix.controls.JFXSlider?>
-<?import javafx.scene.image.Image?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.Controllers.NowPlayingController"
-            prefHeight="100.0" prefWidth="1000.0"
-            style="-fx-background-color: rgb(50,50,50);">
+<AnchorPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: rgb(50,50,50);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.NowPlayingController">
     <children>
         <Pane prefWidth="250.0">
             <children>
-                <ImageView fx:id="imvCoverArt" fitHeight="75.0" fitWidth="75.0" layoutX="5.0" layoutY="12.5"
-                           pickOnBounds="true"
-                           preserveRatio="true"/>
-                <Label fx:id="lbSongName" layoutX="80.0" layoutY="12.5" prefWidth="160.0" text="Song Name"
-                       textFill="WHITE">
+                <ImageView fx:id="imvCoverArt" fitHeight="75.0" fitWidth="75.0" layoutX="5.0" layoutY="12.5" pickOnBounds="true" preserveRatio="true" />
+                <Label fx:id="lbSongName" layoutX="90.0" layoutY="12.5" prefWidth="160.0" text="Song Name" textFill="WHITE">
                     <font>
-                        <Font name="Century Gothic Bold" size="16.0"/>
+                        <Font name="Century Gothic Bold" size="16.0" />
                     </font>
                 </Label>
-                <Label fx:id="lbArtist" layoutX="80.0" layoutY="40.0" prefWidth="160.0" text="Artist" textFill="WHITE">
+                <Label fx:id="lbArtist" layoutX="90.0" layoutY="40.0" prefWidth="160.0" text="Artist" textFill="WHITE">
                     <font>
-                        <Font name="Century Gothic Italic" size="16.0"/>
+                        <Font name="Century Gothic Italic" size="16.0" />
                     </font>
                 </Label>
             </children>
         </Pane>
         <Pane layoutX="250.0" prefHeight="100.0" prefWidth="750.0">
             <children>
-                <JFXSlider fx:id="sldVolume" layoutX="635.0" layoutY="43.0" prefHeight="20.0"
-                           prefWidth="100.0"/>
-                <Button onAction="#setBtnPlayPause_Clicked" fx:id="btnPlayPause" alignment="TOP_LEFT" layoutX="225.0"
-                        layoutY="5.0"
-                        mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
-                        style="-fx-background-color: transparent" textFill="#00000005">
+                <JFXSlider fx:id="sldVolume" layoutX="635.0" layoutY="43.0" prefHeight="20.0" prefWidth="100.0" />
+                <Button fx:id="btnPlayPause" alignment="TOP_LEFT" layoutX="225.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnPlayPause_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>
                         <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../img/play_60px.png"/>
+                                <Image url="@../img/play_60px.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button onAction="#setBtnPreSong_Clicked" fx:id="btnPreSong" alignment="CENTER"
-                        contentDisplay="GRAPHIC_ONLY" layoutX="170.0"
-                        layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
-                        style="-fx-background-color: transparent" textFill="#00000005">
+                <Button fx:id="btnPreSong" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="170.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnPreSong_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../img/back_30px.png"/>
+                                <Image url="@../img/back_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button onAction="#setBtnShuffle_Clicked" fx:id="btnShuffle" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="115.0"
-                        layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
-                        style="-fx-background-color: transparent" textFill="#00000005">
+                <Button fx:id="btnShuffle" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="115.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnShuffle_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../img/shuffle_30px.png"/>
+                                <Image url="@../img/shuffle_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button onAction="#setBtnNextSong_Clicked" fx:id="btnNextSong" alignment="CENTER"
-                        contentDisplay="GRAPHIC_ONLY" layoutX="280.0"
-                        layoutY="5.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
-                        style="-fx-background-color: transparent" textFill="#00000005">
+                <Button fx:id="btnNextSong" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="280.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnNextSong_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../img/forward_30px.png"/>
+                                <Image url="@../img/forward_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button onAction="#setBtnQueue_Clicked" fx:id="btnQueue" alignment="CENTER"
-                        contentDisplay="GRAPHIC_ONLY" layoutX="335.0"
-                        layoutY="5.0" mnemonicParsing="false" prefHeight="50.0"
-                        prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
+                <Button fx:id="btnQueue" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="335.0" layoutY="5.0" mnemonicParsing="false" onAction="#setBtnQueue_Clicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../img/lounge_music_playlist_30px.png"/>
+                                <Image url="@../img/lounge_music_playlist_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button onAction="#setBtnVolume_Clicked" fx:id="btnVolume" alignment="CENTER"
-                        contentDisplay="GRAPHIC_ONLY" layoutX="585.0"
-                        layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0"
-                        style="-fx-background-color: transparent" textFill="#00000005">
+                <Button fx:id="btnVolume" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="585.0" layoutY="30.0" mnemonicParsing="false" onAction="#setBtnVolume_Clicked" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent" textFill="#00000005">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../img/voice_30px.png"/>
+                                <Image url="@../img/voice_30px.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label fx:id="lbCurrentDuration" layoutX="10.0" layoutY="55.0" textFill="WHITE"/>
-                <Label fx:id="lbTotalDuration" layoutX="485.0" layoutY="55.0" textFill="WHITE"/>
-                <JFXSlider fx:id="sldMusic"
-                           layoutX="10.0"
-                           layoutY="75.0"
-                           prefHeight="20.0"
-                           prefWidth="500.0"/>
+                <Label fx:id="lbCurrentDuration" layoutX="10.0" layoutY="55.0" textFill="WHITE" />
+                <Label fx:id="lbTotalDuration" layoutX="485.0" layoutY="55.0" textFill="WHITE" />
+                <JFXSlider fx:id="sldMusic" layoutX="10.0" layoutY="75.0" prefHeight="20.0" prefWidth="500.0" />
             </children>
         </Pane>
     </children>

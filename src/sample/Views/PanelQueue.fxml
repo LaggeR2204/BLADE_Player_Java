@@ -6,44 +6,40 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.Controllers.PanelQueueController">
+<AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelQueueController">
     <Label layoutX="20.0" layoutY="20.0" text="PLAYBACK" textFill="WHITE">
         <font>
-            <Font name="Century Gothic Bold" size="20.0"/>
+            <Font name="Century Gothic Bold" size="20.0" />
         </font>
     </Label>
-    <Pane layoutX="497.0" layoutY="65.0" prefHeight="500.0" prefWidth="1.0" style="-fx-background-color: gray;"/>
-    <FlowPane fx:id="listQueue" layoutY="65.0" prefHeight="500.0" prefWidth="495.0"/>
+    <Pane layoutX="497.0" layoutY="65.0" prefHeight="500.0" prefWidth="1.0" style="-fx-background-color: gray;" />
+    <FlowPane fx:id="listQueue" layoutY="65.0" prefHeight="500.0" prefWidth="495.0" />
     <Label layoutX="510.0" layoutY="65.0" text="Now Playing" textFill="WHITE">
         <font>
-            <Font name="Century Gothic Bold" size="20.0"/>
+            <Font name="Century Gothic Bold" size="20.0" />
         </font>
     </Label>
     <Pane layoutX="500.0" layoutY="100.0" prefHeight="465.0" prefWidth="300.0">
         <children>
-            <ImageView fx:id="coverArt" fitHeight="280.0" fitWidth="280.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true"
-                       preserveRatio="true"/>
+            <ImageView fx:id="coverArt" fitHeight="280.0" fitWidth="280.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="lblSongName" layoutX="10.0" layoutY="300.0" prefHeight="35.0" prefWidth="280.0" text="Song Name" textFill="WHITE">
                 <font>
-                    <Font name="Century Gothic Bold" size="20.0"/>
+                    <Font name="Century Gothic Bold" size="20.0" />
                 </font>
             </Label>
             <Label fx:id="lblArtist" layoutX="10.0" layoutY="340.0" prefHeight="35.0" prefWidth="280.0" text="Artist" textFill="WHITE">
                 <font>
-                    <Font name="Century Gothic" size="18.0"/>
+                    <Font name="Century Gothic" size="18.0" />
                 </font>
             </Label>
-            <Button fx:id="btnFavorite" alignment="TOP_LEFT" layoutX="5.0" layoutY="390.0" mnemonicParsing="false" prefHeight="30.0"
-                    prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
+            <Button fx:id="btnFavoriteSong" alignment="TOP_LEFT" layoutX="5.0" layoutY="390.0" mnemonicParsing="false" onMouseClicked="#setFavoriteSong" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
                 <cursor>
-                    <Cursor fx:constant="HAND"/>
+                    <Cursor fx:constant="HAND" />
                 </cursor>
                 <graphic>
                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../img/love_30px.png"/>
+                            <Image url="@../img/love_30px.png" />
                         </image>
                     </ImageView>
                 </graphic>

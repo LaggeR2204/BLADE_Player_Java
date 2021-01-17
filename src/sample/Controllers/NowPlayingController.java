@@ -209,6 +209,7 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
             sldMusic.setDisable(true);
             sldVolume.setMax(100);
             sldVolume.setMin(0);
+            sldVolume.setValue(100);
             return;
         }
         lbArtist.setText(song.getSinger());

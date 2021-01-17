@@ -35,6 +35,17 @@ public class PanelSongQueueDetailController {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem removeItem = new MenuItem("Remove from Queue");
         contextMenu.getItems().add(removeItem);
+        btnMenuSong.setVisible(false);
+
+        pnlSongQueueDetail.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                pnlSongQueueDetail.setStyle("-fx-background-color: rgb(60,60,60)");
+                btnMenuSong.setVisible(true);
+            } else {
+                pnlSongQueueDetail.setStyle("-fx-background-color: rgb(35,35,35)");
+                btnMenuSong.setVisible(false);
+            }
+        });
 
         btnMenuSong.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {

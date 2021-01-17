@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -13,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import sample.Model.AudioQueue;
+import sample.Model.Library;
+import sample.Model.Playlist;
 import sample.Model.Song;
 import sample.audioInterface.INowSongChangeListener;
 import sample.audioInterface.IQueueChangeListener;
@@ -24,6 +27,10 @@ import java.util.Collection;
 
 public class PanelQueueController implements IQueueChangeListener, INowSongChangeListener {
     private AudioQueue queue;
+    private Song _songNow;
+    private ImageView imageViewWhite;
+    private ImageView imageViewOrange;
+
     @FXML
     private Label lblSongName;
     @FXML
@@ -32,6 +39,8 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
     private FlowPane listQueue;
     @FXML
     private ImageView coverArt;
+    @FXML
+    private Button btnFavoriteSong;
 
     @FXML
     private void initialize() {
@@ -42,6 +51,14 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
         }
         queue.addQueueChangeListener(this);
         queue.addNowSongChangeListener(this);
+
+        imageViewWhite = new ImageView(new Image(String.valueOf(getClass().getResource("../img/love_30px.png"))));
+        imageViewWhite.setFitWidth(25.0);
+        imageViewWhite.setFitHeight(25.0);
+
+        imageViewOrange = new ImageView(new Image(String.valueOf(getClass().getResource("../img/love_orange_30px.png"))));
+        imageViewOrange.setFitWidth(25.0);
+        imageViewOrange.setFitHeight(25.0);
     }
 
     @Override
@@ -62,10 +79,17 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
             coverArt.setVisible(false);
             return;
         }
+        _songNow = song;
         lblSongName.setText(song.getSongName());
         lblArtist.setText(song.getSinger());
         coverArt.setImage(song.getSongImage());
         coverArt.setVisible(true);
+        if (song.isFavorite()) {
+            btnFavoriteSong.setGraphic(imageViewOrange);
+        }
+        else {
+            btnFavoriteSong.setGraphic(imageViewWhite);
+        }
     }
 
     public void RefreshQueue(Collection<Song> newQueue)
@@ -97,5 +121,21 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
                 });
             }
         }).start();
+    }
+
+    public void setFavoriteSong(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+            Library library = Library.getInstance();
+            Playlist favPlaylist = library.getFavoritePL();
+            if (_songNow.isFavorite()) {
+                favPlaylist.getListSong().remove(_songNow);
+                btnFavoriteSong.setGraphic(imageViewWhite);
+                _songNow.setFavorite(false);
+            } else {
+                favPlaylist.getListSong().add(_songNow);
+                btnFavoriteSong.setGraphic(imageViewOrange);
+                _songNow.setFavorite(true);
+            }
+        }
     }
 }
