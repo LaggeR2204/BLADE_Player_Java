@@ -8,16 +8,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import sample.Model.Song;
+import sample.RecentlySongState;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PanelHomeController {
     private PanelChartController panelChartController;
-
+    private PanelRecentlySongDetailController pnlRecentlySong1Controller;
+    private PanelRecentlySongDetailController pnlRecentlySong2Controller;
+    private PanelRecentlySongDetailController pnlRecentlySong3Controller;
     @FXML
     private Pane pnlChart;
 
@@ -25,20 +32,109 @@ public class PanelHomeController {
     private Pane pnlMainHome;
 
     @FXML
+    private Pane pnlRecentlySong1;
+    @FXML
+    private Pane pnlRecentlySong2;
+    @FXML
+    private Pane pnlRecentlySong3;
+
+    @FXML
     private Pane pnlHomeBackground;
 
     @FXML
     public void initialize(){
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../Views/PanelChart.fxml"));
-            pnlChart = (Pane) loader.load();
-            panelChartController = loader.getController();
+            FXMLLoader loader1 = new FXMLLoader();
+            loader1.setLocation(getClass().getResource("../Views/RecentlySongDetail.fxml"));
+            pnlRecentlySong1 = (Pane) loader1.load();
+            pnlRecentlySong1Controller = loader1.getController();
+            pnlRecentlySong1.setLayoutX(50);
+            pnlRecentlySong1.setLayoutY(40);
+            FXMLLoader loader2 = new FXMLLoader();
+            loader2.setLocation(getClass().getResource("../Views/RecentlySongDetail.fxml"));
+            pnlRecentlySong2 = (Pane) loader2.load();
+            pnlRecentlySong2Controller = loader2.getController();
+            pnlRecentlySong2.setLayoutX(306);
+            pnlRecentlySong2.setLayoutY(40);
+            FXMLLoader loader3 = new FXMLLoader();
+            loader3.setLocation(getClass().getResource("../Views/RecentlySongDetail.fxml"));
+            pnlRecentlySong3 = (Pane) loader3.load();
+            pnlRecentlySong3Controller = loader3.getController();
+            pnlRecentlySong3.setLayoutX(556);
+            pnlRecentlySong3.setLayoutY(40);
+            pnlHomeBackground.getChildren().setAll(pnlRecentlySong1,pnlRecentlySong2,pnlRecentlySong3);
+            FXMLLoader loaderChart = new FXMLLoader();
+            loaderChart.setLocation(getClass().getResource("../Views/PanelChart.fxml"));
+            pnlChart = (Pane) loaderChart.load();
+            panelChartController = loaderChart.getController();
             panelChartController.setParentController(this);
             pnlChart.setLayoutX(800);
             pnlMainHome.getChildren().add(pnlChart);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void setRecentlySong(Song song){
+        if (song != null){
+            if (song == pnlRecentlySong1Controller.getSong()){
+            }
+            else if (song == pnlRecentlySong2Controller.getSong()){
+                pnlRecentlySong2Controller.setSong(pnlRecentlySong1Controller.getSong());
+                pnlRecentlySong1Controller.setSong(song);
+            }
+            else{
+                pnlRecentlySong3Controller.setSong(pnlRecentlySong2Controller.getSong());
+                pnlRecentlySong2Controller.setSong(pnlRecentlySong1Controller.getSong());
+                pnlRecentlySong1Controller.setSong(song);
+            }
+        }
+        RecentlySongState.getInstance().addSong(song);
+        return;
+    }
+
+    public void setRecentlySongs(List<Song> songs){
+        Song song1 = songs.get(0);
+        Song song2 = songs.get(1);
+        Song song3 = songs.get(2);
+        if (song1 != null){
+            pnlRecentlySong1Controller.setSong(song1);
+            if (song2 != null){
+                pnlRecentlySong2Controller.setSong(song2);
+                if (song3 != null){
+                    pnlRecentlySong3Controller.setSong(song3);
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+            else if (song3 != null){
+                pnlRecentlySong2Controller.setSong(song3);
+                return;
+            }
+            else{
+                return;
+            }
+        }
+        else{
+            if (song2 != null){
+                pnlRecentlySong1Controller.setSong(song2);
+                if (song3 != null){
+                    pnlRecentlySong2Controller.setSong(song3);
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+            else if (song3 != null){
+                pnlRecentlySong1Controller.setSong(song3);
+                return;
+            }
+            else{
+                return;
+            }
         }
     }
 

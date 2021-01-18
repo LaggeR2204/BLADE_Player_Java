@@ -30,6 +30,7 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
     private Song _songNow;
     private ImageView imageViewWhite;
     private ImageView imageViewOrange;
+    private PanelHomeController panelHomeController;
 
     @FXML
     private Label lblSongName;
@@ -61,6 +62,10 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
         imageViewOrange.setFitHeight(25.0);
     }
 
+    public void setHomeController(PanelHomeController _panelHomeController){
+        this.panelHomeController = _panelHomeController;
+    }
+
     @Override
     public void onQueueChangeListener(Object sender, Collection<Song> newQueue) {
         RefreshQueue(newQueue);
@@ -69,6 +74,9 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
     @Override
     public void onNowSongChangeListener(Object sender, Song newSong) {
         ShowNowSongInfo(newSong);
+        if (panelHomeController != null){
+            panelHomeController.setRecentlySong(newSong);
+        }
     }
 
     public void ShowNowSongInfo(Song song)
