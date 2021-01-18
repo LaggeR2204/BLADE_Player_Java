@@ -146,4 +146,13 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
             }
         }
     }
+
+    public void resetFavorite() {
+        if (_songNow != null) {
+            if (_songNow.isFavorite())
+                btnFavoriteSong.setGraphic(imageViewOrange);
+            else
+                btnFavoriteSong.setGraphic(imageViewWhite);
+        }
+    }
 }

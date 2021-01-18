@@ -167,7 +167,7 @@ public class MainWindowController {
             nowPlayingBar = loader.load();
             nowPlayingController = loader.getController();
             nowPlayingController.setParentController(this);
-            nowPlayingController.setPanelPlaylistController(loaderPlaylist.getController());
+            nowPlayingController.setPanelPlaylistController(loaderPlaylist.getController(), loaderQueue.getController());
             pnlNowPlaying.getChildren().setAll(nowPlayingBar);
             //
         }

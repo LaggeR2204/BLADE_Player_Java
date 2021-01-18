@@ -72,6 +72,7 @@ public class PanelPlaylistViewController {
                     contextMenu.show(pnlPlaylistView, event.getScreenX(), event.getScreenY());
                 }
                 _panelPLCtrl.resetSelected();
+                showListSong();
                 pnlPlaylistView.setStyle("-fx-background-color: rgb(255,163,26)");
             }
         });
