@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onMouseClicked="#onMouseDoubleClick" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelRecentlySongDetailController">
+   <children>
+      <Label fx:id="lblSongName" alignment="CENTER" layoutY="170.0" prefHeight="30.0" prefWidth="200.0" text="Song Name" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Bold" size="15.0" />
+         </font></Label>
+      <ImageView fx:id="imgSongImage" fitHeight="170.0" fitWidth="170.0" layoutX="15.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

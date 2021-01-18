@@ -36,6 +36,7 @@ public class MainWindowController {
     private String selectedButtonId = "btnHome";
     private PanelSearchController searchController;
     private NowPlayingController nowPlayingController;
+    private PanelQueueController panelQueueController;
     @FXML
     private Pane pnlLogo;
 
@@ -131,11 +132,21 @@ public class MainWindowController {
             pnlSearch = (Pane) loader.load();
             searchController = loader.getController();
             pnlMainParent.getChildren().set(0,pnlSearch);
-            pnlQueue = FXMLLoader.load(getClass().getResource("../Views/PanelQueue.fxml"));
+            FXMLLoader loaderQueue = new FXMLLoader();
+            loaderQueue.setLocation(getClass().getResource("../Views/PanelQueue.fxml"));
+            pnlQueue = (Pane) loaderQueue.load();
+            panelQueueController = loaderQueue.getController();
             pnlQueue.setLayoutY(565);
             pnlQueueSearchParent.getChildren().setAll( pnlQueue);
 
 
+            FXMLLoader loaderHome = new FXMLLoader();
+            loaderHome.setLocation(getClass().getResource("../Views/PanelHome.fxml"));
+            pnlHome = (Pane) loaderHome.load();
+            if(panelQueueController != null){
+                panelQueueController.setHomeController(loaderHome.getController());
+            }
+            pnlPlaylist = FXMLLoader.load(getClass().getResource("../Views/PanelPlaylist.fxml"));
 
             pnlHome = FXMLLoader.load(getClass().getResource("../Views/PanelHome.fxml"));
             FXMLLoader loaderPlaylist = new FXMLLoader();
