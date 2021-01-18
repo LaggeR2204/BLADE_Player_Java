@@ -4,11 +4,15 @@ import javafx.application.Platform;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -55,6 +59,31 @@ public class PanelPlaylistController {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+        pnlAddPlaylist.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER && !tbxPLName.getText().isEmpty()) {
+                if (!checkExistPlaylist(tbxPLName.getText())) {
+                    Playlist playlist = new Playlist(tbxPLName.getText(), true);
+                    currentLibrary.addPlaylistToLibrary(playlist);
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("../Views/PanelPlaylistView.fxml"));
+                    try {
+                        Pane newPlaylist = (Pane) loader.load();
+                        PanelPlaylistViewController controller = loader.getController();
+                        controller.setPlaylistInfo(playlist);
+                        controller.setParentController(PanelPlaylistController.this);
+                        fpnlListPL.getChildren().add(newPlaylist);
+                    } catch (IOException e) {
+                        System.out.print(e.toString());
+                    }
+                    pnlBGAddPlaylist.toBack();
+                    pnlBGAddPlaylist.setVisible(false);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "This playlist name is already existed.");
+                }
+                tbxPLName.clear();
+            }
+        });
     }
 
     void loadPL(Library library) {
@@ -88,6 +117,15 @@ public class PanelPlaylistController {
     public void resetSelected() {
         for (Node children : this.fpnlListPL.getChildren()) {
             children.setStyle("-fx-background-color: rgb(35,35,35); -fx-border-width: 1px; -fx-border-color: rgb(50,50,50)");
+        }
+    }
+
+    public void resetFavorite() {
+        if (selectedPL != null) {
+            setSelectedPL(selectedPL);
+        }
+        else {
+            setSelectedPL(currentLibrary.getDefaultPL());
         }
     }
 

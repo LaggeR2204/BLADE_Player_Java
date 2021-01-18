@@ -27,6 +27,7 @@ import static sample.helper.Helper.formattedTime;
 
 public class NowPlayingController implements INowSongChangeListener, IStatusChangeListener {
     private MainWindowController parent;
+    private PanelPlaylistController panelPlaylistController;
     @FXML
     private ImageView imvCoverArt;
 
@@ -289,6 +290,7 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
 
     public void setBtnQueue_Clicked(ActionEvent actionEvent) {
         this.parent.dropDownQueuePanel();
+        panelPlaylistController.resetFavorite();
     }
     @Override
     public void onNowSongChangeListener(Object sender, Song newSong) {
@@ -310,5 +312,10 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
         }
 
         System.out.println("status" + newStatus);
+    }
+
+    public void setPanelPlaylistController(PanelPlaylistController pnPLCtrl) {
+        if (pnPLCtrl != null)
+            this.panelPlaylistController = pnPLCtrl;
     }
 }

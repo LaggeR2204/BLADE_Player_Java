@@ -138,7 +138,9 @@ public class MainWindowController {
 
 
             pnlHome = FXMLLoader.load(getClass().getResource("../Views/PanelHome.fxml"));
-            pnlPlaylist = FXMLLoader.load(getClass().getResource("../Views/PanelPlaylist.fxml"));
+            FXMLLoader loaderPlaylist = new FXMLLoader();
+            loaderPlaylist.setLocation(getClass().getResource("../Views/PanelPlaylist.fxml"));
+            pnlPlaylist = loaderPlaylist.load();
             pnlCutter = FXMLLoader.load(getClass().getResource("../Views/PanelCutter.fxml"));
             pnlConverter = FXMLLoader.load(getClass().getResource("../Views/PanelConverter.fxml"));
             pnlAboutUs = FXMLLoader.load(getClass().getResource("../Views/PanelAboutUs.fxml"));
@@ -157,6 +159,7 @@ public class MainWindowController {
             nowPlayingBar = loader.load();
             nowPlayingController = loader.getController();
             nowPlayingController.setParentController(this);
+            nowPlayingController.setPanelPlaylistController(loaderPlaylist.getController());
             pnlNowPlaying.getChildren().setAll(nowPlayingBar);
             //
         }
