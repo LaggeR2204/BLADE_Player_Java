@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.concurrent.Task;
+import javafx.scene.control.Alert;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import sample.Model.Song;
@@ -26,7 +27,12 @@ public class DownloadTask extends Task<Void> {
     }
     @Override
     protected void succeeded(){
-        System.out.println("Download complete");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notification");
+        alert.setHeaderText(null);
+        alert.setContentText("Download Completed !!!");
+
+        alert.showAndWait();
     }
 
     @Override

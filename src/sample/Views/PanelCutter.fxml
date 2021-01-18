@@ -55,11 +55,6 @@
       </Pane>
       <Pane layoutY="325.0" prefHeight="240.0" prefWidth="800.0">
           <children>
-              <Button fx:id="btnPlayStop" alignment="TOP_LEFT" layoutX="380.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
-                  <cursor>
-                      <Cursor fx:constant="HAND" />
-                  </cursor>
-              </Button>
               <Button fx:id="btnSave" alignment="TOP_LEFT" layoutX="420.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSave_Clicked" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent" textFill="#00000005">
                   <cursor>
                       <Cursor fx:constant="HAND" />

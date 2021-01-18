@@ -227,7 +227,12 @@ public class MainWindowController {
                 }
             }
             else {
-                JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Search failed");
+                alert.setHeaderText(null);
+                alert.setContentText("No internet !!!");
+
+                alert.showAndWait();
             }
         }
     }

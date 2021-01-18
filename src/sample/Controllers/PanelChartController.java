@@ -7,6 +7,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
@@ -165,7 +166,12 @@ public class PanelChartController {
             }).start();
         }
         else{
-            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Search failed");
+            alert.setHeaderText(null);
+            alert.setContentText("No internet !!!");
+
+            alert.showAndWait();
         }
 
 
@@ -209,7 +215,12 @@ public class PanelChartController {
             }).start();
         }
         else{
-            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Search failed");
+            alert.setHeaderText(null);
+            alert.setContentText("No internet !!!");
+
+            alert.showAndWait();
         }
 
 
@@ -254,7 +265,12 @@ public class PanelChartController {
             }).start();
         }
         else{
-            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Search failed");
+            alert.setHeaderText(null);
+            alert.setContentText("No internet !!!");
+
+            alert.showAndWait();
         }
 
 
@@ -268,7 +284,12 @@ public class PanelChartController {
             refreshKoreaChart();
         }
         else{
-            JOptionPane.showMessageDialog(null,"No internet!!!","Error",JOptionPane.ERROR_MESSAGE);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Search failed");
+            alert.setHeaderText(null);
+            alert.setContentText("No internet !!!");
+
+            alert.showAndWait();
         }
 
     }
