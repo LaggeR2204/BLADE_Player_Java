@@ -146,9 +146,6 @@ public class MainWindowController {
             if(panelQueueController != null){
                 panelQueueController.setHomeController(loaderHome.getController());
             }
-            pnlPlaylist = FXMLLoader.load(getClass().getResource("../Views/PanelPlaylist.fxml"));
-
-            pnlHome = FXMLLoader.load(getClass().getResource("../Views/PanelHome.fxml"));
             FXMLLoader loaderPlaylist = new FXMLLoader();
             loaderPlaylist.setLocation(getClass().getResource("../Views/PanelPlaylist.fxml"));
             pnlPlaylist = loaderPlaylist.load();
