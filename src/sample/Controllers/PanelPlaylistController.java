@@ -79,7 +79,13 @@ public class PanelPlaylistController {
                     pnlBGAddPlaylist.setVisible(false);
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "This playlist name is already existed.");
+                    //JOptionPane.showMessageDialog(null, "This playlist name is already existed.");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Add playlist failed");
+                    alert.setHeaderText(null);
+                    alert.setContentText("This playlist name is already existed.");
+
+                    alert.showAndWait();
                 }
                 tbxPLName.clear();
             }
@@ -175,6 +181,7 @@ public class PanelPlaylistController {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
             pnlBGAddPlaylist.toFront();
             pnlBGAddPlaylist.setVisible(true);
+            tbxPLName.requestFocus();
         }
     }
 
@@ -198,7 +205,13 @@ public class PanelPlaylistController {
                 pnlBGAddPlaylist.setVisible(false);
             }
             else {
-                JOptionPane.showMessageDialog(null, "This playlist name is already existed.");
+                //JOptionPane.showMessageDialog(null, "This playlist name is already existed.");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Add playlist failed");
+                alert.setHeaderText(null);
+                alert.setContentText("This playlist name is already existed.");
+
+                alert.showAndWait();
             }
             tbxPLName.clear();
         }
