@@ -1,6 +1,8 @@
 package sample.Controllers;
 
 import com.sun.glass.ui.CommonDialogs;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
+import sample.AddSongTask;
 import sample.Model.AudioQueue;
 import sample.Model.Playlist;
 import sample.Model.Song;
@@ -125,13 +128,17 @@ public class PanelPlaylistViewController {
             ExtensionFilter exWav = new ExtensionFilter("WAV files (*.wav)", "*.wav");
             ExtensionFilter exAll = new ExtensionFilter("All files", "*.*");
             fileChooser.getExtensionFilters().addAll(exMp3, exWav, exAll);
+
             songs = fileChooser.showOpenMultipleDialog(item.getParentPopup().getScene().getWindow());
+
             if (songs != null) {
-                for (File f : songs) {
-                    Song temp = new Song(f);
-                    _playlist.addSongToPlaylist(temp);
-                }
-                showListSong();
+                Task<Void> addSongTask = new AddSongTask(songs, _playlist);
+                addSongTask.setOnSucceeded(event1 -> {
+                    showListSong();
+                });
+                Thread thread = new Thread(addSongTask);
+                thread.setDaemon(true);
+                thread.start();
             }
         };
         return event;
