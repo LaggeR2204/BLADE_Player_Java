@@ -3,6 +3,7 @@ package sample.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -91,6 +92,10 @@ public class PanelCutterController {
                     e.printStackTrace();
                 }
             }
+            eSec.setDisable(false);
+            eMin.setDisable(false);
+            bSec.setDisable(false);
+            bMin.setDisable(false);
         }
     }
     public void tfeSecPressed ()
@@ -138,7 +143,7 @@ public class PanelCutterController {
             eMin.setText(String.valueOf(duration/60));
         if ((Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText()))>(Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText())))
         {
-            bMin.setText(eMin.getText());
+            eMin.setText(eMin.getText());
             bSec.setText(eSec.getText());
         }
     }
@@ -152,26 +157,39 @@ public class PanelCutterController {
     }
     public void btnSave_Clicked(ActionEvent actionEvent)
     {
-        Node node = (Node) actionEvent.getSource();
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
-        fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setInitialFileName(iFile.getName().replace(" ", "-")+"-Trimmed");
-        File file = fileChooser.showSaveDialog((Stage) node.getScene().getWindow());
-        oFile = file;
-        File wavFile = new File("proto.wav");
-        beginTime = Integer.parseInt(bMin.getText())*60 + Integer.parseInt(bSec.getText());
-        endTime = Integer.parseInt(eMin.getText())*60 + Integer.parseInt(eSec.getText());
-        int duration = endTime - beginTime;
-        try {
-            if (song!= null) {
-                Editor.mp3ToWav(iFile,wavFile.getPath());
-                Editor.copyAudio(wavFile,file.getAbsolutePath(),beginTime,duration);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if (iFile!=null) {
+            Node node = (Node) actionEvent.getSource();
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
+            fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setInitialFileName(iFile.getName().replace(" ", "-") + "-Trimmed");
+            File file = fileChooser.showSaveDialog((Stage) node.getScene().getWindow());
+            oFile = file;
+            File wavFile = new File("proto.wav");
+            beginTime = Integer.parseInt(bMin.getText()) * 60 + Integer.parseInt(bSec.getText());
+            endTime = Integer.parseInt(eMin.getText()) * 60 + Integer.parseInt(eSec.getText());
+            int duration = endTime - beginTime;
+            try {
+                if (song != null) {
+                    Editor.mp3ToWav(iFile, wavFile.getPath());
+                    Editor.copyAudio(wavFile, file.getAbsolutePath(), beginTime, duration);
+                } else
+                    Editor.copyAudio(iFile, file.getAbsolutePath(), beginTime, duration);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            else
-            Editor.copyAudio(iFile,file.getAbsolutePath(),beginTime,duration);
-        } catch (Exception e) {
-            e.printStackTrace();
+            alert.setTitle("Cutter");
+            alert.setHeaderText(null);
+            alert.setContentText("Complete!");
+            alert.showAndWait();
+        }
+        else
+        {
+            alert.setTitle("Cutter");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a file first!");
+            alert.showAndWait();
         }
     }
 }

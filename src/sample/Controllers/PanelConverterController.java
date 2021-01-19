@@ -1,5 +1,6 @@
 package sample.Controllers;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -11,6 +12,7 @@ import javafx.scene.image.ImageView;
 import sample.Editor;
 import sample.Model.Song;
 
+import javax.swing.*;
 import java.io.File;
 
 public class PanelConverterController {
@@ -55,18 +57,33 @@ public class PanelConverterController {
 
     public void btnConvert_Clicked(ActionEvent actionEvent)
     {
-        Node node = (Node) actionEvent.getSource();
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
-        fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setInitialFileName(song.getSongName().replace(" ", "-"));
-        File file = fileChooser.showSaveDialog((Stage) node.getScene().getWindow());
-        oFile = file;
-        try {
-            Editor.mp3ToWav(iFile, oFile.getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if (iFile != null) {
+            Node node = (Node) actionEvent.getSource();
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("WAV files (*.wav)", "*.wav");
+            fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setInitialFileName(song.getSongName().replace(" ", "-"));
+            File file = fileChooser.showSaveDialog((Stage) node.getScene().getWindow());
+            oFile = file;
+            try {
+                Editor.mp3ToWav(iFile, oFile.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            alert.setTitle("Converter");
+            alert.setHeaderText(null);
+            alert.setContentText("Complete!");
+            alert.showAndWait();
         }
+        else
+        {
+            alert.setTitle("Converter");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a file first!");
+            alert.showAndWait();
+        }
+
     }
 
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import sample.NumberTextField ?>
 
 <AnchorPane prefHeight="565.0" prefWidth="800.0" style="-fx-background-color: rgb(40,40,40);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.PanelCutterController">
    <children>
@@ -94,22 +95,22 @@
                   <Font name="Century Gothic" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="bSec" alignment="CENTER" layoutX="340.0" layoutY="168.0" onKeyTyped="#tfbSecInput" onMousePressed="#tfbSecPressed" prefHeight="25.0" prefWidth="30.0">
+            <NumberTextField fx:id="bSec" alignment="CENTER" layoutX="340.0" layoutY="168.0" onKeyTyped="#tfbSecInput" onMousePressed="#tfbSecPressed" prefHeight="25.0" prefWidth="30.0" disable="true">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
-               </font></TextField>
-            <TextField fx:id="bMin" alignment="CENTER" layoutX="304.0" layoutY="168.0" onKeyTyped="#tfbMinInput" onMousePressed="#tfbMinPressed" prefHeight="25.0" prefWidth="30.0">
+               </font></NumberTextField>
+            <NumberTextField fx:id="bMin" alignment="CENTER" layoutX="304.0" layoutY="168.0" onKeyTyped="#tfbMinInput" onMousePressed="#tfbMinPressed" prefHeight="25.0" prefWidth="30.0" disable="true">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
-               </font></TextField>
-            <TextField fx:id="eMin" alignment="CENTER" layoutX="431.0" layoutY="168.0" onKeyTyped="#tfeMinInput" onMousePressed="#tfeMinPressed" prefHeight="25.0" prefWidth="30.0">
+               </font></NumberTextField>
+            <NumberTextField fx:id="eMin" alignment="CENTER" layoutX="431.0" layoutY="168.0" onKeyTyped="#tfeMinInput" onMousePressed="#tfeMinPressed" prefHeight="25.0" prefWidth="30.0" disable="true">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
-               </font></TextField>
-            <TextField fx:id="eSec" alignment="CENTER" layoutX="467.0" layoutY="168.0" onKeyTyped="#tfeSecInput" onMousePressed="#tfeSecPressed" prefHeight="25.0" prefWidth="30.0">
+               </font></NumberTextField>
+            <NumberTextField fx:id="eSec" alignment="CENTER" layoutX="467.0" layoutY="168.0" onKeyTyped="#tfeSecInput" onMousePressed="#tfeSecPressed" prefHeight="25.0" prefWidth="30.0" disable="true">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
-               </font></TextField>
+               </font></NumberTextField>
           </children>
       </Pane>
    </children>

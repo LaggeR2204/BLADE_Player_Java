@@ -54,7 +54,7 @@
                <Font name="Century Gothic" size="15.0" />
            </font>
        </Label>
-       <TextField fx:id="tfFilePath" layoutX="230.0" layoutY="14.0" prefHeight="22.0" prefWidth="340.0">
+       <TextField fx:id="tfFilePath" layoutX="230.0" layoutY="14.0" prefHeight="22.0" prefWidth="340.0" editable="false">
            <font>
                <Font name="Arial" size="11.0" />
            </font>
