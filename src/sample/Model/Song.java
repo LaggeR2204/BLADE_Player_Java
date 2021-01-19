@@ -9,7 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 
-public class Song {
+public class Song extends BaseModel {
 
     //region Properties
     private String SongName;
@@ -17,7 +17,8 @@ public class Song {
     private String Singer;
     private String Genre;
     private String Album;
-    private Image SongImage;
+    //transient private Image SongImage;
+    private byte[] Image;
     private boolean IsFavorite;
     private String SongURL;
     private int SongNumber;
@@ -80,11 +81,16 @@ public class Song {
     }
 
     public Image getSongImage() {
-        return SongImage;
+        if(Image != null)
+            return Helper.getImage(this.Image);
+        return null;
     }
 
-    public void setSongImage(Image songImage) {
-        SongImage = songImage;
+//    public void setSongImage(Image songImage) {
+//        SongImage = songImage;
+//    }
+    public void setSongImage(byte[] songImage) {
+        Image = songImage;
     }
 
     public boolean isFavorite() {
@@ -119,7 +125,7 @@ public class Song {
         Singer = "";
         Genre = "";
         Album = "";
-        SongImage = null;
+        Image = null;
         IsFavorite = false;
         SongURL = "";
         SongNumber = -1;
@@ -136,7 +142,7 @@ public class Song {
             setSinger(id3v2Tag.getArtist());
             setAlbum(id3v2Tag.getAlbum());
             setGenre(id3v2Tag.getGenreDescription());
-            setSongImage(Helper.getImage(id3v2Tag.getAlbumImage()));
+            setSongImage(id3v2Tag.getAlbumImage());
             data = Helper.readMP3AudioFileData(file);
             Duration = data.length / 4 / 44100;
         } catch (Exception e) {

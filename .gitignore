@@ -1,3 +1,5 @@
+*.blade
+
 # Compiled class file
 *.class
 

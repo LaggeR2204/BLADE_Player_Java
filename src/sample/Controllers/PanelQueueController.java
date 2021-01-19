@@ -21,6 +21,7 @@ import sample.audioInterface.INowSongChangeListener;
 import sample.audioInterface.IQueueChangeListener;
 
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,6 +50,10 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
             queue = AudioQueue.getInstance();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         queue.addQueueChangeListener(this);
         queue.addNowSongChangeListener(this);
@@ -60,6 +65,9 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
         imageViewOrange = new ImageView(new Image(String.valueOf(getClass().getResource("../img/love_orange_30px.png"))));
         imageViewOrange.setFitWidth(25.0);
         imageViewOrange.setFitHeight(25.0);
+
+        RefreshQueue(queue.getQueue());
+        ShowNowSongInfo(queue.getCurrentSong());
     }
 
     public void setHomeController(PanelHomeController _panelHomeController){
@@ -81,23 +89,25 @@ public class PanelQueueController implements IQueueChangeListener, INowSongChang
 
     public void ShowNowSongInfo(Song song)
     {
-        if(song == null) {
-            lblSongName.setText("...");
-            lblArtist.setText("...");
-            coverArt.setVisible(false);
-            return;
-        }
-        _songNow = song;
-        lblSongName.setText(song.getSongName());
-        lblArtist.setText(song.getSinger());
-        coverArt.setImage(song.getSongImage());
-        coverArt.setVisible(true);
-        if (song.isFavorite()) {
-            btnFavoriteSong.setGraphic(imageViewOrange);
-        }
-        else {
-            btnFavoriteSong.setGraphic(imageViewWhite);
-        }
+        Platform.runLater(() ->{
+            if(song == null) {
+                lblSongName.setText("...");
+                lblArtist.setText("...");
+                coverArt.setVisible(false);
+                return;
+            }
+            _songNow = song;
+            lblSongName.setText(song.getSongName());
+            lblArtist.setText(song.getSinger());
+            coverArt.setImage(song.getSongImage());
+            coverArt.setVisible(true);
+            if (song.isFavorite()) {
+                btnFavoriteSong.setGraphic(imageViewOrange);
+            }
+            else {
+                btnFavoriteSong.setGraphic(imageViewWhite);
+            }
+        });
     }
 
     public void RefreshQueue(Collection<Song> newQueue)

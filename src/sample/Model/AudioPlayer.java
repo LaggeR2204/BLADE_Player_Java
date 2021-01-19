@@ -1,12 +1,12 @@
 package sample.Model;
 
 
+import javafx.application.Platform;
 import sample.audioInterface.IStatusChangeListener;
 import sample.helper.Helper;
 
 import javax.sound.sampled.*;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class AudioPlayer {
@@ -17,26 +17,45 @@ public class AudioPlayer {
     private static AudioPlayer _instance;
     private ArrayList<IStatusChangeListener> statusListeners;
 
-    synchronized public static AudioPlayer getInstance() throws LineUnavailableException {
+    synchronized public static AudioPlayer getInstance() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (_instance == null)
             _instance = new AudioPlayer();
         return _instance;
     }
 
     // to store current position
-    Long currentFrame;
-    Clip clip;
-    Song song;
+    private Long currentFrame;
+    private Clip clip;
+    private Song song;
     // current status of clip
-    int status;
+    private int status;
+    private float volume;
 
-    AudioInputStream audioInputStream;
+    private AudioInputStream audioInputStream;
 
-    private AudioPlayer() throws LineUnavailableException {
+    private AudioPlayer() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        statusListeners = new ArrayList<>();
         status = STATUS_NONE;
         currentFrame = 0L;
         clip = AudioSystem.getClip();
-        statusListeners = new ArrayList<>();
+        audioInputStream = null;
+        volume = 0.8f;
+    }
+
+    public Long getCurrentFrame() {
+        return currentFrame;
+    }
+
+    public void setCurrentFrame(Long currentFrame) {
+        this.currentFrame = currentFrame;
+    }
+
+    public void setSong(Song song) {
+        this.song = song;
+    }
+
+    public float getVolume() {
+        return volume;
     }
 
     public void addStatusChangeListener(IStatusChangeListener listener) {
@@ -49,19 +68,18 @@ public class AudioPlayer {
             statusListeners.remove(listener);
     }
 
-    public void NotifyStatusChange()
-    {
+    public void NotifyStatusChange() {
         for (IStatusChangeListener ls : statusListeners)
             ls.onStatusChangeListener(this, status);
     }
 
-    public void setStatus(int status)
-    {
-        if(this.status != status){
+    public void setStatus(int status) {
+        if (this.status != status) {
             this.status = status;
             NotifyStatusChange();
         }
     }
+
     public int getStatus() {
         return status;
     }
@@ -88,14 +106,14 @@ public class AudioPlayer {
     }
 
     // Method to pause the audio
-    public void pause() {
+    public void pause() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (status == STATUS_PAUSE) {
             System.out.println("audio is already paused");
             return;
         }
         this.currentFrame =
                 this.clip.getMicrosecondPosition();
-        clip.stop();
+        stop();
         setStatus(STATUS_PAUSE);
         //status = STATUS_PAUSE;
     }
@@ -128,11 +146,10 @@ public class AudioPlayer {
     // Method to stop the audio
     public void stop() throws UnsupportedAudioFileException,
             IOException, LineUnavailableException {
-        currentFrame = 0L;
+        setStatus(STATUS_NONE);
         clip.stop();
         clip.close();
         clip.flush();
-        setStatus(STATUS_NONE);
         //status = STATUS_NONE;
     }
 
@@ -140,11 +157,15 @@ public class AudioPlayer {
     public void jump(long c) throws UnsupportedAudioFileException, IOException,
             LineUnavailableException {
         if (c >= 0 && c < clip.getMicrosecondLength()) {
+            int lastStatus = this.status;
             stop();
             resetAudioStream();
             currentFrame = c;
             clip.setMicrosecondPosition(c);
-            this.play();
+            if(lastStatus == STATUS_PLAY)
+                this.play();
+            else
+                this.pause();
         }
     }
 
@@ -155,6 +176,7 @@ public class AudioPlayer {
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
         audioInputStream = new AudioInputStream(bais, Helper.getPCMFormat(), data.length / 4);
         clip.open(audioInputStream);
+        setVolume(volume);
     }
 
     public void addLineEventListenerForClip(LineListener listener) {
@@ -170,24 +192,20 @@ public class AudioPlayer {
         return -1;
     }
 
-    public int getTotalSecondDuration() {
-        if (clip != null) {
-            return (int) (clip.getMicrosecondLength() / 1000000);
-        }
-        return -1;
-    }
-
     public void setVolume(final float volume) {
-        if (status != AudioPlayer.STATUS_NONE) {
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            float max = gainControl.getMaximum();
-            float min = gainControl.getMinimum();
-            float range = max - min;
-            max = max - range * 20 / 100;
-            min = min + range * 50 / 100;
-            range = max - min;
-            float gain = (range * volume) + min;
-            gainControl.setValue(gain);
+        this.volume = volume;
+        if (clip != null && clip.isOpen()) {
+            Platform.runLater(() -> {
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                float max = gainControl.getMaximum();
+                float min = gainControl.getMinimum();
+                float range = max - min;
+                max = max - range * 20 / 100;
+                min = min + range * 50 / 100;
+                range = max - min;
+                float gain = (range * volume) + min;
+                gainControl.setValue(gain);
+            });
         }
     }
 }

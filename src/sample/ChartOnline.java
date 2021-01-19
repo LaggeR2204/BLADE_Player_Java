@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import sample.Model.Song;
+import sample.helper.Helper;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -74,10 +75,10 @@ public class ChartOnline {
                         String imageURL = matcher.group(1).trim();
                         try {
                             BufferedImage bufferedImage = ImageIO.read(new URL(imageURL));
-                            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                            if (!image.isError()) {
-                                newSongChart.setSongImage(image);
-                            }
+                            //Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                            //if (!image.isError()) {
+                            newSongChart.setSongImage(Helper.toByteArray(bufferedImage, "jpg"));
+                            //}
 
                         } catch (IOException e) {
                             //e.printStackTrace();

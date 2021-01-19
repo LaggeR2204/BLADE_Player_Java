@@ -1,22 +1,21 @@
 package sample.Model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class Library {
+public class Library extends BaseModel {
 
     private static Library INSTANCE = null;
-    Playlist DefaultPL;
-    Playlist FavoritePL;
+
     List<Playlist> ListPL;
 
     private Library() {
+        Playlist DefaultPL;
+        Playlist FavoritePL;
         DefaultPL = new Playlist("Default", false);
         DefaultPL.setDeletable(false);
         FavoritePL = new Playlist("Favorite", false);
+        DefaultPL.setDeletable(false);
         FavoritePL.setDeletable(false);
         ListPL = new ArrayList<>();
         ListPL.add(DefaultPL);
@@ -46,18 +45,20 @@ public class Library {
     }
 
     public Playlist getDefaultPL() {
-        return DefaultPL;
+        return ListPL.get(0);
     }
 
     public void setDefaultPL(Playlist defaultPL) {
-        DefaultPL = defaultPL;
+        if(defaultPL != null)
+            ListPL.set(0, defaultPL);
     }
 
     public Playlist getFavoritePL() {
-        return FavoritePL;
+        return ListPL.get(1);
     }
 
     public void setFavoritePL(Playlist favoritePL) {
-        FavoritePL = favoritePL;
+        if (favoritePL != null)
+            ListPL.set(1, favoritePL);
     }
 }
