@@ -443,7 +443,6 @@ public class MainWindowController {
         dropDownTimerPanel();
         btnStopTimer.setVisible(true);
         btnTimer.setVisible(false);
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Notification");
         alert.setHeaderText(null);

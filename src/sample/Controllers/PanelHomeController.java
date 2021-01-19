@@ -6,6 +6,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.Model.Song;
@@ -146,8 +147,14 @@ public class PanelHomeController {
             javafx.animation.KeyValue pnlMainHomeDropDown;
             pnlMainHomeDropDown = new javafx.animation.KeyValue(pnlMainHomeLayoutX, -800);
             new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainHomeDropDown)).play();
-        } else {
-            JOptionPane.showMessageDialog(null, "No internet!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        } 
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Search failed");
+            alert.setHeaderText(null);
+            alert.setContentText("No internet !!!");
+
+            alert.showAndWait();
         }
 
     }
