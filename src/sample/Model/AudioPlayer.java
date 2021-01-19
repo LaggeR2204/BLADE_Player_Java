@@ -199,6 +199,12 @@ public class AudioPlayer {
                 FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 float max = gainControl.getMaximum();
                 float min = gainControl.getMinimum();
+                if(volume == 0)
+                {
+                    gainControl.setValue(min);
+                    return;
+                }
+
                 float range = max - min;
                 max = max - range * 20 / 100;
                 min = min + range * 50 / 100;

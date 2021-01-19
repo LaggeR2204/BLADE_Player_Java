@@ -16,6 +16,15 @@ public class SaveData extends BaseModel {
     private Song song;
     private int status;
     private float volume;
+    private List<Song> recentSongs;
+
+    public List<Song> getRecentSongs() {
+        return recentSongs;
+    }
+
+    public void setRecentSongs(List<Song> recentSongs) {
+        this.recentSongs = recentSongs;
+    }
 
     public List<Playlist> getListPL() {
         return ListPL;

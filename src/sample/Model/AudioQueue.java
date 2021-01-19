@@ -177,20 +177,23 @@ public class AudioQueue implements LineListener {
             AudioPlayer.getInstance().changeAudio(song);
             NotifyNowSongChange();
         }
-
     }
 
     //remove a song from queue
     public void removeFromQueue(Song song) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (queue.contains(song)) {
-            if (song == queue.get(currentSongPos) && queue.size() > 1)
-                nextSong();
-            else {
-                AudioPlayer.getInstance().stop();
-                currentSongPos = -1;
-                NotifyNowSongChange();
+            if (song == queue.get(currentSongPos)) {
+                if (queue.size() > 1)
+                    nextSong();
+                else {
+                    AudioPlayer.getInstance().stop();
+                    currentSongPos = -1;
+                    NotifyNowSongChange();
+                }
             }
             queue.remove(song);
+            if(AudioPlayer.getInstance().getSong() != null)
+                currentSongPos = queue.indexOf(AudioPlayer.getInstance().getSong());
             NotifyQueueChange();
         }
     }

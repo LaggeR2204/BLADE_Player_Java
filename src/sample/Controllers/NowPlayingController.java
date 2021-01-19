@@ -108,6 +108,10 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
             setDisplayData(audioQueue.getCurrentSong(), (int) (audioPlayer.getCurrentFrame() /1000000));
             sldVolume.setValue(audioPlayer.getVolume() * 100);
         }
+        else
+        {
+            setDisplayData(null, 0);
+        }
     }
 
     private void initEventListener() {

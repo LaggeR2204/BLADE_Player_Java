@@ -33,6 +33,7 @@ import sample.Model.AudioPlayer;
 import sample.Model.AudioQueue;
 import sample.Model.Library;
 import sample.Model.SaveData;
+import sample.RecentlySongState;
 
 public class MainWindowController {
     private double xOffset = 0;
@@ -310,7 +311,8 @@ public class MainWindowController {
                 AudioPlayer.getInstance().setStatus(AudioPlayer.STATUS_PAUSE);
                 AudioPlayer.getInstance().setVolume(loaded.getVolume());
                 AudioPlayer.getInstance().setCurrentFrame(loaded.getCurrentFrame());
-
+                //recently
+                RecentlySongState.getInstance().setRecentlySongs(loaded.getRecentSongs());
                 System.out.println("Loaded previous game!");
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
@@ -339,6 +341,8 @@ public class MainWindowController {
         saveData.setSong(AudioPlayer.getInstance().getSong());
         saveData.setStatus(AudioPlayer.getInstance().getStatus());
         saveData.setCurrentFrame(AudioPlayer.getInstance().getCurrentFrame());
+        //save recentsongs
+        saveData.setRecentSongs(RecentlySongState.getInstance().getRecentlySongs());
 
         try (FileOutputStream f = new FileOutputStream("data.blade");
              ObjectOutputStream s = new ObjectOutputStream(f)) {
