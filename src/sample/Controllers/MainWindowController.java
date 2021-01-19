@@ -306,7 +306,12 @@ public class MainWindowController {
         dropDownTimerPanel();
         btnStopTimer.setVisible(true);
         btnTimer.setVisible(false);
-        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 10 phút","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notification");
+        alert.setHeaderText(null);
+        alert.setContentText("Application will shutdown after 10 minutes");
+
+        alert.showAndWait();
     }
 
     public void btnTimer15m_Clicked (ActionEvent actionEvent)
@@ -321,7 +326,12 @@ public class MainWindowController {
         dropDownTimerPanel();
         btnStopTimer.setVisible(true);
         btnTimer.setVisible(false);
-        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 15 phút","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notification");
+        alert.setHeaderText(null);
+        alert.setContentText("Application will shutdown after 15 minutes");
+
+        alert.showAndWait();
     }
 
     public void btnTimer30m_Clicked (ActionEvent actionEvent)
@@ -336,7 +346,12 @@ public class MainWindowController {
         dropDownTimerPanel();
         btnStopTimer.setVisible(true);
         btnTimer.setVisible(false);
-        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 30 phút","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notification");
+        alert.setHeaderText(null);
+        alert.setContentText("Application will shutdown after 30 minutes");
+
+        alert.showAndWait();
     }
 
     public void btnTimer1h_Clicked (ActionEvent actionEvent)
@@ -351,7 +366,12 @@ public class MainWindowController {
         dropDownTimerPanel();
         btnStopTimer.setVisible(true);
         btnTimer.setVisible(false);
-        JOptionPane.showMessageDialog(null,"Ứng dụng sẽ tắt sau 1 tiếng","Hẹn giờ tắt",JOptionPane.CLOSED_OPTION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notification");
+        alert.setHeaderText(null);
+        alert.setContentText("Application will shutdown after 1 hour");
+
+        alert.showAndWait();
     }
 
 
