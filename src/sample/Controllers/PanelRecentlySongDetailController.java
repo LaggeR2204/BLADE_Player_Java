@@ -50,7 +50,6 @@ public class PanelRecentlySongDetailController {
             if(mouseEvent.getClickCount() == 2){
                 try {
                     AudioQueue.getInstance().addQueue(song, true);
-                    AudioQueue.getInstance().playSong(song);
                 } catch (UnsupportedAudioFileException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
