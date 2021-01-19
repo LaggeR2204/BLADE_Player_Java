@@ -10,6 +10,14 @@ import java.util.List;
 public class RecentlySongState {
     private List<Song> recentlySongs;
 
+    public void setRecentlySongs(List<Song> recentlySongs) {
+        this.recentlySongs = recentlySongs;
+    }
+
+    public List<Song> getRecentlySongs() {
+        return recentlySongs;
+    }
+
     //Singleton
     private static RecentlySongState _instance;
 

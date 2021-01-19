@@ -3,40 +3,68 @@ package sample.Model;
 import sample.audioInterface.INowSongChangeListener;
 import sample.audioInterface.IQueueChangeListener;
 
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.*;
 
-public class AudioQueue {
+public class AudioQueue implements LineListener {
     //listener
-    private ArrayList<IQueueChangeListener> queueListeners;
-    private ArrayList<INowSongChangeListener> nowSongListeners;
+    transient private ArrayList<IQueueChangeListener> queueListeners;
+    transient private ArrayList<INowSongChangeListener> nowSongListeners;
     private ArrayList<Song> queue;
-    private AudioPlayer player;
     private int currentSongPos;
     private boolean isShuffle, isRepeat;
     //Singleton
     private static AudioQueue _instance;
 
-    synchronized public static AudioQueue getInstance() throws LineUnavailableException {
+    synchronized public static AudioQueue getInstance() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (_instance == null)
             _instance = new AudioQueue();
         return _instance;
     }
 
-    private AudioQueue() throws LineUnavailableException {
-        queue = new ArrayList<>();
+    private AudioQueue() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         queueListeners = new ArrayList<>();
         nowSongListeners = new ArrayList<>();
-        player = AudioPlayer.getInstance();
+        queue = new ArrayList<>();
         isRepeat = false;
         isShuffle = false;
         currentSongPos = -1;
+        AudioPlayer.getInstance().addLineEventListenerForClip(this);
     }
 
-    public void setShuffle() {
-        isShuffle = !isShuffle;
+    public boolean isRepeat() {
+        return isRepeat;
+    }
+
+    public void setQueue(ArrayList<Song> queue) {
+        this.queue = queue;
+    }
+
+    public void setCurrentSongPos(int currentSongPos) {
+        this.currentSongPos = currentSongPos;
+    }
+
+    public void setRepeat(boolean repeat) {
+        isRepeat = repeat;
+    }
+
+    public int getCurrentSongPos() {
+        return currentSongPos;
+    }
+
+    public ArrayList<Song> getQueue() {
+        return queue;
+    }
+
+    public void setShuffle(boolean shuffle) {
+        isShuffle = shuffle;
     }
 
     public boolean isShuffle() {
@@ -71,7 +99,7 @@ public class AudioQueue {
             currentSongPos = (currentSongPos + 1) % queue.size();
         }
         if (isValidPosition(currentSongPos)) {
-            player.changeAudio(queue.get(currentSongPos));
+            AudioPlayer.getInstance().changeAudio(queue.get(currentSongPos));
             NotifyNowSongChange();
             return queue.get(currentSongPos);
         }
@@ -93,7 +121,7 @@ public class AudioQueue {
         }
         if (isValidPosition(currentSongPos)) {
             NotifyNowSongChange();
-            player.changeAudio(queue.get(currentSongPos));
+            AudioPlayer.getInstance().changeAudio(queue.get(currentSongPos));
             return queue.get(currentSongPos);
         }
 
@@ -103,7 +131,7 @@ public class AudioQueue {
     public int playSong(Song song) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (queue.contains(song)) {
             currentSongPos = queue.indexOf(song);
-            player.changeAudio(song);
+            AudioPlayer.getInstance().changeAudio(song);
             NotifyNowSongChange();
             return 1;
         }
@@ -143,21 +171,29 @@ public class AudioQueue {
         if (!queue.contains(song)) {
             queue.add(song);
             NotifyQueueChange();
-            if (play) {
-                currentSongPos = queue.indexOf(song);
-                player.changeAudio(song);
-                NotifyNowSongChange();
-            }
         }
-
+        if (play) {
+            currentSongPos = queue.indexOf(song);
+            AudioPlayer.getInstance().changeAudio(song);
+            NotifyNowSongChange();
+        }
     }
 
     //remove a song from queue
     public void removeFromQueue(Song song) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (queue.contains(song)) {
-            if (song == queue.get(currentSongPos))
-                nextSong();
+            if (song == queue.get(currentSongPos)) {
+                if (queue.size() > 1)
+                    nextSong();
+                else {
+                    AudioPlayer.getInstance().stop();
+                    currentSongPos = -1;
+                    NotifyNowSongChange();
+                }
+            }
             queue.remove(song);
+            if(AudioPlayer.getInstance().getSong() != null)
+                currentSongPos = queue.indexOf(AudioPlayer.getInstance().getSong());
             NotifyQueueChange();
         }
     }
@@ -192,5 +228,21 @@ public class AudioQueue {
     public void NotifyNowSongChange() {
         for (INowSongChangeListener ls : nowSongListeners)
             ls.onNowSongChangeListener(this, getCurrentSong());
+    }
+
+    @Override
+    public void update(LineEvent event) {
+        try {
+            if (event.getType() == LineEvent.Type.STOP && AudioPlayer.getInstance().getStatus() != AudioPlayer.STATUS_NONE) {
+                System.out.println("Stop event clip");
+                nextSong();
+            }
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

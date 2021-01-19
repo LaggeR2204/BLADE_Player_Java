@@ -27,7 +27,9 @@ import static sample.helper.Helper.formattedTime;
 
 public class NowPlayingController implements INowSongChangeListener, IStatusChangeListener {
     private MainWindowController parent;
-    private PanelPlaylistController panelPlaylistController;
+    private PanelPlaylistController panelPlaylistController;    private AudioQueue audioQueue;
+    private AudioPlayer audioPlayer;
+    private Thread playingThread;
     private PanelQueueController panelQueueController;
 
     @FXML
@@ -84,14 +86,32 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
             audioQueue = AudioQueue.getInstance();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         try {
             audioPlayer = AudioPlayer.getInstance();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         initEventListener();
-        setDisplayData(null);
+        sldVolume.setMax(100);
+        sldVolume.setMin(0);
+        if(audioQueue.getCurrentSong() != null)
+        {
+            setDisplayData(audioQueue.getCurrentSong(), (int) (audioPlayer.getCurrentFrame() /1000000));
+            sldVolume.setValue(audioPlayer.getVolume() * 100);
+        }
+        else
+        {
+            setDisplayData(null, 0);
+        }
     }
 
     private void initEventListener() {
@@ -170,17 +190,15 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
         playingThread.start();
     }
 
-    private AudioQueue audioQueue;
-    private AudioPlayer audioPlayer;
-    private Thread playingThread;
 
-    public void setBtnPlayPause_Clicked(ActionEvent actionEvent) {
+
+    public void setBtnPlayPause_Clicked(ActionEvent actionEvent) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (audioPlayer.getStatus() == AudioPlayer.STATUS_PLAY) {
             imgPlayPause.setImage(imgPlay);
             audioPlayer.pause();
         } else if (audioPlayer.getStatus() == AudioPlayer.STATUS_PAUSE) {
             imgPlayPause.setImage(imgPause);
-            audioPlayer.play();
+            audioPlayer.resumeAudio();
         } else {
             Song song = null;
             try {
@@ -192,10 +210,9 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
-            if (song != null) {
-                setDisplayData(song);
-                }
-
+//            if (song != null) {
+//                setDisplayData(song, 0);
+//                }
         }
     }
 
@@ -210,10 +227,10 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
-        if(song != null)
-            {
-                setDisplayData(song);
-            }
+//        if(song != null)
+//            {
+//                setDisplayData(song, 0);
+//            }
 
     }
 
@@ -247,41 +264,40 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
         }
         if(song != null)
             {
-                setDisplayData(song);
+                setDisplayData(song, 0);
             }
 
     }
 
-    private void setDisplayData(Song song) {
-        if(song == null)
-        {
-            lbArtist.setText("...");
-            lbSongName.setText("...");
-            imvCoverArt.setImage(null);
-            lbCurrentDuration.setText("...");
-            lbTotalDuration.setText("...");
-            sldMusic.setDisable(true);
-            sldVolume.setMax(100);
-            sldVolume.setMin(0);
-            sldVolume.setValue(100);
-            return;
-        }
-        lbArtist.setText(song.getSinger());
-        lbSongName.setText(song.getSongName());
-        imvCoverArt.setImage(song.getSongImage());
-        String cur = formattedTime(0);
-        int totalDuration = audioPlayer.getTotalSecondDuration();
-        String total = formattedTime(totalDuration);
-        lbCurrentDuration.setText(cur);
-        lbTotalDuration.setText(total);
-        sldMusic.setMax(totalDuration);
-        sldMusic.setValue(0);
-        sldMusic.setDisable(false);
+    private void setDisplayData(Song song, int curSecond) {
+        Platform.runLater(() -> {
+            if(song == null)
+            {
+                lbArtist.setText("...");
+                lbSongName.setText("...");
+                imvCoverArt.setImage(null);
+                lbCurrentDuration.setText("...");
+                lbTotalDuration.setText("...");
+                sldMusic.setDisable(true);
+                return;
+            }
+            lbArtist.setText(song.getSinger());
+            lbSongName.setText(song.getSongName());
+            imvCoverArt.setImage(song.getSongImage());
+            String cur = formattedTime(curSecond);
+            int totalDuration = song.getDuration();
+            String total = formattedTime(totalDuration);
+            lbCurrentDuration.setText(cur);
+            lbTotalDuration.setText(total);
+            sldMusic.setMax(totalDuration);
+            sldMusic.setValue(curSecond);
+            sldMusic.setDisable(false);
+        });
     }
 
     public void setBtnShuffle_Clicked(ActionEvent actionEvent)
     {
-        audioQueue.setShuffle();
+        audioQueue.setShuffle(!audioQueue.isShuffle());
         if (audioQueue.isShuffle()){
             imgShuffle.setImage(imgIsShuffle_True);
         }
@@ -297,20 +313,20 @@ public class NowPlayingController implements INowSongChangeListener, IStatusChan
     }
     @Override
     public void onNowSongChangeListener(Object sender, Song newSong) {
-        setDisplayData(newSong);
+        setDisplayData(newSong, 0);
     }
 
     @Override
     public void onStatusChangeListener(Object sender, int newStatus) {
         if(newStatus == AudioPlayer.STATUS_PLAY)
         {
-            audioPlayer.setVolume((float)(sldVolume.getValue() / 100.0f));
             createPlayThread();
             imgPlayPause.setImage(imgPause);
         }
         else
         {
-            playingThread.stop();
+            if(playingThread != null && playingThread.isAlive())
+                playingThread.stop();
             imgPlayPause.setImage(imgPlay);
         }
 

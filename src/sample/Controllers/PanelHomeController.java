@@ -43,7 +43,7 @@ public class PanelHomeController {
     private Pane pnlHomeBackground;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         try {
             FXMLLoader loader1 = new FXMLLoader();
             loader1.setLocation(getClass().getResource("../Views/RecentlySongDetail.fxml"));
@@ -63,7 +63,7 @@ public class PanelHomeController {
             pnlRecentlySong3Controller = loader3.getController();
             pnlRecentlySong3.setLayoutX(556);
             pnlRecentlySong3.setLayoutY(40);
-            pnlHomeBackground.getChildren().setAll(pnlRecentlySong1,pnlRecentlySong2,pnlRecentlySong3);
+            pnlHomeBackground.getChildren().setAll(pnlRecentlySong1, pnlRecentlySong2, pnlRecentlySong3);
             FXMLLoader loaderChart = new FXMLLoader();
             loaderChart.setLocation(getClass().getResource("../Views/PanelChart.fxml"));
             pnlChart = (Pane) loaderChart.load();
@@ -71,20 +71,20 @@ public class PanelHomeController {
             panelChartController.setParentController(this);
             pnlChart.setLayoutX(800);
             pnlMainHome.getChildren().add(pnlChart);
+
+            setRecentlySongs(RecentlySongState.getInstance().getRecentlySongs());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void setRecentlySong(Song song){
-        if (song != null){
-            if (song == pnlRecentlySong1Controller.getSong()){
-            }
-            else if (song == pnlRecentlySong2Controller.getSong()){
+    public void setRecentlySong(Song song) {
+        if (song != null) {
+            if (song == pnlRecentlySong1Controller.getSong()) {
+            } else if (song == pnlRecentlySong2Controller.getSong()) {
                 pnlRecentlySong2Controller.setSong(pnlRecentlySong1Controller.getSong());
                 pnlRecentlySong1Controller.setSong(song);
-            }
-            else{
+            } else {
                 pnlRecentlySong3Controller.setSong(pnlRecentlySong2Controller.getSong());
                 pnlRecentlySong2Controller.setSong(pnlRecentlySong1Controller.getSong());
                 pnlRecentlySong1Controller.setSong(song);
@@ -94,59 +94,60 @@ public class PanelHomeController {
         return;
     }
 
-    public void setRecentlySongs(List<Song> songs){
-        Song song1 = songs.get(0);
-        Song song2 = songs.get(1);
-        Song song3 = songs.get(2);
-        if (song1 != null){
+    public void setRecentlySongs(List<Song> songs) {
+        if (songs == null)
+            return;
+        Song song1 = null;
+        Song song2 = null;
+        Song song3 = null;
+        if (songs.size() >= 1)
+            song1 = songs.get(0);
+        if (songs.size() >= 2)
+            song2 = songs.get(1);
+        if (songs.size() >= 3)
+            song3 = songs.get(2);
+        if (song1 != null) {
             pnlRecentlySong1Controller.setSong(song1);
-            if (song2 != null){
+            if (song2 != null) {
                 pnlRecentlySong2Controller.setSong(song2);
-                if (song3 != null){
+                if (song3 != null) {
                     pnlRecentlySong3Controller.setSong(song3);
                     return;
-                }
-                else{
+                } else {
                     return;
                 }
-            }
-            else if (song3 != null){
+            } else if (song3 != null) {
                 pnlRecentlySong2Controller.setSong(song3);
                 return;
-            }
-            else{
+            } else {
                 return;
             }
-        }
-        else{
-            if (song2 != null){
+        } else {
+            if (song2 != null) {
                 pnlRecentlySong1Controller.setSong(song2);
-                if (song3 != null){
+                if (song3 != null) {
                     pnlRecentlySong2Controller.setSong(song3);
                     return;
-                }
-                else{
+                } else {
                     return;
                 }
-            }
-            else if (song3 != null){
+            } else if (song3 != null) {
                 pnlRecentlySong1Controller.setSong(song3);
                 return;
-            }
-            else{
+            } else {
                 return;
             }
         }
     }
 
     public void btnChart_Clicked(ActionEvent actionEvent) {
-        if (isConnectedToInternet()){
+        if (isConnectedToInternet()) {
             pnlHomeBackground.toFront();
             DoubleProperty pnlMainHomeLayoutX = pnlMainHome.layoutXProperty();
             javafx.animation.KeyValue pnlMainHomeDropDown;
             pnlMainHomeDropDown = new javafx.animation.KeyValue(pnlMainHomeLayoutX, -800);
             new Timeline(new KeyFrame(Duration.seconds(0.5), pnlMainHomeDropDown)).play();
-        }
+        } 
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Search failed");
@@ -158,7 +159,7 @@ public class PanelHomeController {
 
     }
 
-    public void returnHome(){
+    public void returnHome() {
         pnlHomeBackground.toFront();
         DoubleProperty pnlMainHomeLayoutX = pnlMainHome.layoutXProperty();
         javafx.animation.KeyValue pnlMainHomeDropDown;

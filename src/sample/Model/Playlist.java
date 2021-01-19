@@ -1,8 +1,11 @@
 package sample.Model;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
-public class Playlist {
+public class Playlist extends BaseModel {
 
     private String PlaylistName;
     private List<Song> ListSong;
@@ -64,4 +67,5 @@ public class Playlist {
         ListSong = new ArrayList<Song>();
         Deletable = deletable;
     }
+
 }
