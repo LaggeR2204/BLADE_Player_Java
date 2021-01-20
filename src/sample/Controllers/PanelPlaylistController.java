@@ -90,6 +90,7 @@ public class PanelPlaylistController {
                 tbxPLName.clear();
             }
         });
+
     }
 
     void loadPL(Library library) {
@@ -113,6 +114,8 @@ public class PanelPlaylistController {
                             }
 
                         }
+                        fpnlListPL.getChildren().get(0).setStyle("-fx-background-color: rgb(255,163,26); -fx-border-width: 1px; -fx-border-color: rgb(50,50,50)");
+
                         fpnlListPL.setVisible(true);
                     }
                 });
@@ -238,6 +241,8 @@ public class PanelPlaylistController {
             if (currentLibrary.getListPL().get(i).getPlaylistName().equalsIgnoreCase(PLName)) {
                 fpnlListPL.getChildren().remove(i);
                 currentLibrary.deletePL(i);
+                setSelectedPL(currentLibrary.getDefaultPL());
+                this.fpnlListPL.getChildren().get(0).setStyle("-fx-background-color: rgb(255,163,26); -fx-border-width: 1px; -fx-border-color: rgb(50,50,50)");
             }
         }
     }

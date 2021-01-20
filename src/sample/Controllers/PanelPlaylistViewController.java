@@ -21,6 +21,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
 import sample.AddSongTask;
 import sample.Model.AudioQueue;
+import sample.Model.Library;
 import sample.Model.Playlist;
 import sample.Model.Song;
 
