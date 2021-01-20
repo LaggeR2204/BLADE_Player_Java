@@ -23,6 +23,7 @@ public class Editor {
                 false);
         // create stream that delivers the desired format
         AudioInputStream converted = AudioSystem.getAudioInputStream(convertFormat, mp3Stream);
+
         // write stream into a file with file format wav
             AudioSystem.write(converted, AudioFileFormat.Type.WAVE, wavFile);
             return wavFile;

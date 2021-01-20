@@ -272,15 +272,7 @@ public class MainWindowController {
             e.printStackTrace();
         }
 
-        try {
-            saveAppState();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
+        saveAppState();
 
         Stage stage = (Stage) btnClose.getScene().getWindow();
         stage.close();
@@ -326,31 +318,45 @@ public class MainWindowController {
         //load library data
     }
 
-    public void saveAppState() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void saveAppState() {
         SaveData saveData = new SaveData();
+        Thread saveThr = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                saveData.setListPL(Library.getInstance().getListPL());
+                //save queue
+                try {
+                    saveData.setQueue(AudioQueue.getInstance().getQueue());
+                    saveData.setRepeat(AudioQueue.getInstance().isRepeat());
+                    saveData.setShuffle(AudioQueue.getInstance().isShuffle());
+                    saveData.setCurrentSongPos(AudioQueue.getInstance().getCurrentSongPos());
+                    //save player
+                    saveData.setVolume(AudioPlayer.getInstance().getVolume());
+                    saveData.setSong(AudioPlayer.getInstance().getSong());
+                    saveData.setStatus(AudioPlayer.getInstance().getStatus());
+                    saveData.setCurrentFrame(AudioPlayer.getInstance().getCurrentFrame());
+                    //save recentsongs
+                    saveData.setRecentSongs(RecentlySongState.getInstance().getRecentlySongs());
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                }
 
+
+                try (FileOutputStream f = new FileOutputStream("data.blade");
+                     ObjectOutputStream s = new ObjectOutputStream(f)) {
+                    saveData.writeToFile(s);
+                } catch (IOException error) {
+                    error.printStackTrace();
+                }
+                System.out.println("Successfully saved app state!");
+            }
+        });
         //save library
-        saveData.setListPL(Library.getInstance().getListPL());
-        //save queue
-        saveData.setQueue(AudioQueue.getInstance().getQueue());
-        saveData.setRepeat(AudioQueue.getInstance().isRepeat());
-        saveData.setShuffle(AudioQueue.getInstance().isShuffle());
-        saveData.setCurrentSongPos(AudioQueue.getInstance().getCurrentSongPos());
-        //save player
-        saveData.setVolume(AudioPlayer.getInstance().getVolume());
-        saveData.setSong(AudioPlayer.getInstance().getSong());
-        saveData.setStatus(AudioPlayer.getInstance().getStatus());
-        saveData.setCurrentFrame(AudioPlayer.getInstance().getCurrentFrame());
-        //save recentsongs
-        saveData.setRecentSongs(RecentlySongState.getInstance().getRecentlySongs());
-
-        try (FileOutputStream f = new FileOutputStream("data.blade");
-             ObjectOutputStream s = new ObjectOutputStream(f)) {
-            saveData.writeToFile(s);
-        } catch (IOException error) {
-            error.printStackTrace();
-        }
-        System.out.println("Successfully saved app state!");
+       saveThr.start();
     }
 
     public void btnMinimize_Clicked(ActionEvent actionEvent) {

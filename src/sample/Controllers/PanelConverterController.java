@@ -12,8 +12,10 @@ import javafx.scene.image.ImageView;
 import sample.Editor;
 import sample.Model.Song;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 
 public class PanelConverterController {
     @FXML
@@ -34,7 +36,7 @@ public class PanelConverterController {
     private TextField tfFilePath;
     private File iFile, oFile;
     private Song song;
-    public void btnAddFile_Clicked(ActionEvent actionEvent) {
+    public void btnAddFile_Clicked(ActionEvent actionEvent) throws IOException, UnsupportedAudioFileException {
         Node node = (Node) actionEvent.getSource();
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MP3 files (*.mp3)", "*.mp3");

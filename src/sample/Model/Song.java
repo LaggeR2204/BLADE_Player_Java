@@ -133,26 +133,34 @@ public class Song extends BaseModel {
         Duration = 0;
     }
 
-    public Song(File file) {
-        try {
+    public Song(File file) throws IOException, UnsupportedAudioFileException {
+        if(Helper.getFileExtension(file).equals("mp3"))
+        {
+            try {
+                setSongPath(file.getPath());
+                Mp3File mp3File = new Mp3File(file);
+                ID3v2 id3v2Tag = mp3File.getId3v2Tag();
+                setSongName(id3v2Tag.getTitle());
+                setSinger(id3v2Tag.getArtist());
+                setAlbum(id3v2Tag.getAlbum());
+                setGenre(id3v2Tag.getGenreDescription());
+                setSongImage(id3v2Tag.getAlbumImage());
+                data = Helper.readMP3AudioFileData(file);
+                Duration = data.length / 4 / 44100;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
             setSongPath(file.getPath());
-            Mp3File mp3File = new Mp3File(file);
-            ID3v2 id3v2Tag = mp3File.getId3v2Tag();
-            setSongName(id3v2Tag.getTitle());
-            setSinger(id3v2Tag.getArtist());
-            setAlbum(id3v2Tag.getAlbum());
-            setGenre(id3v2Tag.getGenreDescription());
-            setSongImage(id3v2Tag.getAlbumImage());
-            data = Helper.readMP3AudioFileData(file);
-            Duration = data.length / 4 / 44100;
-        } catch (Exception e) {
-            e.printStackTrace();
+            loadData();
         }
     }
 
     public void loadData() throws IOException, UnsupportedAudioFileException {
         byte[] temp = Helper.readWAVAudioFileData(this.SongPath);
-        Duration = data.length / 4 / 44100;
+        Duration = temp.length / 4 / 44100;
         data = temp;
     }
 

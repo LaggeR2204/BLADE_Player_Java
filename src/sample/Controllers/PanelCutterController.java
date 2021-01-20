@@ -50,8 +50,7 @@ public class PanelCutterController {
     private File iFile, oFile;
     private Song song;
     int duration,beginTime, endTime;
-    public void btnAddFile_Clicked(ActionEvent actionEvent)
-    {
+    public void btnAddFile_Clicked(ActionEvent actionEvent) throws IOException, UnsupportedAudioFileException {
         Node node = (Node) actionEvent.getSource();
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Audio files", "*.wav", "*.mp3");
